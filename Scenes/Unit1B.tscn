@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnw8fesdybvys"]
+
+[ext_resource type="Texture2D" uid="uid://b5myux3rwhumk" path="res://Assets/testapartment.png" id="1_uxsgi"]
+
+[node name="Unit1B" type="Node2D"]
+
+[node name="UnitSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_uxsgi")
+centered = false

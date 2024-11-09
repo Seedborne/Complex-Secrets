@@ -1,0 +1,306 @@
+[gd_scene load_steps=36 format=3 uid="uid://csu1x74plq8tn"]
+
+[ext_resource type="Texture2D" uid="uid://ckdac35ry8ysi" path="res://Assets/testlobby.png" id="1_8edys"]
+[ext_resource type="Script" path="res://Scripts/lobby.gd" id="1_uq01k"]
+[ext_resource type="Texture2D" uid="uid://1avx083msf3o" path="res://Assets/elevatorclosed.png" id="3_llp3a"]
+[ext_resource type="Texture2D" uid="uid://bk5oek8q2a6on" path="res://Assets/elevatoropen.png" id="4_rs25v"]
+[ext_resource type="Texture2D" uid="uid://drt26vsbg05st" path="res://Assets/elevatoropening1.png" id="5_tketm"]
+[ext_resource type="Texture2D" uid="uid://svoxalymdpbw" path="res://Assets/elevatoropening2.png" id="6_irfcv"]
+[ext_resource type="Texture2D" uid="uid://bn2dp3t3nmju0" path="res://Assets/elevatoropening3.png" id="7_qhykd"]
+[ext_resource type="AudioStream" uid="uid://b7n8tmlh6xvox" path="res://Audio/elevator-ding-pixabay.mp3" id="8_sepve"]
+[ext_resource type="AudioStream" uid="uid://dsdtvrw36yuho" path="res://Audio/button_sound.mp3" id="9_45mia"]
+[ext_resource type="AudioStream" uid="uid://crgyy1nb8m3ea" path="res://Audio/elevator-sound-pixabay.mp3" id="10_58o1s"]
+[ext_resource type="AudioStream" uid="uid://bmfiibxrhk24q" path="res://Audio/elevator-open-pixabay.mp3" id="11_gkutf"]
+[ext_resource type="AudioStream" uid="uid://cfstuit2e86dr" path="res://Audio/elevator-close2-pixabay.mp3" id="12_ifx1w"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b2vfb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_llp3a")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rs25v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qhykd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_irfcv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tketm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_llp3a")
+}],
+"loop": false,
+"name": &"closing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rs25v")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_llp3a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tketm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_irfcv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qhykd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rs25v")
+}],
+"loop": false,
+"name": &"opening",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_roqu2"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_h1ihn"]
+a = Vector2(0, 1080)
+b = Vector2(-1, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lwe12"]
+a = Vector2(-1924, 1081)
+b = Vector2(-1, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvpuh"]
+size = Vector2(71.5, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qw8nb"]
+size = Vector2(73, 347)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fssbi"]
+size = Vector2(229, 178)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6bfs"]
+size = Vector2(106, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bee1i"]
+size = Vector2(841, 179)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ko13"]
+size = Vector2(345, 179.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npbue"]
+size = Vector2(64.75, 373.438)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ithdn"]
+size = Vector2(65, 358)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsqya"]
+size = Vector2(69, 151)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhxx2"]
+size = Vector2(67, 151)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydkw2"]
+size = Vector2(68, 302)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0duss"]
+size = Vector2(111, 301)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8vq0"]
+size = Vector2(397, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouk14"]
+size = Vector2(396.5, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k8nlp"]
+size = Vector2(65.75, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_knis6"]
+size = Vector2(106, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbty0"]
+size = Vector2(39, 168)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5eiq"]
+size = Vector2(34, 166.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_185a0"]
+size = Vector2(397, 31)
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_uq01k")
+
+[node name="LobbyBackground" type="Sprite2D" parent="."]
+texture = ExtResource("1_8edys")
+centered = false
+
+[node name="ElevatorSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1375, 92)
+sprite_frames = SubResource("SpriteFrames_b2vfb")
+animation = &"closing"
+frame = 4
+frame_progress = 1.0
+
+[node name="ElevatorButtonSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1140.5, 128.5)
+scale = Vector2(17, 17)
+texture = SubResource("CanvasTexture_roqu2")
+
+[node name="BoundaryBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryBody2D"]
+shape = SubResource("SegmentShape2D_h1ihn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(1922, 0)
+shape = SubResource("SegmentShape2D_h1ihn")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(1922, 0)
+shape = SubResource("SegmentShape2D_lwe12")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(1923, -979)
+shape = SubResource("SegmentShape2D_lwe12")
+
+[node name="WallBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(37.25, 888)
+shape = SubResource("RectangleShape2D_kvpuh")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(36.5, 353.5)
+shape = SubResource("RectangleShape2D_qw8nb")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(115.5, 91)
+shape = SubResource("RectangleShape2D_fssbi")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(283, 52.5)
+shape = SubResource("RectangleShape2D_n6bfs")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(756.5, 90.5)
+shape = SubResource("RectangleShape2D_bee1i")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(1746.5, 90.125)
+shape = SubResource("RectangleShape2D_2ko13")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(1887.38, 367.281)
+shape = SubResource("RectangleShape2D_npbue")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(1886.5, 901)
+shape = SubResource("RectangleShape2D_ithdn")
+
+[node name="FurnitureBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FurnitureBody2D"]
+position = Vector2(592.5, 1001.5)
+shape = SubResource("RectangleShape2D_lsqya")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="FurnitureBody2D"]
+position = Vector2(1332.5, 1003.5)
+shape = SubResource("RectangleShape2D_jhxx2")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="FurnitureBody2D"]
+position = Vector2(853, 386)
+shape = SubResource("RectangleShape2D_ydkw2")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="FurnitureBody2D"]
+position = Vector2(559, 384)
+shape = SubResource("RectangleShape2D_ydkw2")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="FurnitureBody2D"]
+position = Vector2(708.5, 388.5)
+shape = SubResource("RectangleShape2D_0duss")
+
+[node name="ElevatorArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorArea2D"]
+position = Vector2(1375.5, 63)
+shape = SubResource("RectangleShape2D_p8vq0")
+
+[node name="ElevatorBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorBody2D"]
+position = Vector2(1375.75, 90)
+shape = SubResource("RectangleShape2D_ouk14")
+
+[node name="ElevatorButtonArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorButtonArea2D"]
+position = Vector2(1138, 188.5)
+shape = SubResource("RectangleShape2D_k8nlp")
+
+[node name="ElevatorTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="StairsArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsArea2D"]
+position = Vector2(283, 110)
+shape = SubResource("RectangleShape2D_knis6")
+
+[node name="CoffeeShopArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CoffeeShopArea2D"]
+position = Vector2(19.5, 611)
+shape = SubResource("RectangleShape2D_cbty0")
+
+[node name="GymArea2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GymArea2D2"]
+position = Vector2(1905, 637.75)
+shape = SubResource("RectangleShape2D_p5eiq")
+
+[node name="EntranceArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntranceArea2D"]
+position = Vector2(961.5, 1063.5)
+shape = SubResource("RectangleShape2D_185a0")
+
+[node name="ElevatorDingAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_sepve")
+
+[node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_45mia")
+volume_db = 4.0
+
+[node name="ElevatorAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_58o1s")
+volume_db = -1.0
+
+[node name="ElevatorOpenAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_gkutf")
+volume_db = -4.0
+
+[node name="ElevatorCloseAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ifx1w")
+
+[connection signal="animation_finished" from="ElevatorSprite" to="." method="_on_elevator_sprite_animation_finished"]
+[connection signal="body_entered" from="ElevatorArea2D" to="." method="_on_elevator_area_2d_body_entered"]
+[connection signal="body_entered" from="ElevatorButtonArea2D" to="." method="_on_elevator_button_area_2d_body_entered"]
+[connection signal="body_exited" from="ElevatorButtonArea2D" to="." method="_on_elevator_button_area_2d_body_exited"]
+[connection signal="timeout" from="ElevatorTimer" to="." method="_on_elevator_timer_timeout"]
+[connection signal="body_entered" from="StairsArea2D" to="." method="_on_stairs_area_2d_body_entered"]
+[connection signal="body_entered" from="CoffeeShopArea2D" to="." method="_on_coffee_shop_area_2d_body_entered"]
+[connection signal="body_entered" from="GymArea2D2" to="." method="_on_gym_area_2d_2_body_entered"]

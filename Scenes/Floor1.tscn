@@ -1,0 +1,693 @@
+[gd_scene load_steps=46 format=3 uid="uid://onlcwjgtbka1"]
+
+[ext_resource type="Script" path="res://Scripts/floor_1.gd" id="1_f1r2m"]
+[ext_resource type="Texture2D" uid="uid://dhs4103ee33mp" path="res://Assets/testhallway.png" id="2_ygtbh"]
+[ext_resource type="Texture2D" uid="uid://d0v1wpmii5ytk" path="res://Assets/blackhallwaybackground.png" id="3_rs7xg"]
+[ext_resource type="Texture2D" uid="uid://1avx083msf3o" path="res://Assets/elevatorclosed.png" id="3_wpnyl"]
+[ext_resource type="Texture2D" uid="uid://bk5oek8q2a6on" path="res://Assets/elevatoropen.png" id="4_1j5sm"]
+[ext_resource type="Texture2D" uid="uid://bn2dp3t3nmju0" path="res://Assets/elevatoropening3.png" id="5_plv7s"]
+[ext_resource type="Texture2D" uid="uid://svoxalymdpbw" path="res://Assets/elevatoropening2.png" id="6_r1gxx"]
+[ext_resource type="Texture2D" uid="uid://drt26vsbg05st" path="res://Assets/elevatoropening1.png" id="7_h1dpd"]
+[ext_resource type="Texture2D" uid="uid://dplyrj251pg0m" path="res://Assets/door.png" id="8_nllu8"]
+[ext_resource type="AudioStream" uid="uid://b7n8tmlh6xvox" path="res://Audio/elevator-ding-pixabay.mp3" id="10_gmmc6"]
+[ext_resource type="AudioStream" uid="uid://dsdtvrw36yuho" path="res://Audio/button_sound.mp3" id="11_k3ant"]
+[ext_resource type="AudioStream" uid="uid://crgyy1nb8m3ea" path="res://Audio/elevator-sound-pixabay.mp3" id="12_vddao"]
+[ext_resource type="AudioStream" uid="uid://bmfiibxrhk24q" path="res://Audio/elevator-open-pixabay.mp3" id="13_e65cg"]
+[ext_resource type="AudioStream" uid="uid://cfstuit2e86dr" path="res://Audio/elevator-close2-pixabay.mp3" id="14_yaehi"]
+[ext_resource type="AudioStream" uid="uid://bdcyc7vstai0l" path="res://Audio/door-open-pixabay.mp3" id="15_qmgkf"]
+[ext_resource type="AudioStream" uid="uid://dcuagxuy0tw33" path="res://Audio/door-close-pixabay.mp3" id="16_hcp8b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kkt11"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wpnyl")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1j5sm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_plv7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_r1gxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_h1dpd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wpnyl")
+}],
+"loop": false,
+"name": &"closing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1j5sm")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wpnyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_h1dpd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_r1gxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_plv7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1j5sm")
+}],
+"loop": false,
+"name": &"opening",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_06ra1"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bmffi"]
+a = Vector2(36, 565)
+b = Vector2(36, -518)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_pgpm4"]
+a = Vector2(-14, -525)
+b = Vector2(-14, 578)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_gpd51"]
+a = Vector2(-2822.5, 212)
+b = Vector2(-1127.5, 212)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3w481"]
+a = Vector2(-2823, 212)
+b = Vector2(-14, 211)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_mjwwt"]
+a = Vector2(750, 239)
+b = Vector2(-135, 238)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljwrb"]
+size = Vector2(150, 182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i85oi"]
+size = Vector2(786, 182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_csgvm"]
+size = Vector2(965, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3y83"]
+size = Vector2(735, 179)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i76v"]
+size = Vector2(691, 178)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lt6x0"]
+size = Vector2(927, 178)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_igdre"]
+size = Vector2(431, 179)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enkoc"]
+size = Vector2(37, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otora"]
+size = Vector2(397, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_358sy"]
+size = Vector2(396.5, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrdq1"]
+size = Vector2(65.75, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcayt"]
+size = Vector2(105, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f057k"]
+size = Vector2(247, 107)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8cu6u"]
+size = Vector2(102, 35.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pofb7"]
+size = Vector2(183, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1h2y3"]
+size = Vector2(103, 109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vq7q0"]
+size = Vector2(103, 71.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmuha"]
+size = Vector2(182, 110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2qm4"]
+size = Vector2(183, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kn8rn"]
+size = Vector2(49, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rywi8"]
+size = Vector2(185, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rb80t"]
+size = Vector2(185, 60)
+
+[node name="Floor1" type="Node2D"]
+script = ExtResource("1_f1r2m")
+
+[node name="Floor1Background" type="Sprite2D" parent="."]
+position = Vector2(-1860, 0)
+texture = ExtResource("2_ygtbh")
+centered = false
+
+[node name="BlackBackground" type="Sprite2D" parent="."]
+position = Vector2(-1859, 811)
+texture = ExtResource("3_rs7xg")
+centered = false
+
+[node name="ElevatorSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1436, 359)
+sprite_frames = SubResource("SpriteFrames_kkt11")
+animation = &"closed"
+
+[node name="ElevatorButtonSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1200.5, 395.5)
+scale = Vector2(17, 17)
+texture = SubResource("CanvasTexture_06ra1")
+
+[node name="Unit1ADoorSprite" type="Sprite2D" parent="."]
+position = Vector2(-624, 379)
+texture = ExtResource("8_nllu8")
+
+[node name="Unit1ALabel" type="Label" parent="Unit1ADoorSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -84.5
+offset_right = -36.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1A"
+horizontal_alignment = 1
+
+[node name="KnockButton" type="Button" parent="Unit1ADoorSprite"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = -50.0
+offset_right = -28.5
+offset_bottom = -19.0
+grow_horizontal = 2
+text = "Knock"
+
+[node name="Unit1BDoorSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-75, 885)
+texture = ExtResource("8_nllu8")
+
+[node name="Unit1BLabel" type="Label" parent="Unit1BDoorSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -84.5
+offset_right = -36.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1B"
+horizontal_alignment = 1
+
+[node name="KnockButton" type="Button" parent="Unit1BDoorSprite"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = -50.0
+offset_right = -28.5
+offset_bottom = -19.0
+grow_horizontal = 2
+text = "Knock"
+
+[node name="Unit1CDoorSprite" type="Sprite2D" parent="."]
+position = Vector2(444, 378)
+texture = ExtResource("8_nllu8")
+
+[node name="Unit1CLabel" type="Label" parent="Unit1CDoorSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -84.5
+offset_right = -36.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1C"
+horizontal_alignment = 1
+
+[node name="KnockButton" type="Button" parent="Unit1CDoorSprite"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = -50.0
+offset_right = -28.5
+offset_bottom = -19.0
+grow_horizontal = 2
+text = "Knock"
+
+[node name="Unit1DDoorSprite" type="Sprite2D" parent="."]
+position = Vector2(2383.5, 380)
+scale = Vector2(1.0177, 0.986301)
+texture = ExtResource("8_nllu8")
+
+[node name="Unit1DLabel" type="Label" parent="Unit1DDoorSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -84.5
+offset_right = -36.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1D"
+horizontal_alignment = 1
+
+[node name="KnockButton" type="Button" parent="Unit1DDoorSprite"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = -50.0
+offset_right = -28.5
+offset_bottom = -19.0
+grow_horizontal = 2
+text = "Knock"
+
+[node name="Unit1EDoorSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(2924, 885)
+scale = Vector2(1.0177, 0.986301)
+texture = ExtResource("8_nllu8")
+
+[node name="Unit1ELabel" type="Label" parent="Unit1EDoorSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -84.5
+offset_right = -36.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1E"
+horizontal_alignment = 1
+
+[node name="KnockButton" type="Button" parent="Unit1EDoorSprite"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = -50.0
+offset_right = -28.5
+offset_bottom = -19.0
+grow_horizontal = 2
+text = "Knock"
+
+[node name="Unit1FDoorSprite" type="Sprite2D" parent="."]
+position = Vector2(3415.75, 380)
+scale = Vector2(1.01327, 0.986301)
+texture = ExtResource("8_nllu8")
+
+[node name="Unit1FLabel" type="Label" parent="Unit1FDoorSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -84.5
+offset_right = -36.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1F"
+horizontal_alignment = 1
+
+[node name="KnockButton" type="Button" parent="Unit1FDoorSprite"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = -50.0
+offset_right = -28.5
+offset_bottom = -19.0
+grow_horizontal = 2
+text = "Knock"
+
+[node name="BoundaryBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(-1898, 518)
+shape = SubResource("SegmentShape2D_bmffi")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(3915, 515)
+shape = SubResource("SegmentShape2D_pgpm4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(961.5, 600)
+shape = SubResource("SegmentShape2D_gpd51")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(2842, 599)
+shape = SubResource("SegmentShape2D_3w481")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(3150, 572)
+shape = SubResource("SegmentShape2D_mjwwt")
+
+[node name="WallBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(-1784, 356)
+shape = SubResource("RectangleShape2D_ljwrb")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(-1069, 356)
+shape = SubResource("RectangleShape2D_i85oi")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(-89.5, 357)
+shape = SubResource("RectangleShape2D_csgvm")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(862.5, 357.5)
+shape = SubResource("RectangleShape2D_s3y83")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(1985.5, 359)
+shape = SubResource("RectangleShape2D_7i76v")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(2899.5, 359)
+shape = SubResource("RectangleShape2D_lt6x0")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(3683.5, 358.5)
+shape = SubResource("RectangleShape2D_igdre")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(-1585.5, 409.5)
+shape = SubResource("RectangleShape2D_enkoc")
+
+[node name="ElevatorArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorArea2D"]
+position = Vector2(1436, 330)
+shape = SubResource("RectangleShape2D_otora")
+
+[node name="ElevatorBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorBody2D"]
+position = Vector2(1437, 357)
+shape = SubResource("RectangleShape2D_358sy")
+
+[node name="ElevatorButtonArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorButtonArea2D"]
+position = Vector2(1198, 459)
+shape = SubResource("RectangleShape2D_xrdq1")
+
+[node name="ElevatorTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="StairsUpArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsUpArea2D"]
+position = Vector2(-1656.5, 377)
+shape = SubResource("RectangleShape2D_vcayt")
+
+[node name="StairsDownArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDownArea2D"]
+position = Vector2(-1515, 377)
+shape = SubResource("RectangleShape2D_vcayt")
+
+[node name="StairsBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsBody2D"]
+position = Vector2(-1585.5, 318.5)
+shape = SubResource("RectangleShape2D_f057k")
+
+[node name="Unit1AArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1AArea2D"]
+position = Vector2(-624, 395)
+shape = SubResource("RectangleShape2D_8cu6u")
+
+[node name="Unit1BArea2D" type="Area2D" parent="."]
+position = Vector2(550, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1BArea2D"]
+position = Vector2(-623.5, 289.5)
+shape = SubResource("RectangleShape2D_pofb7")
+
+[node name="Unit1CArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1CArea2D"]
+position = Vector2(444, 395)
+shape = SubResource("RectangleShape2D_8cu6u")
+
+[node name="Unit1DArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1DArea2D"]
+position = Vector2(2384, 395)
+shape = SubResource("RectangleShape2D_8cu6u")
+
+[node name="Unit1EArea2D" type="Area2D" parent="."]
+position = Vector2(550, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1EArea2D"]
+position = Vector2(2372, 289.5)
+shape = SubResource("RectangleShape2D_pofb7")
+
+[node name="Unit1FArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1FArea2D"]
+position = Vector2(3415, 394.063)
+shape = SubResource("RectangleShape2D_8cu6u")
+
+[node name="Unit1AStaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1AStaticBody2D"]
+position = Vector2(-624, 319.5)
+shape = SubResource("RectangleShape2D_1h2y3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit1AStaticBody2D"]
+position = Vector2(-624, 411.25)
+shape = SubResource("RectangleShape2D_vq7q0")
+
+[node name="Unit1BStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(550, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1BStaticBody2D"]
+position = Vector2(-623, 351)
+shape = SubResource("RectangleShape2D_pmuha")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit1BStaticBody2D"]
+position = Vector2(-623.5, 278)
+shape = SubResource("RectangleShape2D_g2qm4")
+
+[node name="Unit1CStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1068, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1CStaticBody2D"]
+position = Vector2(-624, 319.5)
+shape = SubResource("RectangleShape2D_1h2y3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit1CStaticBody2D"]
+position = Vector2(-624, 409)
+shape = SubResource("RectangleShape2D_vq7q0")
+
+[node name="Unit1DStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(3007, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1DStaticBody2D"]
+position = Vector2(-623.5, 319.5)
+shape = SubResource("RectangleShape2D_1h2y3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit1DStaticBody2D"]
+position = Vector2(-623.5, 409)
+shape = SubResource("RectangleShape2D_vq7q0")
+
+[node name="Unit1EStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(3545, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1EStaticBody2D"]
+position = Vector2(-623, 351)
+shape = SubResource("RectangleShape2D_pmuha")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit1EStaticBody2D"]
+position = Vector2(-623.5, 278)
+shape = SubResource("RectangleShape2D_g2qm4")
+
+[node name="Unit1FStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(4039, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1FStaticBody2D"]
+position = Vector2(-623.5, 319.5)
+shape = SubResource("RectangleShape2D_1h2y3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit1FStaticBody2D"]
+position = Vector2(-623.5, 409)
+shape = SubResource("RectangleShape2D_vq7q0")
+
+[node name="Unit1ARugArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1ARugArea2D"]
+position = Vector2(-624, 456)
+shape = SubResource("RectangleShape2D_kn8rn")
+
+[node name="Unit1BRugArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1BRugArea2D"]
+position = Vector2(-73, 802)
+shape = SubResource("RectangleShape2D_kn8rn")
+
+[node name="Unit1BDoorArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1BDoorArea2D"]
+position = Vector2(-73.5, 781.5)
+shape = SubResource("RectangleShape2D_rywi8")
+
+[node name="Unit1CRugArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1CRugArea2D"]
+position = Vector2(444, 456)
+shape = SubResource("RectangleShape2D_kn8rn")
+
+[node name="Unit1DRugArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1DRugArea2D"]
+position = Vector2(2383, 457)
+shape = SubResource("RectangleShape2D_kn8rn")
+
+[node name="Unit1ERugArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1ERugArea2D"]
+position = Vector2(2924, 801)
+shape = SubResource("RectangleShape2D_kn8rn")
+
+[node name="Unit1EDoorArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1EDoorArea2D"]
+position = Vector2(2921.5, 781)
+shape = SubResource("RectangleShape2D_rb80t")
+
+[node name="Unit1FRugArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unit1FRugArea2D"]
+position = Vector2(3417, 457)
+shape = SubResource("RectangleShape2D_kn8rn")
+
+[node name="ElevatorDingAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_gmmc6")
+
+[node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_k3ant")
+volume_db = 4.0
+
+[node name="KnockingAudio" type="AudioStreamPlayer" parent="."]
+volume_db = 4.0
+
+[node name="ElevatorAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_vddao")
+volume_db = -1.0
+
+[node name="ElevatorOpenAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_e65cg")
+volume_db = -4.0
+
+[node name="ElevatorCloseAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_yaehi")
+
+[node name="DoorOpenAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_qmgkf")
+volume_db = 6.0
+
+[node name="DoorCloseAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_hcp8b")
+volume_db = 4.0
+
+[connection signal="animation_finished" from="ElevatorSprite" to="." method="_on_elevator_sprite_animation_finished"]
+[connection signal="pressed" from="Unit1ADoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
+[connection signal="pressed" from="Unit1BDoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
+[connection signal="pressed" from="Unit1CDoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
+[connection signal="pressed" from="Unit1DDoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
+[connection signal="pressed" from="Unit1EDoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
+[connection signal="pressed" from="Unit1FDoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
+[connection signal="body_entered" from="ElevatorArea2D" to="." method="_on_elevator_area_2d_body_entered"]
+[connection signal="body_entered" from="ElevatorButtonArea2D" to="." method="_on_elevator_button_area_2d_body_entered"]
+[connection signal="body_exited" from="ElevatorButtonArea2D" to="." method="_on_elevator_button_area_2d_body_exited"]
+[connection signal="timeout" from="ElevatorTimer" to="." method="_on_elevator_timer_timeout"]
+[connection signal="body_entered" from="StairsUpArea2D" to="." method="_on_stairs_up_area_2d_body_entered"]
+[connection signal="body_entered" from="StairsDownArea2D" to="." method="_on_stairs_down_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1AArea2D" to="." method="_on_unit_1a_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1BArea2D" to="." method="_on_unit_1b_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1CArea2D" to="." method="_on_unit_1c_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1DArea2D" to="." method="_on_unit_1d_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1EArea2D" to="." method="_on_unit_1e_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1FArea2D" to="." method="_on_unit_1f_area_2d_body_entered"]
+[connection signal="body_entered" from="Unit1ARugArea2D" to="." method="_on_unit_1a_rug_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1ARugArea2D" to="." method="_on_unit_1a_rug_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1BRugArea2D" to="." method="_on_unit_1b_rug_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1BRugArea2D" to="." method="_on_unit_1b_rug_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1BDoorArea2D" to="." method="_on_unit_1b_door_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1BDoorArea2D" to="." method="_on_unit_1b_door_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1CRugArea2D" to="." method="_on_unit_1c_rug_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1CRugArea2D" to="." method="_on_unit_1c_rug_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1DRugArea2D" to="." method="_on_unit_1d_rug_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1DRugArea2D" to="." method="_on_unit_1d_rug_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1ERugArea2D" to="." method="_on_unit_1e_rug_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1ERugArea2D" to="." method="_on_unit_1e_rug_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1EDoorArea2D" to="." method="_on_unit_1e_door_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1EDoorArea2D" to="." method="_on_unit_1e_door_area_2d_body_exited"]
+[connection signal="body_entered" from="Unit1FRugArea2D" to="." method="_on_unit_1f_rug_area_2d_body_entered"]
+[connection signal="body_exited" from="Unit1FRugArea2D" to="." method="_on_unit_1f_rug_area_2d_body_exited"]
+[connection signal="finished" from="KnockingAudio" to="." method="_on_knocking_audio_finished"]
