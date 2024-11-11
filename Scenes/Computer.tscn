@@ -1,8 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj2xgfe2by3v4"]
+[gd_scene load_steps=11 format=3 uid="uid://bj2xgfe2by3v4"]
 
 [ext_resource type="Texture2D" uid="uid://bitx2ub4hknq7" path="res://Assets/computerbackground.png" id="1_qttr1"]
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ty0l2"]
-[ext_resource type="Texture2D" uid="uid://d2jslvmxe5p16" path="res://Assets/computer_icons.png" id="3_h30m4"]
+[ext_resource type="Texture2D" uid="uid://cx2pqbi34mrfb" path="res://Assets/computer_icons-pixel.png" id="3_kbc4r"]
+[ext_resource type="Texture2D" uid="uid://dvghyy85boit7" path="res://Assets/computer_icons_2-pixel.png" id="4_7h3tq"]
+[ext_resource type="Script" path="res://Scripts/amazon_panel.gd" id="5_ilyyr"]
+[ext_resource type="AudioStream" uid="uid://dh2igt0vmlubq" path="res://Audio/click-pixabay.mp3" id="5_qamt1"]
+[ext_resource type="Texture2D" uid="uid://dlelwvcwhieej" path="res://icon.svg" id="5_s5esw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb7s1"]
+bg_color = Color(0.720467, 0.720468, 0.720467, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i22qh"]
+bg_color = Color(0.12549, 0.137255, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kr03a"]
+bg_color = Color(0.721569, 0.721569, 0.721569, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
 
 [node name="Computer" type="Control"]
 layout_mode = 3
@@ -17,24 +35,108 @@ script = ExtResource("1_ty0l2")
 texture = ExtResource("1_qttr1")
 centered = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 158.0
+offset_bottom = 1015.0
+theme_override_constants/separation = 59
+
+[node name="RecycleBinButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Recycle Bin"
+
+[node name="BankingButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "S.J. Bank"
+
+[node name="RentButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Rent Portal"
+
+[node name="AmazonButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Bookazon"
+
+[node name="GrubhubButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Takeout Hub"
+
+[node name="InstacartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "InstaGrocery"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 20.0
+offset_right = 358.0
+offset_bottom = 1015.0
+theme_override_constants/separation = 59
+
+[node name="CalendarButton" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Calendar"
+
+[node name="EmailButton" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ZMail"
+
+[node name="FacebookButton" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SocialNook"
+
+[node name="SpyAppButton" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "AnonHelp"
+
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1771.0
-offset_top = -66.0
-offset_right = -8.0
+offset_top = -65.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="BarIcons" type="Sprite2D" parent="HBoxContainer"]
-position = Vector2(-75, 33)
+[node name="BarIcons" type="Sprite2D" parent="Panel"]
+position = Vector2(91, 32)
 scale = Vector2(1.33495, 1.23529)
-texture = ExtResource("3_h30m4")
+texture = ExtResource("4_7h3tq")
 
-[node name="DayLabel" type="Label" parent="HBoxContainer"]
+[node name="BarIcons2" type="Sprite2D" parent="Panel"]
+position = Vector2(1721, 32)
+scale = Vector2(1.33495, 1.23529)
+texture = ExtResource("3_kbc4r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -129.0
+offset_top = -66.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="DayLabel" type="Label" parent="Panel/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -42,9 +144,629 @@ theme_override_font_sizes/font_size = 32
 text = "Thursday"
 horizontal_alignment = 1
 
-[node name="ClockLabel" type="Label" parent="HBoxContainer"]
+[node name="ClockLabel" type="Label" parent="Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 32
-text = "12:55 PM"
+theme_override_font_sizes/font_size = 22
+text = "00:00 PM
+00/00/0000"
 horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 1015.0
+offset_right = 1334.0
+offset_bottom = 1080.0
+theme_override_constants/separation = 20
+
+[node name="RecycleBinBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Recycle Bin"
+
+[node name="BankingBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Banking"
+
+[node name="RentBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Rent"
+
+[node name="AmazonBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Shopazon"
+
+[node name="GrubhubBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Grubhub"
+
+[node name="InstacartBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Instacart"
+
+[node name="EmailBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Email"
+
+[node name="FacebookBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Facebook"
+
+[node name="SpyAppBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "SpyApp"
+
+[node name="AmazonPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1014.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rb7s1")
+script = ExtResource("5_ilyyr")
+
+[node name="Panel" type="Panel" parent="AmazonPanel"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
+
+[node name="Label" type="Label" parent="AmazonPanel/Panel"]
+layout_mode = 0
+offset_right = 167.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 32
+text = "Shopazon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmazonCloseButton" type="Button" parent="AmazonPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="AmazonMaxButton" type="Button" parent="AmazonPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -54.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "o"
+
+[node name="AmazonMinButton" type="Button" parent="AmazonPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -108.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "-"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AmazonPanel"]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 1918.0
+offset_bottom = 1014.0
+theme_override_constants/separation = 400
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="AmazonPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Books"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 81
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Title of Book
++ 1 Intelligence
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Title of Book
++ 1 Social
+$0.00
+Sold Out"
+icon = ExtResource("5_s5esw")
+
+[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Title of Book
++ 1 Stealth
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Title of Book
++ 2 Intelligence
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Title of Book
++ 2 Social
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Title of Book
++ 2 Stealth
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Title of Book
++ 3 Intelligence
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Title of Book
++ 3 Social
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Title of Book
++ 3 Stealth
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Title of Book
++ 4 Intelligence
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Title of Book
++ 4 Social
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Title of Book
++ 4 Stealth
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="AmazonPanel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Misc"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 81
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Bobby Pins x 10
+
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Ballpoint Pen
+
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Scissors
+
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Digital Camera
+
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Voice Recorder
+
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mini Trail Cam
+
+$0.00
+Add to Cart"
+icon = ExtResource("5_s5esw")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+ 1 Intelligence"
+icon = ExtResource("5_s5esw")
+
+[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+ 1 Intelligence"
+icon = ExtResource("5_s5esw")
+
+[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+ 1 Intelligence"
+icon = ExtResource("5_s5esw")
+
+[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+ 1 Intelligence"
+icon = ExtResource("5_s5esw")
+
+[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+ 1 Intelligence"
+icon = ExtResource("5_s5esw")
+
+[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+ 1 Intelligence"
+icon = ExtResource("5_s5esw")
+
+[node name="CartButton" type="Button" parent="AmazonPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -93.0
+offset_top = 62.0
+offset_right = -9.0
+offset_bottom = 125.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Cart"
+
+[node name="CartPanel" type="Panel" parent="AmazonPanel"]
+visible = false
+layout_mode = 0
+offset_left = 1548.0
+offset_top = 53.0
+offset_right = 1920.0
+offset_bottom = 619.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kr03a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/CartPanel"]
+layout_mode = 0
+offset_right = 371.0
+offset_bottom = 514.0
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Cart"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label2" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label3" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label4" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label5" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label6" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label7" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label8" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label9" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label10" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bobby Pins"
+
+[node name="Label11" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "
+Total: "
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label2" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label3" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label4" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label5" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label6" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label7" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label8" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label9" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="Label10" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Qty: 2"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label2" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label3" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label4" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label5" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label6" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label7" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label8" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label9" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label10" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "$0.00"
+
+[node name="Label11" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "
+$0.00"
+
+[node name="OrderButton" type="Button" parent="AmazonPanel/CartPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -39.0
+offset_right = 55.5
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Place Order"
+
+[node name="CloseCartButton" type="Button" parent="AmazonPanel/CartPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 35.0
+grow_horizontal = 0
+text = "X"
+
+[node name="MouseClickAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qamt1")
+volume_db = 6.0
+
+[connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/Panel/AmazonCloseButton" to="." method="_on_amazon_close_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/Panel/AmazonMaxButton" to="." method="_on_amazon_max_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/Panel/AmazonMinButton" to="." method="_on_amazon_min_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/CartButton" to="AmazonPanel" method="_on_cart_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/CartPanel/CloseCartButton" to="AmazonPanel" method="_on_close_cart_button_pressed"]

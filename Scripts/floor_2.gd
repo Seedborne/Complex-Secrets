@@ -57,7 +57,7 @@ func _input(event):
 		$ElevatorSprite.play("opening")
 		$ElevatorOpenAudio.play()
 		$ElevatorDingAudio.play()
-	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking:
+	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking and not door_open:
 		_on_knock_button_pressed()
 
 func _on_elevator_sprite_animation_finished():

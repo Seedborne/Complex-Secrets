@@ -61,9 +61,9 @@ func _input(event):
 		$ElevatorSprite.play("opening")
 		$ElevatorOpenAudio.play()
 		$ElevatorDingAudio.play()
-	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking:
+	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking and not door_open:
 		_on_knock_button_pressed()
-	elif event.is_action_pressed("ui_interact") and near_home:
+	elif event.is_action_pressed("ui_interact") and near_home and not door_open:
 		door_open = true
 		$Unit3FDoorSprite.visible = false
 		$Unit3FStaticBody2D/CollisionShape2D2.disabled = true

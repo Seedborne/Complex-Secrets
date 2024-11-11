@@ -6,10 +6,13 @@ var current_floor = 0
 var climbing_stairs = false
 var descending_stairs = false
 var at_class = false
+var at_work = false
 var is_sleeping = false
 var is_eating = false
 var on_computer = false
 var tenant_home = false
+
+var player_money: float = 0.00
 
 var player_speed: int = 250
 var player_strength: int = 1
@@ -43,6 +46,14 @@ func increase_player_social(amount: int):
 func increase_player_stealth(amount: int):
 	player_stealth += amount
 	print("player_stealth increased to ", player_stealth)
+
+func increase_player_money(amount: float):
+	player_money += amount
+	print("player_money increased to ", player_money)
+
+func decrease_player_money(amount: int):
+	player_money -= amount
+	print("player_money decreased to ", player_money)
 
 func check_tenant_availability():
 	tenant_home = true

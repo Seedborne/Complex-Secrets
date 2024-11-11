@@ -211,22 +211,22 @@ offset_bottom = 273.0
 [node name="Button0" type="Button" parent="ElevatorPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Lobby"
+text = "0 - Lobby"
 
 [node name="Button1" type="Button" parent="ElevatorPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "1st Floor"
+text = "1 - First Floor"
 
 [node name="Button2" type="Button" parent="ElevatorPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "2nd Floor"
+text = "2 - Second Floor"
 
 [node name="Button3" type="Button" parent="ElevatorPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "3rd Floor"
+text = "3 - Third Floor"
 
 [node name="ElevatorLabel" type="Label" parent="."]
 offset_left = 1211.0
@@ -243,7 +243,7 @@ volume_db = 4.0
 
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_82mof")
-volume_db = 4.0
+pitch_scale = 0.8
 
 [node name="ElevatorOpenAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_nxfkk")

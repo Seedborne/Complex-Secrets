@@ -625,7 +625,7 @@ stream = ExtResource("10_jewwf")
 
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_le8p0")
-volume_db = 4.0
+pitch_scale = 0.8
 
 [node name="KnockingAudio" type="AudioStreamPlayer" parent="."]
 volume_db = 4.0

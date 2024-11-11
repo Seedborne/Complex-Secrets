@@ -4,6 +4,11 @@ var current_hour: int = 8  # Start the game at 8:00 AM
 var current_minute: int = 0
 var current_day_index: int = 0  # Index for days of the week (0 = Sunday, 1 = Monday, ...)
 var days_of_week: Array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+var current_year: int = 2007
+var current_month: int = 9  # September
+var current_day: int = 2    # Start on September 2nd
+# Days in each month (index 0 = January, index 11 = December)
+var days_in_months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 var clock_paused = false
 var sleep_bar: float = 100.0  # Starts at full
 var sleep_drain_rate: float = 0.1  # Amount it drains per minute
@@ -19,10 +24,10 @@ var class_schedule: Dictionary = {
 	"Wednesday": [9, 15],  # Example schedule
 	"Friday": [13]  # Single class on Friday
 }
-var class_checked: bool = false
 @onready var clock_timer: Timer = $ClockTimer
 @onready var clock_label: Label = $VBoxContainer/ClockLabel
 @onready var day_label: Label = $VBoxContainer/DayLabel
+@onready var date_label: Label = $VBoxContainer/DateLabel
 @onready var hunger_progress_bar: ProgressBar = $VBoxContainer2/HungerBar
 @onready var sleep_progress_bar: ProgressBar = $VBoxContainer2/SleepBar
 @onready var grades_progress_bar: ProgressBar = $VBoxContainer2/GradesBar
@@ -34,6 +39,7 @@ func _process(_delta):
 	if Globals.in_game:
 		visible = true
 		$VBoxContainer/LocationLabel.text = Globals.current_location
+		$VBoxContainer/MoneyLabel.text = "$" + String("%.2f" % Globals.player_money)
 	else:
 		visible = false
 
@@ -43,28 +49,44 @@ func _on_clock_timer_timeout():
 	if current_minute >= 60:
 		current_minute = 0
 		current_hour += 1
-		print(sleep_bar)
 
 	if current_hour >= 24:
 		current_hour = 0
-		current_day_index = (current_day_index + 1) % days_of_week.size()
+		#current_day_index = (current_day_index + 1) % days_of_week.size()
+		advance_day()
 
 	update_clock_display()
+	update_date_display()
 	sleep_bar -= sleep_drain_rate
 	sleep_bar = clamp(sleep_bar, 0, 100)
 	hunger_bar -= hunger_drain_rate
 	hunger_bar = clamp(hunger_bar, 0, 100)
 	update_bars()
 	
-	if not class_checked and current_hour in class_schedule.get(get_current_day(), []):
+	if current_hour in class_schedule.get(get_current_day(), []) and current_minute == 0:
 		if Globals.at_class:
 			attend_class()
 		else:
 			miss_class()
-		class_checked = true  # Set the flag to prevent repeated checks
 
 func get_current_day() -> String:
 	return days_of_week[current_day_index]
+
+func advance_day():
+	current_day += 1
+
+	# Check if the current day exceeds the number of days in the month
+	if current_day > days_in_months[current_month - 1]:
+		current_day = 1  # Reset to the first day of the month
+		current_month += 1  # Move to the next month
+
+		# Check if the month exceeds December
+		if current_month > 12:
+			current_month = 1  # Reset to January
+			current_year += 1  # Move to the next year
+
+	# Update day of the week index (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+	current_day_index = (current_day_index + 1) % 7
 
 func hide_ui():
 	$VBoxContainer.visible = false
@@ -73,6 +95,18 @@ func hide_ui():
 func show_ui():
 	$VBoxContainer.visible = true
 	$VBoxContainer2.visible = true
+
+func hide_bars():
+	$VBoxContainer2.visible = false
+
+func show_bars():
+	$VBoxContainer2.visible = true
+
+func hide_screen_fade():
+	$ScreenFade.visible = false
+
+func show_screen_fade():
+	$ScreenFade.visible = true
 
 func eat_food(amount: float):
 	hunger_bar += amount  # Increase hunger bar by the specified amount
@@ -92,10 +126,17 @@ func sleep_for_hours(hours: int):
 
 # Method for attending class to refill grades bar
 func attend_class():
+	fade_to_black()
+	pause_time()
+	print("At class")
+	await get_tree().create_timer(2.0).timeout
+	resume_time()
 	grades_bar += grades_gain_per_class + (Globals.player_intelligence * 0.5)  # Intelligence boosts class effect
 	grades_bar = clamp(grades_bar, 0, 100)
 	skip_time(2)
+	Globals.at_class = false
 	print("Attended class, grades bar refilled to ", grades_bar)
+	get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 # Method for missing class
 func miss_class():
@@ -120,33 +161,123 @@ func update_clock_display():
 		clock_label.text = "%01d:%02d %s" % [display_hour, current_minute, am_pm] # Single-digit hour formatting
 	day_label.text = days_of_week[current_day_index]
 
+func update_date_display():
+	date_label.text = "%02d/%02d/%04d" % [current_month, current_day, current_year]
+
 # Skip time method
 func skip_time(hours: int):
+	var initial_hour = current_hour
+	var initial_minute = current_minute
+	var final_hour = (initial_hour + hours) % 24
+	var final_minute = current_minute
+	var final_day = current_day_index
+	#var target_hour = current_hour + hours
+
+	# Check for any missed classes within the skipped hours
+	#for hour_offset in range(hours):
+		#var check_hour = (initial_hour + hour_offset) % 24
+		# If the hour offset rolls past midnight, move to the next day
+	if initial_hour + hours >= 24:
+		final_day = (current_day_index + 1) % days_of_week.size()
+
+		# Get the day's name for checking the schedule
+	var day_name = days_of_week[final_day]
+
+	# Check for each scheduled class in the current (or next) day
+	for class_hour in class_schedule.get(day_name, []):
+		# Check if the class start time (e.g., class_hour:00) falls between the initial and final times
+		if (initial_hour < class_hour or (initial_hour == class_hour and initial_minute < 1)) \
+			and (final_hour > class_hour or (final_hour == class_hour and final_minute >= 0)):
+			if not Globals.at_class:
+				miss_class()  # Apply the missed class penalty
+				print("Missed class at:", class_hour)  # Debug output
 	current_hour += hours
 	if current_hour >= 24:
 		@warning_ignore("integer_division")
 		var days_to_add = int(current_hour / 24)
-		current_day_index = (current_day_index + days_to_add) % days_of_week.size()
+		#current_day_index = (current_day_index + days_to_add) % days_of_week.size()
 		current_hour %= 24
+		for day in range(days_to_add):
+			advance_day()
 	# Drain sleep bar if not sleeping
-	if not Globals.is_sleeping:
-		var sleep_drain = hours * 60 * sleep_drain_rate  # Calculate sleep drain over the skipped time
-		sleep_bar -= sleep_drain
-		sleep_bar = clamp(sleep_bar, 0, 100)
-	else:
-		var hunger_drain = hours * 60 * (hunger_drain_rate / 2)
-		hunger_bar -= hunger_drain
-		hunger_bar = clamp(hunger_bar, 0, 100)
-		Globals.is_sleeping = false
-	if not Globals.is_eating and not Globals.is_sleeping:
+	if not Globals.is_sleeping and not Globals.is_eating:
 		var hunger_drain = hours * 60 * hunger_drain_rate 
 		hunger_bar -= hunger_drain
 		hunger_bar = clamp(hunger_bar, 0, 100)
-	elif Globals.is_eating:
-		Globals.is_eating = false
+		var sleep_drain = hours * 60 * sleep_drain_rate  # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+	elif Globals.is_sleeping and not Globals.is_eating:
+		var hunger_drain = hours * 60 * (hunger_drain_rate / 4)
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		Globals.is_sleeping = false
+	elif Globals.is_eating and not Globals.is_sleeping:
+		var sleep_drain = hours * 60 * (sleep_drain_rate / 2)  # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
 	update_bars()
 	update_clock_display()
+
+func skip_time_minutes(minutes: int):
+	var initial_hour = current_hour
+	var initial_minute = current_minute
+	var total_minutes = initial_minute + minutes
+	@warning_ignore("integer_division")
+	var final_hour = (initial_hour + int(total_minutes / 60)) % 24
+	var final_minute = total_minutes % 60
+	var final_day = current_day_index
+
+	# Handle day overflow if the skip crosses midnight
+	if initial_hour * 60 + initial_minute + minutes >= 1440:  # 1440 minutes = 24 hours
+		final_day = (current_day_index + 1) % days_of_week.size()
 	
+	var day_name = days_of_week[final_day]
+
+	# Check for each scheduled class in the current (or next) day
+	for class_hour in class_schedule.get(day_name, []):
+		# Check if the class start time (e.g., class_hour:00) falls between the initial and final times
+		if (initial_hour < class_hour or (initial_hour == class_hour and initial_minute < 1)) \
+			and (final_hour > class_hour or (final_hour == class_hour and final_minute >= 0)):
+			if not Globals.at_class:
+				miss_class()  # Apply the missed class penalty
+				print("Missed class at hour:", class_hour)  # Debug output
+	current_minute += minutes
+	
+	# Handle minute overflow to hours
+	if current_minute >= 60:
+		@warning_ignore("integer_division")
+		var additional_hours = int(current_minute / 60)
+		current_minute %= 60
+		current_hour += additional_hours
+	
+	# Handle hour overflow to days
+	if current_hour >= 24:
+		@warning_ignore("integer_division")
+		#var days_to_add = int(current_hour / 24)
+		#current_day_index = (current_day_index + days_to_add) % days_of_week.size()
+		current_hour %= 24
+		advance_day()  # Advance the day
+
+	if not Globals.is_sleeping and not Globals.is_eating:
+		var hunger_drain = minutes * hunger_drain_rate 
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		var sleep_drain = minutes * sleep_drain_rate  # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+	elif Globals.is_sleeping and not Globals.is_eating:
+		var hunger_drain = minutes * (hunger_drain_rate / 2)
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		Globals.is_sleeping = false
+	elif Globals.is_eating and not Globals.is_sleeping:
+		var sleep_drain = minutes * (sleep_drain_rate / 2)  # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+	update_bars()
+	update_clock_display()
+
 # Pause time (use when interacting with a computer or tenants)
 func pause_time():
 	clock_paused = true

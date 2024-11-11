@@ -57,7 +57,7 @@ func _input(event):
 		$ElevatorSprite.play("opening")
 		$ElevatorOpenAudio.play()
 		$ElevatorDingAudio.play()
-	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking:
+	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking and not door_open:
 		_on_knock_button_pressed()
 
 func _on_elevator_sprite_animation_finished():
@@ -253,7 +253,8 @@ func _on_knocking_audio_finished():
 		door_open = true
 		$Unit1FDoorSprite.visible = false
 		$Unit1FStaticBody2D/CollisionShape2D2.disabled = true
-	$DoorOpenAudio.play()
+	if Globals.tenant_home:
+		$DoorOpenAudio.play()
 
 func _close_door():
 	if target_unit == "1A":

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cqjfrk5c64shg"]
+[gd_scene load_steps=49 format=3 uid="uid://cqjfrk5c64shg"]
 
 [ext_resource type="Script" path="res://Scripts/unit_3f.gd" id="1_sev76"]
 [ext_resource type="Texture2D" uid="uid://cym8wq3kgkyr2" path="res://Assets/testapartment1room.png" id="2_0nq3r"]
@@ -95,6 +95,9 @@ size = Vector2(53, 65)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abp74"]
 size = Vector2(218.75, 183.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1c43x"]
+size = Vector2(174, 214)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1d5w"]
 size = Vector2(269, 141)
@@ -308,6 +311,31 @@ shape = SubResource("RectangleShape2D_7nseu")
 position = Vector2(1738.38, 871.375)
 shape = SubResource("RectangleShape2D_abp74")
 
+[node name="BedArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedArea2D"]
+position = Vector2(1698, 871)
+shape = SubResource("RectangleShape2D_1c43x")
+
+[node name="BedVBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 1649.0
+offset_top = 822.0
+offset_right = 1769.0
+offset_bottom = 923.0
+
+[node name="BedButton" type="Button" parent="BedVBoxContainer"]
+layout_mode = 2
+text = "Sleep 2 Hours"
+
+[node name="BedButton2" type="Button" parent="BedVBoxContainer"]
+layout_mode = 2
+text = "Sleep 4 Hours"
+
+[node name="BedButton3" type="Button" parent="BedVBoxContainer"]
+layout_mode = 2
+text = "Sleep 8 Hours"
+
 [node name="TableBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableBody2D"]
@@ -409,3 +437,8 @@ shape = SubResource("RectangleShape2D_a36u2")
 [connection signal="body_entered" from="DoorwayArea2D" to="." method="_on_doorway_area_2d_body_entered"]
 [connection signal="body_entered" from="DeskArea2D" to="." method="_on_desk_area_2d_body_entered"]
 [connection signal="body_exited" from="DeskArea2D" to="." method="_on_desk_area_2d_body_exited"]
+[connection signal="body_entered" from="BedArea2D" to="." method="_on_bed_area_2d_body_entered"]
+[connection signal="body_exited" from="BedArea2D" to="." method="_on_bed_area_2d_body_exited"]
+[connection signal="pressed" from="BedVBoxContainer/BedButton" to="." method="_on_bed_button_pressed"]
+[connection signal="pressed" from="BedVBoxContainer/BedButton2" to="." method="_on_bed_button_2_pressed"]
+[connection signal="pressed" from="BedVBoxContainer/BedButton3" to="." method="_on_bed_button_3_pressed"]
