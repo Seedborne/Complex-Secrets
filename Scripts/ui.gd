@@ -68,6 +68,26 @@ func _on_clock_timer_timeout():
 			attend_class()
 		else:
 			miss_class()
+	if current_hour == 9 and current_minute == 0:
+		check_for_deliveries()
+
+func check_for_deliveries():
+	var delivery_today = false
+	for delivery in Globals.delivery_queue:
+		if delivery["delivery_day"] == current_day and delivery["delivery_month"] == current_month and delivery["delivery_year"] == current_year:
+			Globals.mailbox_items.append(delivery["items"])  # Add items to the mailbox
+			print("Package:", Globals.mailbox_items)
+			delivery_today = true
+	
+	# Remove today's deliveries from the delivery queue
+	if delivery_today:
+		var new_delivery_queue = []
+		for d in Globals.delivery_queue:
+			if not (d["delivery_day"] == current_day and d["delivery_month"] == current_month and d["delivery_year"] == current_year):
+				new_delivery_queue.append(d)
+		Globals.delivery_queue = new_delivery_queue
+		print("Mail has arrived!")
+	print("All Mailbox items:", Globals.mailbox_items)
 
 func get_current_day() -> String:
 	return days_of_week[current_day_index]
@@ -91,10 +111,12 @@ func advance_day():
 func hide_ui():
 	$VBoxContainer.visible = false
 	$VBoxContainer2.visible = false
+	$CarryWeightLabel.visible = false
 
 func show_ui():
 	$VBoxContainer.visible = true
 	$VBoxContainer2.visible = true
+	$CarryWeightLabel.visible = true
 
 func hide_bars():
 	$VBoxContainer2.visible = false
@@ -171,12 +193,11 @@ func skip_time(hours: int):
 	var final_hour = (initial_hour + hours) % 24
 	var final_minute = current_minute
 	var final_day = current_day_index
-	#var target_hour = current_hour + hours
-
-	# Check for any missed classes within the skipped hours
-	#for hour_offset in range(hours):
-		#var check_hour = (initial_hour + hour_offset) % 24
-		# If the hour offset rolls past midnight, move to the next day
+	# Check if skipping over 9:00 AM
+	if (initial_hour < 9 or (initial_hour == 9 and initial_minute == 0)) \
+		and (final_hour > 9 or (final_hour == 9 and final_minute >= 0)):
+		check_for_deliveries()
+	
 	if initial_hour + hours >= 24:
 		final_day = (current_day_index + 1) % days_of_week.size()
 
@@ -195,7 +216,6 @@ func skip_time(hours: int):
 	if current_hour >= 24:
 		@warning_ignore("integer_division")
 		var days_to_add = int(current_hour / 24)
-		#current_day_index = (current_day_index + days_to_add) % days_of_week.size()
 		current_hour %= 24
 		for day in range(days_to_add):
 			advance_day()
@@ -227,7 +247,10 @@ func skip_time_minutes(minutes: int):
 	var final_hour = (initial_hour + int(total_minutes / 60)) % 24
 	var final_minute = total_minutes % 60
 	var final_day = current_day_index
-
+	# Check if skipping over 9:00 AM
+	if (initial_hour < 9 or (initial_hour == 9 and initial_minute == 0)) \
+		and (final_hour > 9 or (final_hour == 9 and final_minute >= 0)):
+		check_for_deliveries()
 	# Handle day overflow if the skip crosses midnight
 	if initial_hour * 60 + initial_minute + minutes >= 1440:  # 1440 minutes = 24 hours
 		final_day = (current_day_index + 1) % days_of_week.size()
@@ -241,7 +264,7 @@ func skip_time_minutes(minutes: int):
 			and (final_hour > class_hour or (final_hour == class_hour and final_minute >= 0)):
 			if not Globals.at_class:
 				miss_class()  # Apply the missed class penalty
-				print("Missed class at hour:", class_hour)  # Debug output
+				print("Missed class at hour ", class_hour)  # Debug output
 	current_minute += minutes
 	
 	# Handle minute overflow to hours
@@ -251,11 +274,9 @@ func skip_time_minutes(minutes: int):
 		current_minute %= 60
 		current_hour += additional_hours
 	
-	# Handle hour overflow to days
+	# Handle overflow to days
 	if current_hour >= 24:
 		@warning_ignore("integer_division")
-		#var days_to_add = int(current_hour / 24)
-		#current_day_index = (current_day_index + days_to_add) % days_of_week.size()
 		current_hour %= 24
 		advance_day()  # Advance the day
 
@@ -292,6 +313,10 @@ func update_bars():
 	hunger_progress_bar.value = hunger_bar
 	sleep_progress_bar.value = sleep_bar  # Update the sleep progress bar
 	grades_progress_bar.value = grades_bar
+	update_carry_weight_display()
+
+func update_carry_weight_display():
+	$CarryWeightLabel.text = "Carry Weight: %.2f / %d" % [Globals.current_carry_weight, Globals.max_carry_weight()]
 
 #func _on_button_pressed():
 	#skip_time(12)

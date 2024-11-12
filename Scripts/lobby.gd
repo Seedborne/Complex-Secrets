@@ -7,6 +7,7 @@ var in_elevator = false
 var near_button = false
 var button_pressed = false
 var near_entrance = false
+var near_player_mailbox = false
 var buttons = ["ClassButton", "WorkButton1", "WorkButton2", "WorkButton3"]  # Your button list
 var selected_index = 0
 var class_upcoming = false
@@ -40,6 +41,10 @@ func _process(_delta):
 			$VBoxContainer/ClassButton.visible = true
 		elif UI.current_hour == class_hour:
 			$VBoxContainer/ClassButton.visible = false
+	if Globals.mailbox_items.size() > 0:
+		$PlayerMailboxSprite.visible = true
+	else:
+		$PlayerMailboxSprite.visible = false
 
 func _on_elevator_button_area_2d_body_entered(body):
 	if body == player:
@@ -67,6 +72,8 @@ func _input(event):
 		highlight_button(selected_index)
 	elif event.is_action_pressed("ui_interact") and near_entrance and not Globals.at_class and not Globals.at_work:
 		select_button(selected_index)
+	if event.is_action_pressed("ui_interact") and near_player_mailbox:
+		Globals.collect_mail()
 
 func highlight_button(index):
 	# Reset all children to default state
@@ -188,7 +195,7 @@ func _on_work_button_1_pressed():
 		UI.fade_to_black()
 		UI.pause_time()
 		print("At work")
-		await get_tree().create_timer(2.0).timeout
+		await get_tree().create_timer(1.5).timeout
 		$VBoxContainer.visible = false
 		UI.resume_time()
 		UI.skip_time(2)
@@ -222,10 +229,30 @@ func _on_work_button_3_pressed():
 		UI.fade_to_black()
 		UI.pause_time()
 		print("At work")
-		await get_tree().create_timer(2.0).timeout
+		await get_tree().create_timer(2.5).timeout
 		$VBoxContainer.visible = false
 		UI.resume_time()
-		UI.skip_time(8)
-		Globals.increase_player_money(50.00)
+		UI.skip_time(6)
+		Globals.increase_player_money(37.50)
 		Globals.at_work = false
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
+
+func _on_mailbox_area_2d_body_entered(body):
+	if body == player:
+		near_player_mailbox = true
+
+func _on_mailbox_area_2d_body_exited(body):
+	if body == player:
+		near_player_mailbox = false
+
+func _on_test_area_2d_body_entered(body):
+	if body == player:
+		print("Player Stats
+	Speed: ", Globals.player_speed, "
+	Strength: ", Globals.player_strength, "
+	Intelligence: ", Globals.player_intelligence, "
+	Social: ", Globals.player_social, "
+	Stealth: ", Globals.player_stealth
+	)
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3F.tscn")
+		

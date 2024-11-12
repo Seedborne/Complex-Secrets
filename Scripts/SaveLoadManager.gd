@@ -23,8 +23,24 @@ func save_game():
 			"current_minute": UI.current_minute,
 			"current_day_index": UI.current_day_index
 		},
+		"date": {
+			"current_day": UI.current_day,
+			"current_month": UI.current_month,
+			"current_year": UI.current_year
+		},
 		"floor": Globals.current_floor,
-		"location": Globals.current_location
+		"location": Globals.current_location,
+		
+		"inventory": Globals.player_inventory,
+		"carry_weight": Globals.current_carry_weight,
+		"item_stock": Globals.item_stock,
+		
+		"money": Globals.player_money,
+		
+		"delivery_queue": Globals.delivery_queue,
+		"mailbox_items": Globals.mailbox_items,
+		
+		"bookshelf_inventory": Globals.bookshelf_inventory
 	}
 
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
@@ -72,15 +88,30 @@ func apply_loaded_data(save_data):
 	UI.sleep_bar = save_data["bars"]["sleep"]
 	UI.grades_bar = save_data["bars"]["grades"]
 
-	# Restore time and day
+	# Restore time and day of week
 	UI.current_hour = save_data["time"]["current_hour"]
 	UI.current_minute = save_data["time"]["current_minute"]
 	UI.current_day_index = save_data["time"]["current_day_index"]
 
+	# Restore date (day, month, year)
+	UI.current_day = save_data["date"]["current_day"]
+	UI.current_month = save_data["date"]["current_month"]
+	UI.current_year = save_data["date"]["current_year"]
+
 	# Restore location
 	Globals.current_floor = save_data["floor"]
 	Globals.current_location = save_data["location"]
-
-	# Update UI and other elements as needed
+	
+	Globals.player_inventory = save_data["inventory"]
+	Globals.current_carry_weight = save_data["carry_weight"]
+	Globals.item_stock = save_data["item_stock"]
+	
+	Globals.player_money = save_data["money"]
+	
+	Globals.delivery_queue = save_data["delivery_queue"]
+	Globals.mailbox_items = save_data["mailbox_items"]
+	
+	Globals.bookshelf_inventory = save_data["bookshelf_inventory"]
+	
 	UI.update_bars()
 	UI.update_clock_display()

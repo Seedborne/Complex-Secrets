@@ -1,6 +1,7 @@
 extends Control
 
 var amazon_panel_max = true
+@onready var amazon_panel = $AmazonPanel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Globals.on_computer = true
@@ -19,6 +20,8 @@ func _input(event):
 		UI.show_screen_fade()
 		UI.cpu_fade_to_black()
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		if amazon_panel:  # Ensure the reference is valid
+			amazon_panel._on_clear_cart_button_pressed()  # Call the restore_cart_stock function in amazon_panel.gd
 		await get_tree().create_timer(0.2).timeout
 		UI.cpu_fade_from_black_no_audio()
 		UI.show_ui()
@@ -47,10 +50,10 @@ func _on_amazon_button_pressed():
 	$HBoxContainer/AmazonBarButton.visible = true
 
 func _on_amazon_bar_button_pressed():
-	if $AmazonPanel.visible:
-		$AmazonPanel.visible = false
-	else:
-		$AmazonPanel.visible = true
+	if $AmazonPanel.z_index == 0:
+		$AmazonPanel.z_index = -1
+	elif $AmazonPanel.z_index == -1:
+		$AmazonPanel.z_index = 0
 
 func _on_amazon_close_button_pressed():
 	$AmazonPanel.visible = false
@@ -73,4 +76,4 @@ func _on_amazon_max_button_pressed():
 		amazon_panel_max = true
 
 func _on_amazon_min_button_pressed():
-	$AmazonPanel.visible = false
+	$AmazonPanel.z_index = -1

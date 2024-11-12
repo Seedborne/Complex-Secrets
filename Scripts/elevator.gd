@@ -9,6 +9,8 @@ var in_elevator = true
 var near_button = false
 var selected_floor = ""
 var original_position = position
+var elevator_buttons = ["Button0", "Button1", "Button2", "Button3"]  # Your button list
+var elevator_selected_index = 0
 
 func _ready():
 	Globals.current_location = "Elevator"
@@ -31,6 +33,8 @@ func _on_elevator_button_area_2d_body_entered(body):
 		near_button = true
 		if not elevator_open and not elevator_moving:
 			$ElevatorPanel.visible = true
+			elevator_selected_index = 0
+			highlight_button(elevator_selected_index)
 
 func _on_elevator_button_area_2d_body_exited(body):
 	if body == player:
@@ -46,6 +50,37 @@ func _input(event):
 		_on_button_2_pressed()
 	elif event.is_action_pressed("ui_3") and $ElevatorPanel.visible:
 		_on_button_3_pressed()
+	if event.is_action_pressed("scroll_down") and $ElevatorPanel.visible:
+		elevator_selected_index = (elevator_selected_index + 1) % elevator_buttons.size()
+		highlight_button(elevator_selected_index)
+	elif event.is_action_pressed("scroll_up") and $ElevatorPanel.visible:
+		elevator_selected_index = (elevator_selected_index - 1 + elevator_buttons.size()) % elevator_buttons.size()
+		highlight_button(elevator_selected_index)
+	elif event.is_action_pressed("ui_interact") and $ElevatorPanel.visible:
+		select_button(elevator_selected_index)
+
+func highlight_button(index):
+	# Reset all children to default state
+	if $ElevatorPanel.visible:
+		for child in $ElevatorPanel/VBoxContainer.get_children():
+			child.focus_mode = Control.FOCUS_NONE  # Remove highlight
+	# Highlight the selected child
+		var selected_child = $ElevatorPanel/VBoxContainer.get_child(index)
+		selected_child.focus_mode = Control.FOCUS_ALL
+		selected_child.grab_focus()
+
+func select_button(index):
+	if $ElevatorPanel.visible:
+		var selected_button = elevator_buttons[index]
+		print("Selected button: %s" % selected_button)
+		if selected_button == "Button0":
+			_on_button_0_pressed()
+		elif selected_button == "Button1":
+			_on_button_1_pressed()
+		elif selected_button == "Button2":
+			_on_button_2_pressed()
+		elif selected_button == "Button3":
+			_on_button_3_pressed()
 
 func _on_button_0_pressed():
 	selected_floor = "Lobby"
@@ -144,6 +179,8 @@ func _on_elevator_sprite_animation_finished():
 		elevator_open = false
 		if near_button:
 			$ElevatorPanel.visible = true
+			elevator_selected_index = 0
+			highlight_button(elevator_selected_index)
 	elif $ElevatorSprite.animation == "closing" and not in_elevator:
 		$ElevatorButtonSprite0.visible = false
 		$ElevatorButtonSprite1.visible = false

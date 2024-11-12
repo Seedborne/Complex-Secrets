@@ -289,103 +289,102 @@ theme_override_constants/separation = 81
 [node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="IntBook1" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Title of Book
+text = "IntBook1
 + 1 Intelligence
-$0.00
+$50.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="SocBook1" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-disabled = true
-text = "Title of Book
+text = "SocBook1
 + 1 Social
-$0.00
-Sold Out"
+$50.00
+Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="StlBook1" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Title of Book
+text = "StlBook1
 + 1 Stealth
-$0.00
+$50.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="IntBook2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Title of Book
+text = "IntBook2
 + 2 Intelligence
-$0.00
+$100.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="SocBook2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Title of Book
+text = "SocBook2
 + 2 Social
-$0.00
+$100.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="StlBook2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Title of Book
+text = "StlBook2
 + 2 Stealth
-$0.00
+$100.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="IntBook3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Title of Book
+text = "IntBook3
 + 3 Intelligence
-$0.00
+$200.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="SocBook3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Title of Book
+text = "SocBook3
 + 3 Social
-$0.00
+$200.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="StlBook3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Title of Book
+text = "StlBook3
 + 3 Stealth
-$0.00
+$200.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="IntBook4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Title of Book
+text = "IntBook4
 + 4 Intelligence
-$0.00
+$300.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="SocBook4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Title of Book
+text = "SocBook4
 + 4 Social
-$0.00
+$300.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="StlBook4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Title of Book
+text = "StlBook4
 + 4 Stealth
-$0.00
+$300.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
@@ -397,7 +396,7 @@ theme_override_constants/separation = 30
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-text = "Misc"
+text = "Tools"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer2"]
@@ -407,51 +406,51 @@ theme_override_constants/separation = 81
 [node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="BobbyPins" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Bobby Pins x 10
 
-$0.00
+$5.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button2" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="BallPen" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Ballpoint Pen
 
-$0.00
+$10.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button3" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="Scissors" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Scissors
 
-$0.00
+$20.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button4" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="DigCamera" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Digital Camera
 
-$0.00
+$50.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button5" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="VoiceRec" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Voice Recorder
 
-$0.00
+$60.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
-[node name="Button6" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="TrailCam" type="Button" parent="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Mini Trail Cam
 
-$0.00
+$120.00
 Add to Cart"
 icon = ExtResource("5_s5esw")
 
@@ -513,7 +512,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_kr03a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/CartPanel"]
 layout_mode = 0
-offset_right = 371.0
+offset_left = 13.0
+offset_right = 357.0
 offset_bottom = 514.0
 theme_override_constants/separation = 18
 
@@ -526,71 +526,61 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label1" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label2" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label3" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label4" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label5" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label6" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label7" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label8" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label9" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label10" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bobby Pins"
 
 [node name="Label11" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -602,135 +592,118 @@ Total: "
 [node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label1" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label2" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label3" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label4" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label5" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label6" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label7" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label8" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label9" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
 
 [node name="Label10" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Qty: 2"
+
+[node name="Label11" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="Label1" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label2" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label3" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label4" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label5" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label6" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label7" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label8" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label9" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label10" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "$0.00"
 
 [node name="Label11" type="Label" parent="AmazonPanel/CartPanel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "
-$0.00"
 
 [node name="OrderButton" type="Button" parent="AmazonPanel/CartPanel"]
 layout_mode = 1
@@ -739,13 +712,28 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -54.5
-offset_top = -39.0
-offset_right = 55.5
-offset_bottom = -4.0
+offset_left = 68.0
+offset_top = -44.0
+offset_right = 178.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Place Order"
+
+[node name="ClearCartButton" type="Button" parent="AmazonPanel/CartPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -44.0
+offset_right = -92.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Clear Cart"
 
 [node name="CloseCartButton" type="Button" parent="AmazonPanel/CartPanel"]
 layout_mode = 1
@@ -765,8 +753,29 @@ volume_db = 6.0
 
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
+[connection signal="visibility_changed" from="AmazonPanel" to="AmazonPanel" method="_on_visibility_changed"]
 [connection signal="pressed" from="AmazonPanel/Panel/AmazonCloseButton" to="." method="_on_amazon_close_button_pressed"]
 [connection signal="pressed" from="AmazonPanel/Panel/AmazonMaxButton" to="." method="_on_amazon_max_button_pressed"]
 [connection signal="pressed" from="AmazonPanel/Panel/AmazonMinButton" to="." method="_on_amazon_min_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/IntBook1" to="AmazonPanel" method="_on_int_book_1_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/SocBook1" to="AmazonPanel" method="_on_soc_book_1_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/StlBook1" to="AmazonPanel" method="_on_stl_book_1_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/IntBook2" to="AmazonPanel" method="_on_int_book_2_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/SocBook2" to="AmazonPanel" method="_on_soc_book_2_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/StlBook2" to="AmazonPanel" method="_on_stl_book_2_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/IntBook3" to="AmazonPanel" method="_on_int_book_3_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/SocBook3" to="AmazonPanel" method="_on_soc_book_3_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/StlBook3" to="AmazonPanel" method="_on_stl_book_3_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/IntBook4" to="AmazonPanel" method="_on_int_book_4_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/SocBook4" to="AmazonPanel" method="_on_soc_book_4_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/StlBook4" to="AmazonPanel" method="_on_stl_book_4_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/BobbyPins" to="AmazonPanel" method="_on_bobby_pins_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/BallPen" to="AmazonPanel" method="_on_ball_pen_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Scissors" to="AmazonPanel" method="_on_scissors_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/DigCamera" to="AmazonPanel" method="_on_dig_camera_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VoiceRec" to="AmazonPanel" method="_on_voice_rec_pressed"]
+[connection signal="pressed" from="AmazonPanel/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TrailCam" to="AmazonPanel" method="_on_trail_cam_pressed"]
 [connection signal="pressed" from="AmazonPanel/CartButton" to="AmazonPanel" method="_on_cart_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/CartPanel/OrderButton" to="AmazonPanel" method="_on_order_button_pressed"]
+[connection signal="pressed" from="AmazonPanel/CartPanel/ClearCartButton" to="AmazonPanel" method="_on_clear_cart_button_pressed"]
 [connection signal="pressed" from="AmazonPanel/CartPanel/CloseCartButton" to="AmazonPanel" method="_on_close_cart_button_pressed"]
