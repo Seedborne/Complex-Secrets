@@ -93,6 +93,11 @@ script = ExtResource("1_p76vr")
 
 [node name="ClockTimer" type="Timer" parent="."]
 
+[node name="Panel" type="Panel" parent="."]
+offset_left = 1827.0
+offset_right = 1921.0
+offset_bottom = 134.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 1
 anchor_left = 1.0

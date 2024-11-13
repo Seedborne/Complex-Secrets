@@ -187,6 +187,8 @@ func _on_bookshelf_area_2d_body_entered(body):
 		near_bookshelf = true
 		update_bookshelf_display()
 		$BookshelfVBoxContainer.visible = true
+		bookshelf_selected_index = 0
+		bookshelf_highlight_button(bookshelf_selected_index)
 
 func _on_bookshelf_area_2d_body_exited(body):
 	if body == player:

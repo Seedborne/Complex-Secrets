@@ -9,6 +9,7 @@ var at_class = false
 var at_work = false
 var is_sleeping = false
 var is_eating = false
+var is_exercising = false
 var on_computer = false
 var tenant_home = false
 var delivery_queue = []  # Array to store orders scheduled for delivery
@@ -101,13 +102,13 @@ var player_inventory = {
 }
 
 var base_carry_weight = 10.0
-var current_carry_weight = 0.0
+var current_carry_weight = 0.00
 
 var player_speed: int = 250
-var player_strength: int = 1
-var player_intelligence: int = 1
-var player_social: int = 1
-var player_stealth: int = 1
+var player_strength: float = 0.0
+var player_intelligence: int = 0
+var player_social: int = 0
+var player_stealth: int = 0
 
 func _ready():
 	pass
@@ -121,29 +122,34 @@ func max_carry_weight() -> float:
 # Methods to increase stats
 func increase_player_speed(amount: int):
 	player_speed += amount
+	player_speed = clamp(player_speed, 250, 500)
 	print("player_speed increased to ", player_speed)
 
-func increase_player_strength(amount: int):
+func increase_player_strength(amount: float):
 	player_strength += amount
+	player_strength = clamp(player_strength, 0.0, 10.0)
 	print("player_strength increased to ", player_strength)
 
 func increase_player_intelligence(amount: int):
 	player_intelligence += amount
+	player_intelligence = clamp(player_intelligence, 0, 10)
 	print("player_intelligence increased to ", player_intelligence)
 
 func increase_player_social(amount: int):
 	player_social += amount
+	player_social = clamp(player_social, 0, 10)
 	print("player_social increased to ", player_social)
 
 func increase_player_stealth(amount: int):
 	player_stealth += amount
+	player_stealth = clamp(player_stealth, 0, 10)
 	print("player_stealth increased to ", player_stealth)
 
 func increase_player_money(amount: float):
 	player_money += amount
 	print("player_money increased to ", player_money)
 
-func decrease_player_money(amount: int):
+func decrease_player_money(amount: float):
 	player_money -= amount
 	print("player_money decreased to ", player_money)
 

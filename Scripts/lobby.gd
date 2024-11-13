@@ -23,6 +23,12 @@ func _ready():
 		player.position = Vector2(1380, 260)
 		Globals.current_location = "Lobby"
 		$ElevatorSprite.play("closed")
+	elif Globals.current_location == "Gym":
+		player.position = Vector2(1800, 635)
+		Globals.current_location = "Lobby"
+	elif Globals.current_location == "Coffee Shop":
+		player.position = Vector2(125, 615)
+		Globals.current_location = "Lobby"
 	else:
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"

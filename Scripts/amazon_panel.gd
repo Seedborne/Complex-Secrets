@@ -400,7 +400,7 @@ func update_cart_display():
 	$CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2/Label11.text = "\n" + "$" + str(total_cost)
 
 func purchase_items():
-	var total_cost = int($CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2/Label11.text.split("$")[1])  # Extract total cost from Label11
+	var total_cost = float($CartPanel/VBoxContainer/HBoxContainer/VBoxContainer2/Label11.text.split("$")[1])  # Extract total cost from Label11
 	if Globals.player_money >= total_cost:
 		Globals.decrease_player_money(total_cost)
 		var items_to_deliver = {}

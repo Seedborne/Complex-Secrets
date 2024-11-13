@@ -109,11 +109,13 @@ func advance_day():
 	current_day_index = (current_day_index + 1) % 7
 
 func hide_ui():
+	$Panel.visible = false
 	$VBoxContainer.visible = false
 	$VBoxContainer2.visible = false
 	$CarryWeightLabel.visible = false
 
 func show_ui():
+	$Panel.visible = true
 	$VBoxContainer.visible = true
 	$VBoxContainer2.visible = true
 	$CarryWeightLabel.visible = true
@@ -141,7 +143,7 @@ func eat_food(amount: float):
 
 func sleep_for_hours(hours: int):
 	Globals.is_sleeping = true
-	sleep_bar += hours * 10  # Refill rate, adjust as needed
+	sleep_bar += hours * 12.5  # Refill rate, adjust as needed
 	sleep_bar = clamp(sleep_bar, 0, 100)
 	skip_time(hours)
 	print("Sleep bar refilled to ", sleep_bar)
@@ -153,7 +155,7 @@ func attend_class():
 	print("At class")
 	await get_tree().create_timer(2.0).timeout
 	resume_time()
-	grades_bar += grades_gain_per_class + (Globals.player_intelligence * 0.5)  # Intelligence boosts class effect
+	grades_bar += grades_gain_per_class + (Globals.player_intelligence * 1.0)  # Intelligence boosts class effect
 	grades_bar = clamp(grades_bar, 0, 100)
 	skip_time(2)
 	Globals.at_class = false
@@ -162,7 +164,7 @@ func attend_class():
 
 # Method for missing class
 func miss_class():
-	grades_bar -= grades_loss_per_missed_class - (Globals.player_intelligence * 0.2)  # Intelligence reduces loss
+	grades_bar -= grades_loss_per_missed_class - (Globals.player_intelligence * 0.5)  # Intelligence reduces loss
 	grades_bar = clamp(grades_bar, 0, 100)
 	update_bars()
 	print("Missed class, grades bar reduced to ", grades_bar)
@@ -219,21 +221,29 @@ func skip_time(hours: int):
 		current_hour %= 24
 		for day in range(days_to_add):
 			advance_day()
-	# Drain sleep bar if not sleeping
-	if not Globals.is_sleeping and not Globals.is_eating:
-		var hunger_drain = hours * 60 * hunger_drain_rate 
-		hunger_bar -= hunger_drain
-		hunger_bar = clamp(hunger_bar, 0, 100)
-		var sleep_drain = hours * 60 * sleep_drain_rate  # Calculate sleep drain over the skipped time
-		sleep_bar -= sleep_drain
-		sleep_bar = clamp(sleep_bar, 0, 100)
-	elif Globals.is_sleeping and not Globals.is_eating:
+	if Globals.is_sleeping:
 		var hunger_drain = hours * 60 * (hunger_drain_rate / 4)
 		hunger_bar -= hunger_drain
 		hunger_bar = clamp(hunger_bar, 0, 100)
 		Globals.is_sleeping = false
-	elif Globals.is_eating and not Globals.is_sleeping:
-		var sleep_drain = hours * 60 * (sleep_drain_rate / 2)  # Calculate sleep drain over the skipped time
+		print("Sleeping, reduced hunger drain")
+	elif Globals.is_eating:
+		var sleep_drain = hours * 60 * sleep_drain_rate
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+	elif Globals.is_exercising:
+		var hunger_drain = hours * 60 * (hunger_drain_rate * 2)
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		var sleep_drain = hours * 60 * (sleep_drain_rate * 4)  # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+		print("Exercising, increased hunger and sleep drain")
+	else:
+		var hunger_drain = hours * 60 * hunger_drain_rate 
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		var sleep_drain = hours * 60 * sleep_drain_rate  # Calculate sleep drain over the skipped time
 		sleep_bar -= sleep_drain
 		sleep_bar = clamp(sleep_bar, 0, 100)
 	update_bars()
@@ -279,21 +289,29 @@ func skip_time_minutes(minutes: int):
 		@warning_ignore("integer_division")
 		current_hour %= 24
 		advance_day()  # Advance the day
-
-	if not Globals.is_sleeping and not Globals.is_eating:
+	if Globals.is_sleeping:
+		var hunger_drain = minutes * (hunger_drain_rate / 4)
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		Globals.is_sleeping = false
+		print("Sleeping, reduced hunger drain")
+	elif Globals.is_eating:
+		var sleep_drain = minutes * sleep_drain_rate # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+	elif Globals.is_exercising:
+		var hunger_drain = minutes * (hunger_drain_rate * 2)
+		hunger_bar -= hunger_drain
+		hunger_bar = clamp(hunger_bar, 0, 100)
+		var sleep_drain = minutes * (sleep_drain_rate * 4)  # Calculate sleep drain over the skipped time
+		sleep_bar -= sleep_drain
+		sleep_bar = clamp(sleep_bar, 0, 100)
+		print("Exercising, increased hunger and sleep drain")
+	else:
 		var hunger_drain = minutes * hunger_drain_rate 
 		hunger_bar -= hunger_drain
 		hunger_bar = clamp(hunger_bar, 0, 100)
 		var sleep_drain = minutes * sleep_drain_rate  # Calculate sleep drain over the skipped time
-		sleep_bar -= sleep_drain
-		sleep_bar = clamp(sleep_bar, 0, 100)
-	elif Globals.is_sleeping and not Globals.is_eating:
-		var hunger_drain = minutes * (hunger_drain_rate / 2)
-		hunger_bar -= hunger_drain
-		hunger_bar = clamp(hunger_bar, 0, 100)
-		Globals.is_sleeping = false
-	elif Globals.is_eating and not Globals.is_sleeping:
-		var sleep_drain = minutes * (sleep_drain_rate / 2)  # Calculate sleep drain over the skipped time
 		sleep_bar -= sleep_drain
 		sleep_bar = clamp(sleep_bar, 0, 100)
 	update_bars()

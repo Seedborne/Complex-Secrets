@@ -1,3 +1,216 @@
-[gd_scene format=3 uid="uid://bkta6qu46hvie"]
+[gd_scene load_steps=15 format=3 uid="uid://bkta6qu46hvie"]
+
+[ext_resource type="Script" path="res://Scripts/gym.gd" id="1_12jee"]
+[ext_resource type="Texture2D" uid="uid://bpv4lj7pwfqmy" path="res://Assets/testgym.png" id="1_lg2t4"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_yqmfc"]
+a = Vector2(0, 1080)
+b = Vector2(-1, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_qhjp5"]
+a = Vector2(-1924, 1081)
+b = Vector2(-1, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h8sk"]
+size = Vector2(71.5, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a65yk"]
+size = Vector2(73, 347)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nndrg"]
+size = Vector2(1916, 182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkrih"]
+size = Vector2(66, 898)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p8od"]
+size = Vector2(39, 168)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcqng"]
+size = Vector2(69, 184)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86f2o"]
+size = Vector2(80, 195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmi6v"]
+size = Vector2(66, 185)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddk21"]
+size = Vector2(140, 109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xvl7"]
+size = Vector2(158, 124)
 
 [node name="Gym" type="Node2D"]
+script = ExtResource("1_12jee")
+
+[node name="GymSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_lg2t4")
+centered = false
+
+[node name="BoundaryBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryBody2D"]
+shape = SubResource("SegmentShape2D_yqmfc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(1922, 0)
+shape = SubResource("SegmentShape2D_qhjp5")
+
+[node name="WallBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(37.25, 888)
+shape = SubResource("RectangleShape2D_8h8sk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(36.5, 353.5)
+shape = SubResource("RectangleShape2D_a65yk")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(961, 91)
+shape = SubResource("RectangleShape2D_nndrg")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WallBody2D"]
+position = Vector2(1886, 631)
+shape = SubResource("RectangleShape2D_pkrih")
+
+[node name="LobbyArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LobbyArea2D"]
+position = Vector2(19.5, 611)
+shape = SubResource("RectangleShape2D_5p8od")
+
+[node name="TreadmillBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillBody2D"]
+position = Vector2(325.5, 359)
+shape = SubResource("RectangleShape2D_xcqng")
+
+[node name="TreadmillArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillArea2D"]
+position = Vector2(325, 359.5)
+shape = SubResource("RectangleShape2D_86f2o")
+
+[node name="TreadmillBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillBody2D2"]
+position = Vector2(463, 360.5)
+shape = SubResource("RectangleShape2D_kmi6v")
+
+[node name="TreadmillArea2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillArea2D2"]
+position = Vector2(463, 360)
+shape = SubResource("RectangleShape2D_86f2o")
+
+[node name="TreadmillBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillBody2D3"]
+position = Vector2(603, 361)
+shape = SubResource("RectangleShape2D_xcqng")
+
+[node name="TreadmillArea2D3" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillArea2D3"]
+position = Vector2(603, 361)
+shape = SubResource("RectangleShape2D_86f2o")
+
+[node name="TreadmillBody2D4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillBody2D4"]
+position = Vector2(740, 363)
+shape = SubResource("RectangleShape2D_kmi6v")
+
+[node name="TreadmillArea2D4" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreadmillArea2D4"]
+position = Vector2(740, 362)
+shape = SubResource("RectangleShape2D_86f2o")
+
+[node name="TreadmillVBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 127.0
+offset_top = 317.0
+offset_right = 266.0
+offset_bottom = 422.0
+
+[node name="Button1" type="Button" parent="TreadmillVBoxContainer"]
+layout_mode = 2
+text = "Run for 30 mins"
+
+[node name="Button2" type="Button" parent="TreadmillVBoxContainer"]
+layout_mode = 2
+text = "Run for 1 hr"
+
+[node name="Button3" type="Button" parent="TreadmillVBoxContainer"]
+layout_mode = 2
+text = "Run for 2 hrs"
+
+[node name="WorkoutBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkoutBody2D"]
+position = Vector2(371, 991)
+shape = SubResource("RectangleShape2D_ddk21")
+
+[node name="WorkoutArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkoutArea2D"]
+position = Vector2(371, 991)
+shape = SubResource("RectangleShape2D_2xvl7")
+
+[node name="WorkoutBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkoutBody2D2"]
+position = Vector2(632, 992)
+shape = SubResource("RectangleShape2D_ddk21")
+
+[node name="WorkoutArea2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkoutArea2D2"]
+position = Vector2(632, 992)
+shape = SubResource("RectangleShape2D_2xvl7")
+
+[node name="WorkoutVBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 420.0
+offset_top = 941.0
+offset_right = 591.0
+offset_bottom = 1042.0
+
+[node name="Button4" type="Button" parent="WorkoutVBoxContainer"]
+layout_mode = 2
+text = "Work out for 30 mins"
+
+[node name="Button5" type="Button" parent="WorkoutVBoxContainer"]
+layout_mode = 2
+text = "Work out for 1 hr"
+
+[node name="Button6" type="Button" parent="WorkoutVBoxContainer"]
+layout_mode = 2
+text = "Work out for 2 hrs"
+
+[node name="ExerciseDelay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="LobbyArea2D" to="." method="_on_lobby_area_2d_body_entered"]
+[connection signal="body_entered" from="TreadmillArea2D" to="." method="_on_treadmill_area_2d_body_entered"]
+[connection signal="body_exited" from="TreadmillArea2D" to="." method="_on_treadmill_area_2d_body_exited"]
+[connection signal="body_entered" from="TreadmillArea2D2" to="." method="_on_treadmill_area_2d_body_entered"]
+[connection signal="body_exited" from="TreadmillArea2D2" to="." method="_on_treadmill_area_2d_body_exited"]
+[connection signal="body_entered" from="TreadmillArea2D3" to="." method="_on_treadmill_area_2d_body_entered"]
+[connection signal="body_exited" from="TreadmillArea2D3" to="." method="_on_treadmill_area_2d_body_exited"]
+[connection signal="body_entered" from="TreadmillArea2D4" to="." method="_on_treadmill_area_2d_body_entered"]
+[connection signal="body_exited" from="TreadmillArea2D4" to="." method="_on_treadmill_area_2d_body_exited"]
+[connection signal="pressed" from="TreadmillVBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="TreadmillVBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="TreadmillVBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="body_entered" from="WorkoutArea2D" to="." method="_on_workout_area_2d_body_entered"]
+[connection signal="body_exited" from="WorkoutArea2D" to="." method="_on_workout_area_2d_body_exited"]
+[connection signal="body_entered" from="WorkoutArea2D2" to="." method="_on_workout_area_2d_body_entered"]
+[connection signal="body_exited" from="WorkoutArea2D2" to="." method="_on_workout_area_2d_body_exited"]
+[connection signal="pressed" from="WorkoutVBoxContainer/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="WorkoutVBoxContainer/Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="WorkoutVBoxContainer/Button6" to="." method="_on_button_6_pressed"]
+[connection signal="timeout" from="ExerciseDelay" to="." method="_on_exercise_delay_timeout"]
