@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bj2xgfe2by3v4"]
+[gd_scene load_steps=12 format=3 uid="uid://bj2xgfe2by3v4"]
 
 [ext_resource type="Texture2D" uid="uid://bitx2ub4hknq7" path="res://Assets/computerbackground.png" id="1_qttr1"]
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ty0l2"]
@@ -8,11 +8,14 @@
 [ext_resource type="AudioStream" uid="uid://dh2igt0vmlubq" path="res://Audio/click-pixabay.mp3" id="5_qamt1"]
 [ext_resource type="Texture2D" uid="uid://dlelwvcwhieej" path="res://icon.svg" id="5_s5esw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb7s1"]
-bg_color = Color(0.720467, 0.720468, 0.720467, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxbic"]
+bg_color = Color(0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i22qh"]
 bg_color = Color(0.12549, 0.137255, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb7s1"]
+bg_color = Color(0.720467, 0.720468, 0.720467, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kr03a"]
 bg_color = Color(0.721569, 0.721569, 0.721569, 1)
@@ -205,6 +208,62 @@ visible = false
 layout_mode = 2
 text = "SpyApp"
 
+[node name="ZMailPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1014.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gxbic")
+
+[node name="Panel" type="Panel" parent="ZMailPanel"]
+offset_right = 1920.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
+
+[node name="Label" type="Label" parent="ZMailPanel/Panel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 110.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 32
+text = "ZMail"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ZMailCloseButton" type="Button" parent="ZMailPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="ZMailMaxButton" type="Button" parent="ZMailPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -54.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "o"
+
+[node name="ZMailMinButton" type="Button" parent="ZMailPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -108.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "-"
+
 [node name="AmazonPanel" type="Panel" parent="."]
 visible = false
 layout_mode = 0
@@ -221,8 +280,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
 
 [node name="Label" type="Label" parent="AmazonPanel/Panel"]
 layout_mode = 0
-offset_right = 167.0
-offset_bottom = 45.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 169.0
+offset_bottom = 47.0
 theme_override_font_sizes/font_size = 32
 text = "Shopazon"
 horizontal_alignment = 1
@@ -753,6 +814,10 @@ volume_db = 6.0
 
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/EmailBarButton" to="." method="_on_email_bar_button_pressed"]
+[connection signal="pressed" from="ZMailPanel/Panel/ZMailCloseButton" to="." method="_on_z_mail_close_button_pressed"]
+[connection signal="pressed" from="ZMailPanel/Panel/ZMailMaxButton" to="." method="_on_z_mail_max_button_pressed"]
+[connection signal="pressed" from="ZMailPanel/Panel/ZMailMinButton" to="." method="_on_z_mail_min_button_pressed"]
 [connection signal="visibility_changed" from="AmazonPanel" to="AmazonPanel" method="_on_visibility_changed"]
 [connection signal="pressed" from="AmazonPanel/Panel/AmazonCloseButton" to="." method="_on_amazon_close_button_pressed"]
 [connection signal="pressed" from="AmazonPanel/Panel/AmazonMaxButton" to="." method="_on_amazon_max_button_pressed"]

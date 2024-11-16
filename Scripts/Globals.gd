@@ -1,5 +1,6 @@
 extends Node
 
+var new_game = false
 var in_game = false
 var current_location = ""
 var current_floor = 0
@@ -54,7 +55,10 @@ var item_categories = {
 	"StlBook3": "Books",
 	"IntBook4": "Books",
 	"SocBook4": "Books",
-	"StlBook4": "Books",   
+	"StlBook4": "Books",  
+	"Gym Key": "Keys",
+	"Mail Key 3F": "Keys",
+	"Unit Key 3F": "Keys", 
 	# Add other items and their categories here
 }
 var item_weights = {
@@ -76,6 +80,9 @@ var item_weights = {
 	"IntBook4": 2.0,
 	"SocBook4": 2.0,
 	"StlBook4": 2.0,
+	"Gym Key": 0.1,
+	"Mail Key 3F": 0.1,
+	"Unit Key 3F": 0.1,
 	# Add weights for other items
 }
 var bookshelf_inventory = {}
@@ -99,6 +106,7 @@ var player_money: float = 0.00
 var player_inventory = {
 	"Books": {},
 	"Tools": {},
+	"Keys": {},
 }
 
 var base_carry_weight = 10.0
@@ -110,11 +118,78 @@ var player_intelligence: int = 0
 var player_social: int = 0
 var player_stealth: int = 0
 
-func _ready():
-	pass
-	
+var events = [
+	{
+		"name": "email_event",
+		"triggered": false,
+		"year": 2007,
+		"month": 09,
+		"day": 02,
+		"hour": 8,
+		"minute": 30,
+		"callback": "trigger_email_event"
+	},
+	{
+		"name": "story_event",
+		"triggered": false,
+		"year": 2007,
+		"month": 09,
+		"day": 02,
+		"hour": 10,
+		"minute": 15,
+		"callback": "trigger_story_event"
+	}
+	# Add more events here...
+]
+
 func _process(_delta):
-	pass
+	for event in events:
+		if not event["triggered"] and is_datetime_or_later(
+			event["day"],
+			event["month"],
+			event["year"],
+			event["hour"],
+			event["minute"]
+		):
+			# Call the specified callback function dynamically
+			if has_method(event["callback"]):
+				call(event["callback"])
+				event["triggered"] = true  # Mark the event as triggered
+			else:
+				print("Error: Callback '%s' not found!" % event["callback"])
+
+func is_datetime_or_later(target_day: int, target_month: int, target_year: int, target_hour: int = 0, target_minute: int = 0) -> bool:
+	if UI.current_year > target_year:
+		return true
+	elif UI.current_year == target_year:
+		if UI.current_month > target_month:
+			return true
+		elif UI.current_month == target_month:
+			if UI.current_day > target_day:
+				return true
+			elif UI.current_day == target_day:
+				# Compare time if the date matches
+				if UI.current_hour > target_hour:
+					return true
+				elif UI.current_hour == target_hour:
+					if UI.current_minute >= target_minute:
+						return true
+	return false
+
+func check_and_trigger_events():
+	for event in events:
+		if not event["triggered"]:
+			if is_datetime_or_later(event["day"], event["month"], event["year"], event["hour"], event["minute"]):
+				call(event["callback"])
+				event["triggered"] = true  # Mark as triggered
+
+func trigger_email_event():
+	print("An email has arrived!")
+	# Your email logic here
+
+func trigger_story_event():
+	print("Story event triggered!")
+	# Your story logic here
 
 func max_carry_weight() -> float:
 	return base_carry_weight + (player_strength * 2.5)
@@ -249,6 +324,14 @@ func remove_from_inventory(item_name: String, quantity: int):
 		print("Removed", quantity, item_name, "from", category, "inventory.")
 	else:
 		print("Item not in inventory.")
+
+func has_item_in_inventory(item_name: String) -> bool:
+
+	var category = item_categories.get(item_name)
+	if category:
+		# Check if the item exists in the player's inventory and has a quantity > 0
+		return player_inventory[category].has(item_name) and player_inventory[category][item_name] > 0
+	return false
 
 func check_tenant_availability():
 	tenant_home = true

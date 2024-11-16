@@ -29,10 +29,17 @@ func _ready():
 	elif Globals.current_location == "Coffee Shop":
 		player.position = Vector2(125, 615)
 		Globals.current_location = "Lobby"
-	else:
+	elif Globals.at_class or Globals.at_work or Globals.new_game:
+		Globals.new_game = false
+		Globals.at_class = false
+		Globals.at_work = false
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"
-		$VBoxContainer.visible = false
+	else:
+		#player.position = Vector2(950, 950)
+		Globals.current_location = "Lobby"
+
+	$VBoxContainer.visible = false
 	Globals.current_floor = 0
 	add_child(player)
 	player.can_move = true
@@ -51,6 +58,18 @@ func _process(_delta):
 		$PlayerMailboxSprite.visible = true
 	else:
 		$PlayerMailboxSprite.visible = false
+	if UI.current_day_index == 0:
+		$CoffeeShopBody2D/CollisionShape2D.disabled = false
+	elif UI.current_hour >= 14:
+		$CoffeeShopBody2D/CollisionShape2D.disabled = false
+	elif UI.current_hour <= 5:
+		$CoffeeShopBody2D/CollisionShape2D.disabled = false
+	else:
+		$CoffeeShopBody2D/CollisionShape2D.disabled = true
+	if Globals.has_item_in_inventory("Gym Key"):
+		$GymBody2D/CollisionShape2D.disabled = true
+	else:
+		$GymBody2D/CollisionShape2D.disabled = false
 
 func _on_elevator_button_area_2d_body_entered(body):
 	if body == player:
@@ -206,7 +225,6 @@ func _on_work_button_1_pressed():
 		UI.resume_time()
 		UI.skip_time(2)
 		Globals.increase_player_money(12.50)
-		Globals.at_work = false
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_work_button_2_pressed():
@@ -223,7 +241,6 @@ func _on_work_button_2_pressed():
 		UI.resume_time()
 		UI.skip_time(4)
 		Globals.increase_player_money(25.00)
-		Globals.at_work = false
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_work_button_3_pressed():
@@ -240,7 +257,6 @@ func _on_work_button_3_pressed():
 		UI.resume_time()
 		UI.skip_time(6)
 		Globals.increase_player_money(37.50)
-		Globals.at_work = false
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_mailbox_area_2d_body_entered(body):

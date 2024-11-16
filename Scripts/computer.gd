@@ -1,6 +1,8 @@
 extends Control
 
 var amazon_panel_max = true
+var zmail_panel_max = true
+
 @onready var amazon_panel = $AmazonPanel
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -77,3 +79,29 @@ func _on_amazon_max_button_pressed():
 
 func _on_amazon_min_button_pressed():
 	$AmazonPanel.z_index = -1
+
+func _on_email_bar_button_pressed():
+	if $ZMailPanel.z_index == 0:
+		$ZMailPanel.z_index = -1
+	elif $ZMailPanel.z_index == -1:
+		$ZMailPanel.z_index = 0
+
+
+func _on_z_mail_close_button_pressed():
+	pass # Replace with function body.
+
+
+func _on_z_mail_max_button_pressed():
+	if zmail_panel_max:
+		$ZMailPanel.scale = Vector2(0.7, 0.7)
+		$ZMailPanel.position = Vector2(200, 100)
+		$ZMailPanel/Panel/ZMailMaxButton.text = "O"
+		zmail_panel_max = false
+	else:
+		$ZMailPanel.scale = Vector2(1.0, 1.0)
+		$ZMailPanel.position = Vector2(0, 0)
+		$ZMailPanel/Panel/ZMailMaxButton.text = "o"
+		zmail_panel_max = true
+
+func _on_z_mail_min_button_pressed():
+	$ZMailPanel.z_index = -1

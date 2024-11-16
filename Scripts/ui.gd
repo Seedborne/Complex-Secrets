@@ -158,7 +158,6 @@ func attend_class():
 	grades_bar += grades_gain_per_class + (Globals.player_intelligence * 1.0)  # Intelligence boosts class effect
 	grades_bar = clamp(grades_bar, 0, 100)
 	skip_time(2)
-	Globals.at_class = false
 	print("Attended class, grades bar refilled to ", grades_bar)
 	get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 

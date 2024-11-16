@@ -278,11 +278,25 @@ shape = SubResource("RectangleShape2D_knis6")
 position = Vector2(19.5, 611)
 shape = SubResource("RectangleShape2D_cbty0")
 
+[node name="CoffeeShopBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CoffeeShopBody2D"]
+position = Vector2(52, 611)
+shape = SubResource("RectangleShape2D_cbty0")
+disabled = true
+
 [node name="GymArea2D2" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GymArea2D2"]
 position = Vector2(1905, 637.75)
 shape = SubResource("RectangleShape2D_p5eiq")
+
+[node name="GymBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GymBody2D"]
+position = Vector2(1871, 638)
+shape = SubResource("RectangleShape2D_p5eiq")
+disabled = true
 
 [node name="EntranceArea2D" type="Area2D" parent="."]
 
