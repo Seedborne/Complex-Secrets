@@ -92,7 +92,7 @@ func _on_lobby_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		player.can_move = true
 		UI.fade_from_black()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Lobby.tscn")
@@ -114,7 +114,7 @@ func _on_button_1_pressed():
 	player.can_move = false
 	UI.fade_to_black()
 	UI.pause_time()
-	await get_tree().create_timer(1.5).timeout
+	await Globals.create_tracked_timer(1.5).timeout
 	Globals.increase_player_speed(5)
 	UI.resume_time()
 	UI.skip_time_minutes(30)
@@ -129,7 +129,7 @@ func _on_button_2_pressed():
 	player.can_move = false
 	UI.fade_to_black()
 	UI.pause_time()
-	await get_tree().create_timer(2.0).timeout
+	await Globals.create_tracked_timer(2.0).timeout
 	Globals.increase_player_speed(10)
 	UI.resume_time()
 	UI.skip_time(1)
@@ -144,7 +144,7 @@ func _on_button_3_pressed():
 	player.can_move = false
 	UI.fade_to_black()
 	UI.pause_time()
-	await get_tree().create_timer(2.5).timeout
+	await Globals.create_tracked_timer(2.5).timeout
 	Globals.increase_player_speed(20)
 	UI.resume_time()
 	UI.skip_time(2)
@@ -171,7 +171,7 @@ func _on_button_4_pressed():
 	player.can_move = false
 	UI.fade_to_black()
 	UI.pause_time()
-	await get_tree().create_timer(1.5).timeout
+	await Globals.create_tracked_timer(1.5).timeout
 	Globals.increase_player_strength(0.2)
 	UI.resume_time()
 	UI.skip_time_minutes(30)
@@ -186,7 +186,7 @@ func _on_button_5_pressed():
 	player.can_move = false
 	UI.fade_to_black()
 	UI.pause_time()
-	await get_tree().create_timer(2.0).timeout
+	await Globals.create_tracked_timer(2.0).timeout
 	Globals.increase_player_strength(0.4)
 	UI.resume_time()
 	UI.skip_time(1)
@@ -201,7 +201,7 @@ func _on_button_6_pressed():
 	player.can_move = false
 	UI.fade_to_black()
 	UI.pause_time()
-	await get_tree().create_timer(2.5).timeout
+	await Globals.create_tracked_timer(2.5).timeout
 	Globals.increase_player_strength(0.8)
 	UI.resume_time()
 	UI.skip_time(2)

@@ -1,8 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca4hkm5cbqirs"]
+[gd_scene load_steps=6 format=3 uid="uid://ca4hkm5cbqirs"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_lbnfu"]
-[ext_resource type="Texture2D" uid="uid://dlelwvcwhieej" path="res://icon.svg" id="2_bi74i"]
+[ext_resource type="Texture2D" uid="uid://bttih1oqxnety" path="res://Assets/hoodieguy1.png" id="2_ltelm"]
 [ext_resource type="Script" path="res://Scripts/player_camera.gd" id="3_do6fg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7mda"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ltelm")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ltelm")
+}],
+"loop": true,
+"name": &"idle_side",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ltelm")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ltelm")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk_up",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7m5jc"]
 size = Vector2(56, 52)
@@ -10,9 +55,10 @@ size = Vector2(56, 52)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_lbnfu")
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
-scale = Vector2(0.4375, 0.8)
-texture = ExtResource("2_bi74i")
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -20)
+sprite_frames = SubResource("SpriteFrames_e7mda")
+animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 25)

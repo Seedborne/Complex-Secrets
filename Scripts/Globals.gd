@@ -2,6 +2,7 @@ extends Node
 
 var new_game = false
 var in_game = false
+var game_over = false
 var current_location = ""
 var current_floor = 0
 var climbing_stairs = false
@@ -118,78 +119,33 @@ var player_intelligence: int = 0
 var player_social: int = 0
 var player_stealth: int = 0
 
-var events = [
-	{
-		"name": "email_event",
-		"triggered": false,
-		"year": 2007,
-		"month": 09,
-		"day": 02,
-		"hour": 8,
-		"minute": 30,
-		"callback": "trigger_email_event"
-	},
-	{
-		"name": "story_event",
-		"triggered": false,
-		"year": 2007,
-		"month": 09,
-		"day": 02,
-		"hour": 10,
-		"minute": 15,
-		"callback": "trigger_story_event"
-	}
-	# Add more events here...
-]
+var active_timers = []
+
+func _ready():
+	pass # Replace with function body.
 
 func _process(_delta):
-	for event in events:
-		if not event["triggered"] and is_datetime_or_later(
-			event["day"],
-			event["month"],
-			event["year"],
-			event["hour"],
-			event["minute"]
-		):
-			# Call the specified callback function dynamically
-			if has_method(event["callback"]):
-				call(event["callback"])
-				event["triggered"] = true  # Mark the event as triggered
-			else:
-				print("Error: Callback '%s' not found!" % event["callback"])
+	pass
 
-func is_datetime_or_later(target_day: int, target_month: int, target_year: int, target_hour: int = 0, target_minute: int = 0) -> bool:
-	if UI.current_year > target_year:
-		return true
-	elif UI.current_year == target_year:
-		if UI.current_month > target_month:
-			return true
-		elif UI.current_month == target_month:
-			if UI.current_day > target_day:
-				return true
-			elif UI.current_day == target_day:
-				# Compare time if the date matches
-				if UI.current_hour > target_hour:
-					return true
-				elif UI.current_hour == target_hour:
-					if UI.current_minute >= target_minute:
-						return true
-	return false
+func create_tracked_timer(duration: float) -> SceneTreeTimer:
+	# Create the timer
+	var timer = get_tree().create_timer(duration)
+	# Add it to the active timers list
+	active_timers.append(timer)
+	# Connect the timeout signal and bind the timer instance
+	timer.timeout.connect(_on_timer_timeout.bind(timer))
+	return timer
 
-func check_and_trigger_events():
-	for event in events:
-		if not event["triggered"]:
-			if is_datetime_or_later(event["day"], event["month"], event["year"], event["hour"], event["minute"]):
-				call(event["callback"])
-				event["triggered"] = true  # Mark as triggered
+func _on_timer_timeout(timer: SceneTreeTimer) -> void:
+	# Remove the specific timer from the active list
+	if timer in active_timers:
+		active_timers.erase(timer)
+	else:
+		print("Timer not found in active_timers!")
 
-func trigger_email_event():
-	print("An email has arrived!")
-	# Your email logic here
-
-func trigger_story_event():
-	print("Story event triggered!")
-	# Your story logic here
+func can_pause_game() -> bool:
+	# Check if there are any active timers
+	return active_timers.is_empty()
 
 func max_carry_weight() -> float:
 	return base_carry_weight + (player_strength * 2.5)
@@ -228,11 +184,18 @@ func decrease_player_money(amount: float):
 	player_money -= amount
 	print("player_money decreased to ", player_money)
 
+func schedule_keys_delivery():
+	var keys_package = {
+		"Unit Key 3F": {"quantity": 1},  # Match the expected format
+		"Mail Key 3F": {"quantity": 1},
+		"Gym Key": {"quantity": 1}
+	}
+	mailbox_items.append(keys_package)  # Add the delivery directly to mailbox_items
+
 func schedule_delivery(items: Dictionary, order_date: Dictionary):
 	var delivery_day = order_date["day"]
 	var delivery_month = order_date["month"]
 	var delivery_year = order_date["year"]
-	
 	# Calculate the delivery date, considering the no-Sunday delivery rule
 	# Advance to the next day, unless it's Saturday or Sunday
 	if UI.days_of_week[order_date["day_index"]] == "Saturday":

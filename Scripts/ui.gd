@@ -16,7 +16,7 @@ var hunger_bar: float = 100.0  # Starts at full
 var hunger_drain_rate: float = 0.2  # Amount it drains per minute
 # Properties for grades
 var grades_bar: float = 100.0  # Starts at full
-var grades_loss_per_missed_class: float = 15.0  # Grade loss for skipping class
+var grades_loss_per_missed_class: float = 30.0  # Grade loss for skipping class
 var grades_gain_per_class: float = 10.0  # Grade gain for attending class
 var class_schedule: Dictionary = {
 	#"Sunday": [9], #test class
@@ -24,6 +24,13 @@ var class_schedule: Dictionary = {
 	"Wednesday": [9, 15],  # Example schedule
 	"Friday": [13]  # Single class on Friday
 }
+
+@onready var bars = [
+		$VBoxContainer2/HungerBar,
+		$VBoxContainer2/SleepBar,
+		$VBoxContainer2/GradesBar
+	]
+	
 @onready var clock_timer: Timer = $ClockTimer
 @onready var clock_label: Label = $VBoxContainer/ClockLabel
 @onready var day_label: Label = $VBoxContainer/DayLabel
@@ -56,7 +63,6 @@ func _on_clock_timer_timeout():
 		advance_day()
 
 	update_clock_display()
-	update_date_display()
 	sleep_bar -= sleep_drain_rate
 	sleep_bar = clamp(sleep_bar, 0, 100)
 	hunger_bar -= hunger_drain_rate
@@ -70,6 +76,32 @@ func _on_clock_timer_timeout():
 			miss_class()
 	if current_hour == 9 and current_minute == 0:
 		check_for_deliveries()
+
+func _on_hunger_bar_value_changed(new_value: float):
+	_update_fill_color($VBoxContainer2/HungerBar, new_value)
+
+
+func _on_sleep_bar_value_changed(new_value: float):
+	_update_fill_color($VBoxContainer2/SleepBar, new_value)
+
+func _on_grades_bar_value_changed(new_value: float):
+	_update_fill_color($VBoxContainer2/GradesBar, new_value)
+
+func _update_fill_color(bar: ProgressBar, value: float):
+	# Access the StyleBoxFlat used in the fill property
+	var style_box = bar.get_theme_stylebox("fill", "ProgressBar")
+	if not style_box or not style_box is StyleBoxFlat:
+		print("Fill stylebox is not set or not a StyleBoxFlat.")
+		return
+	if value <= 25:
+		style_box.bg_color = Color.RED
+	elif value <= 50:
+		style_box.bg_color = Color.YELLOW
+	else:
+		style_box.bg_color = Color.WEB_GREEN
+
+	# Apply the updated stylebox back to the ProgressBar
+	bar.add_theme_stylebox_override("fill", style_box)
 
 func check_for_deliveries():
 	var delivery_today = false
@@ -153,7 +185,7 @@ func attend_class():
 	fade_to_black()
 	pause_time()
 	print("At class")
-	await get_tree().create_timer(2.0).timeout
+	await Globals.create_tracked_timer(2.0).timeout
 	resume_time()
 	grades_bar += grades_gain_per_class + (Globals.player_intelligence * 1.0)  # Intelligence boosts class effect
 	grades_bar = clamp(grades_bar, 0, 100)
@@ -183,8 +215,6 @@ func update_clock_display():
 	else:
 		clock_label.text = "%01d:%02d %s" % [display_hour, current_minute, am_pm] # Single-digit hour formatting
 	day_label.text = days_of_week[current_day_index]
-
-func update_date_display():
 	date_label.text = "%02d/%02d/%04d" % [current_month, current_day, current_year]
 
 # Skip time method

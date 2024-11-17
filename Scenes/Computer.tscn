@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://bj2xgfe2by3v4"]
+[gd_scene load_steps=14 format=3 uid="uid://bj2xgfe2by3v4"]
 
 [ext_resource type="Texture2D" uid="uid://bitx2ub4hknq7" path="res://Assets/computerbackground.png" id="1_qttr1"]
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ty0l2"]
 [ext_resource type="Texture2D" uid="uid://cx2pqbi34mrfb" path="res://Assets/computer_icons-pixel.png" id="3_kbc4r"]
 [ext_resource type="Texture2D" uid="uid://dvghyy85boit7" path="res://Assets/computer_icons_2-pixel.png" id="4_7h3tq"]
+[ext_resource type="Script" path="res://Scripts/z_mail_panel.gd" id="5_3b6ky"]
 [ext_resource type="Script" path="res://Scripts/amazon_panel.gd" id="5_ilyyr"]
 [ext_resource type="AudioStream" uid="uid://dh2igt0vmlubq" path="res://Audio/click-pixabay.mp3" id="5_qamt1"]
 [ext_resource type="Texture2D" uid="uid://dlelwvcwhieej" path="res://icon.svg" id="5_s5esw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5240"]
+bg_color = Color(0.826604, 0.0151576, 0.0230819, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxbic"]
 bg_color = Color(0.721569, 0.721569, 0.721569, 1)
@@ -51,32 +55,32 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Recycle Bin"
 
-[node name="BankingButton" type="Button" parent="VBoxContainer"]
+[node name="EmailButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "S.J. Bank"
+text = "ZMail"
 
-[node name="RentButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Rent Portal"
+[node name="EmailNotification" type="Label" parent="VBoxContainer/EmailButton"]
+visible = false
+layout_mode = 0
+offset_left = 128.0
+offset_top = -4.0
+offset_right = 142.0
+offset_bottom = 19.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_c5240")
+text = "!"
+horizontal_alignment = 1
 
 [node name="AmazonButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Bookazon"
 
-[node name="GrubhubButton" type="Button" parent="VBoxContainer"]
+[node name="SpyAppButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-disabled = true
-text = "Takeout Hub"
-
-[node name="InstacartButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-disabled = true
-text = "InstaGrocery"
+text = "AnonHelp"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -86,26 +90,28 @@ offset_right = 358.0
 offset_bottom = 1015.0
 theme_override_constants/separation = 59
 
-[node name="CalendarButton" type="Button" parent="VBoxContainer2"]
+[node name="BankingButton" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Calendar"
+text = "S.J. Bank"
 
-[node name="EmailButton" type="Button" parent="VBoxContainer2"]
+[node name="RentButton" type="Button" parent="VBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "ZMail"
+text = "Rent Portal"
 
 [node name="FacebookButton" type="Button" parent="VBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "SocialNook"
 
-[node name="SpyAppButton" type="Button" parent="VBoxContainer2"]
+[node name="InstacartButton" type="Button" parent="VBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-disabled = true
-text = "AnonHelp"
+text = "InstaGrocery"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -183,11 +189,6 @@ visible = false
 layout_mode = 2
 text = "Shopazon"
 
-[node name="GrubhubBarButton" type="Button" parent="HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Grubhub"
-
 [node name="InstacartBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
@@ -209,12 +210,15 @@ layout_mode = 2
 text = "SpyApp"
 
 [node name="ZMailPanel" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1014.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gxbic")
+script = ExtResource("5_3b6ky")
 
 [node name="Panel" type="Panel" parent="ZMailPanel"]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 53.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
@@ -264,6 +268,31 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "-"
 
+[node name="Label" type="Label" parent="ZMailPanel"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 82.0
+offset_right = 481.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 32
+text = "Inbox"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ZMailPanel"]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 161.0
+offset_right = 448.0
+offset_bottom = 991.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ZMailPanel"]
+layout_mode = 2
+offset_left = 547.0
+offset_top = 136.0
+offset_right = 1858.0
+offset_bottom = 970.0
+bbcode_enabled = true
+
 [node name="AmazonPanel" type="Panel" parent="."]
 visible = false
 layout_mode = 0
@@ -285,7 +314,7 @@ offset_top = 2.0
 offset_right = 169.0
 offset_bottom = 47.0
 theme_override_font_sizes/font_size = 32
-text = "Shopazon"
+text = "Bookazon"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -812,6 +841,7 @@ text = "X"
 stream = ExtResource("5_qamt1")
 volume_db = 6.0
 
+[connection signal="pressed" from="VBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EmailBarButton" to="." method="_on_email_bar_button_pressed"]

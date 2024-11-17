@@ -140,7 +140,7 @@ size = Vector2(34, 166.5)
 size = Vector2(397, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7arp"]
-size = Vector2(17.5, 32.5)
+size = Vector2(17.5, 71.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q87g0"]
 size = Vector2(147.5, 133)
@@ -307,7 +307,7 @@ shape = SubResource("RectangleShape2D_185a0")
 [node name="MailboxArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MailboxArea2D"]
-position = Vector2(1845, 397)
+position = Vector2(1845, 416.375)
 shape = SubResource("RectangleShape2D_b7arp")
 
 [node name="ElevatorDingAudio" type="AudioStreamPlayer" parent="."]
@@ -341,14 +341,17 @@ layout_mode = 2
 text = "Go to Class"
 
 [node name="WorkButton1" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Work 2 Hours"
 
 [node name="WorkButton2" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Work 4 Hours"
 
 [node name="WorkButton3" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Work 6 Hours"
 

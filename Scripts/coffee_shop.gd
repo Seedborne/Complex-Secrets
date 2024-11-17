@@ -15,6 +15,8 @@ func _ready():
 	Globals.current_location = "Coffee Shop"
 	Globals.current_floor = 0
 	add_child(player)
+	var animated_sprite = player.get_node("PlayerSprite")
+	animated_sprite.flip_h = true
 	player.can_move = true
 	player.visible = true
 	UI.fade_from_black()
@@ -62,7 +64,7 @@ func _on_small_coffee_pressed():
 		player.can_move = false
 		UI.fade_to_black()
 		#UI.pause_time()
-		await get_tree().create_timer(1.0).timeout
+		await Globals.create_tracked_timer(1.0).timeout
 		UI.sleep_bar += 10  # Refill rate, adjust as needed
 		UI.sleep_bar = clamp(UI.sleep_bar, 0, 100)
 		UI.update_bars()
@@ -80,7 +82,7 @@ func _on_latte_pressed():
 		player.can_move = false
 		UI.fade_to_black()
 		#UI.pause_time()
-		await get_tree().create_timer(1.0).timeout
+		await Globals.create_tracked_timer(1.0).timeout
 		UI.sleep_bar += 16  # Refill rate, adjust as needed
 		UI.sleep_bar = clamp(UI.sleep_bar, 0, 100)
 		UI.update_bars()
@@ -98,7 +100,7 @@ func _on_espresso_pressed():
 		player.can_move = false
 		UI.fade_to_black()
 		#UI.pause_time()
-		await get_tree().create_timer(1.0).timeout
+		await Globals.create_tracked_timer(1.0).timeout
 		UI.sleep_bar += 20  # Refill rate, adjust as needed
 		UI.sleep_bar = clamp(UI.sleep_bar, 0, 100)
 		UI.update_bars()
@@ -114,7 +116,7 @@ func _on_lobby_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		player.can_move = true
 		UI.fade_from_black()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Lobby.tscn")

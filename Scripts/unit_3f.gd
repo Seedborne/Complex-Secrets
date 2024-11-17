@@ -23,7 +23,7 @@ func _ready():
 		player.can_move = true
 		UI.fade_from_black()
 		print("In Unit3F")
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		_close_door()
 	else:
 		player.position = Vector2(1310, 530)
@@ -134,7 +134,7 @@ func _on_doorway_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Floor3.tscn")
 
 func _on_bed_area_2d_body_entered(body):
@@ -153,7 +153,7 @@ func _on_bed_button_pressed():
 	player.can_move = false
 	UI.pause_time()
 	UI.fade_to_black()
-	await get_tree().create_timer(1.5).timeout
+	await Globals.create_tracked_timer(1.5).timeout
 	UI.resume_time()
 	UI.sleep_for_hours(2)
 	UI.fade_from_black()
@@ -164,7 +164,7 @@ func _on_bed_button_2_pressed():
 	player.can_move = false
 	UI.pause_time()
 	UI.fade_to_black()
-	await get_tree().create_timer(2.5).timeout
+	await Globals.create_tracked_timer(2.5).timeout
 	UI.resume_time()
 	UI.sleep_for_hours(4)
 	UI.fade_from_black()
@@ -175,7 +175,7 @@ func _on_bed_button_3_pressed():
 	player.can_move = false
 	UI.pause_time()
 	UI.fade_to_black()
-	await get_tree().create_timer(4.0).timeout
+	await Globals.create_tracked_timer(4.0).timeout
 	UI.resume_time()
 	UI.sleep_for_hours(8)
 	UI.fade_from_black()
@@ -254,7 +254,7 @@ func read_book(book_name):
 		player.can_move = false
 		UI.fade_to_black()
 		UI.pause_time()
-		await get_tree().create_timer(1.5).timeout
+		await Globals.create_tracked_timer(1.5).timeout
 		UI.resume_time()
 		# Skip time
 		UI.skip_time(book_info["time_skip"])
@@ -269,3 +269,7 @@ func read_book(book_name):
 
 func _on_book_button_pressed(book_name):
 	read_book(book_name)
+
+func _on_test_area_2d_body_entered(body):
+	if body == player:
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Lobby.tscn")

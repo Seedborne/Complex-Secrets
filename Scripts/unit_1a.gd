@@ -12,7 +12,7 @@ func _ready():
 	player.position = Vector2(800, 260)
 	Globals.current_location = "Unit1A"
 	print("In Unit1A")
-	await get_tree().create_timer(0.5).timeout
+	await Globals.create_tracked_timer(0.5).timeout
 	_close_door()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

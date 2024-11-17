@@ -21,6 +21,7 @@ Globals="*res://Scripts/Globals.gd"
 UI="*res://Scenes/UI.tscn"
 SaveLoadManager="*res://Scripts/SaveLoadManager.gd"
 PauseMenu="*res://Scenes/PauseMenu.tscn"
+EventsManager="*res://Scripts/EventsManager.gd"
 
 [display]
 

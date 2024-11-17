@@ -57,7 +57,7 @@ func _input(event):
 		$ButtonPressAudio.play()
 		$ElevatorButtonSprite.visible = true
 		$ElevatorAudio.play()
-		await get_tree().create_timer(2.5).timeout
+		await Globals.create_tracked_timer(2.5).timeout
 		$ElevatorSprite.play("opening")
 		$ElevatorOpenAudio.play()
 		$ElevatorDingAudio.play()
@@ -106,34 +106,34 @@ func _on_stairs_down_area_2d_body_entered(body):
 		player.can_move = false
 		UI.play_stairs_audio()
 		UI.fade_to_black()
-		await get_tree().create_timer(1.5).timeout
+		await Globals.create_tracked_timer(1.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Floor2.tscn")
 
 func _leave_unit():
 	$DoorCloseAudio.play()
 	if left_unit == "3A":
 		$Unit3ADoorSprite.visible = false
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		$Unit3ADoorSprite.visible = true
 	elif left_unit == "3B":
 		$Unit3BDoorSprite.visible = false
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		$Unit3BDoorSprite.visible = true
 	elif left_unit == "3C":
 		$Unit3CDoorSprite.visible = false
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		$Unit3CDoorSprite.visible = true
 	elif left_unit == "3D":
 		$Unit3DDoorSprite.visible = false
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		$Unit3DDoorSprite.visible = true
 	elif left_unit == "3E":
 		$Unit3EDoorSprite.visible = false
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		$Unit3EDoorSprite.visible = true
 	elif left_unit == "3F":
 		$Unit3FDoorSprite.visible = false
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		$Unit3FDoorSprite.visible = true
 
 func _on_unit_3a_rug_area_2d_body_entered(body):
@@ -313,40 +313,40 @@ func _on_unit_3a_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3A.tscn")
 
 func _on_unit_3b_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3B.tscn")
 
 func _on_unit_3c_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3C.tscn")
 
 func _on_unit_3d_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3D.tscn")
 
 func _on_unit_3e_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3E.tscn")
 
 func _on_unit_3f_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3F.tscn")

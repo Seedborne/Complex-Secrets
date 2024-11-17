@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cupleneoe0ati"]
+[gd_scene load_steps=4 format=3 uid="uid://cupleneoe0ati"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_jompw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1ivf"]
 bg_color = Color(0.493545, 0.493546, 0.493545, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snh63"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
@@ -58,6 +60,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Main Menu"
 
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -80,7 +87,39 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "No"
 
-[node name="QuitButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="GameOverPanel" type="Panel" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_snh63")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GOLabel" type="Label" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "You were evicted from your apartment due to unpaid rent. 
+You were forced to withdraw from college and move back home."
+horizontal_alignment = 1
+
+[node name="GOStartOverButton" type="Button" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Start Over"
+
+[node name="GOMainMenuButton" type="Button" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Main Menu"
+
+[node name="GOQuitButton" type="Button" parent="GameOverPanel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Quit"
@@ -89,6 +128,10 @@ text = "Quit"
 [connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="visibility_changed" from="Panel/VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_visibility_changed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/GOStartOverButton" to="." method="_on_go_start_over_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/GOMainMenuButton" to="." method="_on_go_main_menu_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/GOQuitButton" to="." method="_on_go_quit_button_pressed"]

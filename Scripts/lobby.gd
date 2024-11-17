@@ -24,19 +24,26 @@ func _ready():
 		Globals.current_location = "Lobby"
 		$ElevatorSprite.play("closed")
 	elif Globals.current_location == "Gym":
+		var animated_sprite = player.get_node("PlayerSprite")
+		animated_sprite.flip_h = true
 		player.position = Vector2(1800, 635)
 		Globals.current_location = "Lobby"
 	elif Globals.current_location == "Coffee Shop":
 		player.position = Vector2(125, 615)
 		Globals.current_location = "Lobby"
-	elif Globals.at_class or Globals.at_work or Globals.new_game:
-		Globals.new_game = false
+	elif Globals.at_class or Globals.at_work:
 		Globals.at_class = false
 		Globals.at_work = false
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"
+	elif Globals.new_game:
+		Globals.new_game = false
+		player.position = Vector2(950, 950)
+		Globals.current_location = "Lobby"
+		#Globals.schedule_keys_delivery()
+		print("New Game Started")
 	else:
-		#player.position = Vector2(950, 950)
+		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"
 
 	$VBoxContainer.visible = false
@@ -58,9 +65,9 @@ func _process(_delta):
 		$PlayerMailboxSprite.visible = true
 	else:
 		$PlayerMailboxSprite.visible = false
-	if UI.current_day_index == 0:
-		$CoffeeShopBody2D/CollisionShape2D.disabled = false
-	elif UI.current_hour >= 14:
+	#if UI.current_day_index == 0:
+		#$CoffeeShopBody2D/CollisionShape2D.disabled = false
+	if UI.current_hour >= 14:
 		$CoffeeShopBody2D/CollisionShape2D.disabled = false
 	elif UI.current_hour <= 5:
 		$CoffeeShopBody2D/CollisionShape2D.disabled = false
@@ -85,7 +92,7 @@ func _input(event):
 		$ButtonPressAudio.play()
 		$ElevatorButtonSprite.visible = true
 		$ElevatorAudio.play()
-		await get_tree().create_timer(2.5).timeout
+		await Globals.create_tracked_timer(2.5).timeout
 		$ElevatorSprite.play("opening")
 		$ElevatorOpenAudio.play()
 		$ElevatorDingAudio.play()
@@ -158,14 +165,14 @@ func _on_stairs_area_2d_body_entered(body):
 		player.can_move = false
 		UI.play_stairs_audio()
 		UI.fade_to_black()
-		await get_tree().create_timer(1.5).timeout
+		await Globals.create_tracked_timer(1.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Floor1.tscn")
 
 func _on_coffee_shop_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		player.can_move = true
 		UI.fade_from_black()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/CoffeeShop.tscn")
@@ -174,7 +181,7 @@ func _on_gym_area_2d_2_body_entered(body):
 	if body == player:
 		player.can_move = false
 		UI.fade_to_black()
-		await get_tree().create_timer(0.5).timeout
+		await Globals.create_tracked_timer(0.5).timeout
 		player.can_move = true
 		UI.fade_from_black()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Gym.tscn")
@@ -195,6 +202,12 @@ func _on_entrance_area_2d_body_entered(body):
 			selected_index = 1
 		highlight_button(selected_index)
 		$VBoxContainer.visible = true
+		for email in EventsManager.emails:
+			if email["id"] == "work_email":  # Match the email ID with the event name
+				if email["read"]:
+					$VBoxContainer/WorkButton1.visible = true
+					$VBoxContainer/WorkButton2.visible = true
+					$VBoxContainer/WorkButton3.visible = true
 
 func _on_entrance_area_2d_body_exited(body):
 	if body == player:
@@ -212,7 +225,7 @@ func _on_class_button_pressed():
 		print("Off to class")
 
 func _on_work_button_1_pressed():
-	if not Globals.at_work:
+	if $VBoxContainer/WorkButton1.visible and not Globals.at_work:
 		Globals.at_work = true
 		Globals.current_location = "At Work"
 		player.can_move = false
@@ -220,7 +233,7 @@ func _on_work_button_1_pressed():
 		UI.fade_to_black()
 		UI.pause_time()
 		print("At work")
-		await get_tree().create_timer(1.5).timeout
+		await Globals.create_tracked_timer(1.5).timeout
 		$VBoxContainer.visible = false
 		UI.resume_time()
 		UI.skip_time(2)
@@ -228,7 +241,7 @@ func _on_work_button_1_pressed():
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_work_button_2_pressed():
-	if not Globals.at_work:
+	if $VBoxContainer/WorkButton2.visible and not Globals.at_work:
 		Globals.at_work = true
 		Globals.current_location = "At Work"
 		player.can_move = false
@@ -236,7 +249,7 @@ func _on_work_button_2_pressed():
 		UI.fade_to_black()
 		UI.pause_time()
 		print("At work")
-		await get_tree().create_timer(2.0).timeout
+		await Globals.create_tracked_timer(2.0).timeout
 		$VBoxContainer.visible = false
 		UI.resume_time()
 		UI.skip_time(4)
@@ -244,7 +257,7 @@ func _on_work_button_2_pressed():
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_work_button_3_pressed():
-	if not Globals.at_work:
+	if $VBoxContainer/WorkButton3.visible and not Globals.at_work:
 		Globals.at_work = true
 		Globals.current_location = "At Work"
 		player.can_move = false
@@ -252,7 +265,7 @@ func _on_work_button_3_pressed():
 		UI.fade_to_black()
 		UI.pause_time()
 		print("At work")
-		await get_tree().create_timer(2.5).timeout
+		await Globals.create_tracked_timer(2.5).timeout
 		$VBoxContainer.visible = false
 		UI.resume_time()
 		UI.skip_time(6)
