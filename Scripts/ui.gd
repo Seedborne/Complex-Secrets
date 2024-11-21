@@ -139,6 +139,7 @@ func advance_day():
 
 	# Update day of the week index (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
 	current_day_index = (current_day_index + 1) % 7
+	EventsManager.check_rent_status()
 
 func hide_ui():
 	$Panel.visible = false
@@ -365,15 +366,6 @@ func update_bars():
 func update_carry_weight_display():
 	$CarryWeightLabel.text = "Carry Weight: %.2f / %d" % [Globals.current_carry_weight, Globals.max_carry_weight()]
 
-#func _on_button_pressed():
-	#skip_time(12)
-
-#func _on_button_2_pressed():
-	#if not clock_paused:
-		#pause_time()
-	#else:
-		#resume_time()
-
 func fade_to_black():
 	$ScreenFade/FadeAnimation.play("fade_out")
 
@@ -395,3 +387,9 @@ func cpu_fade_from_black():
 
 func cpu_fade_from_black_no_audio():
 	$ScreenFade/FadeAnimation.play("cpu_fade_in")
+
+func _on_test_button_1_pressed():
+	skip_time(12)
+
+func _on_test_button_2_pressed():
+	Achievements.delete_achievements_data()

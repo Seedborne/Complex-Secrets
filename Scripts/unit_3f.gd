@@ -2,6 +2,7 @@ extends Node2D
 
 @export var player_scene: PackedScene 
 var player = null
+var near_lightswitch = false
 var near_computer = false
 var near_door = false
 var door_open = false
@@ -18,6 +19,12 @@ func _ready():
 	add_child(player)
 	Globals.current_location = "Unit3F"
 	Globals.current_floor = 3
+	if Globals.lights_on:
+		$LightsOff.visible = false
+		$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-on.png")
+	else:
+		$LightsOff.visible = true
+		$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-off.png")
 	if not Globals.on_computer:
 		player.position = Vector2(800, 260)
 		player.can_move = true
@@ -30,6 +37,8 @@ func _ready():
 		player.can_move = true
 		Globals.on_computer = false
 		$DoorSprite.visible = true
+	if not Achievements.is_achievement_unlocked("enter_unit_3f"):
+		Achievements.unlock_achievement("enter_unit_3f")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -55,6 +64,15 @@ func _on_desk_area_2d_body_exited(body):
 		near_computer = false
 
 func _input(event):
+	if event.is_action_pressed("ui_interact") and near_lightswitch:
+		if Globals.lights_on:
+			Globals.lights_on = false
+			$LightsOff.visible = true
+			$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-off.png")
+		else:
+			Globals.lights_on = true
+			$LightsOff.visible = false
+			$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-on.png")
 	if event.is_action_pressed("ui_interact") and near_computer:
 		get_tree().change_scene_to_file("res://Scenes/Computer.tscn")
 	if event.is_action_pressed("ui_interact") and near_door and not door_open:
@@ -75,6 +93,14 @@ func _input(event):
 		bookshelf_highlight_button(bookshelf_selected_index)
 	elif event.is_action_pressed("ui_interact") and near_bookshelf:
 		bookshelf_select_button(bookshelf_selected_index)
+
+func _on_lightswitch_area_2d_body_entered(body):
+	if body == player:
+		near_lightswitch = true
+
+func _on_lightswitch_area_2d_body_exited(body):
+	if body == player:
+		near_lightswitch = false
 
 # Adjusted highlight_button function for bookshelf buttons
 func bookshelf_highlight_button(index):
@@ -129,7 +155,7 @@ func _on_door_area_2d_body_exited(body):
 		if door_open:
 			_close_door()
 			$DoorBody2D/CollisionShape2D.set_deferred("disabled", false)
-
+	
 func _on_doorway_area_2d_body_entered(body):
 	if body == player:
 		player.can_move = false

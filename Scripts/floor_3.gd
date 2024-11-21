@@ -22,8 +22,12 @@ func _ready():
 	player_scene = load("res://Scenes/Player.tscn")
 	player = player_scene.instantiate()
 	if Globals.climbing_stairs:
-		player.position = Vector2(-1658, 525)
+		player.position = Vector2(-1510, 500)
 		Globals.climbing_stairs = false
+		Globals.current_location = "Floor3"
+	elif Globals.descending_stairs:
+		player.position = Vector2(-1658, 500)
+		Globals.descending_stairs = false
 		Globals.current_location = "Floor3"
 	elif Globals.current_location == "Elevator":
 		player.position = Vector2(1440, 540)
@@ -102,7 +106,7 @@ func _on_elevator_area_2d_body_entered(body):
 
 func _on_stairs_down_area_2d_body_entered(body):
 	if body == player:
-		Globals.climbing_stairs = true
+		Globals.descending_stairs = true
 		player.can_move = false
 		UI.play_stairs_audio()
 		UI.fade_to_black()

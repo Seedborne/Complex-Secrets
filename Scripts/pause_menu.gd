@@ -3,21 +3,37 @@ extends CanvasLayer
 var button_pressed = ""
 var menu_buttons = ["ResumeButton", "SaveButton", "OptionsButton", "ControlsButton", "MainMenuButton", "QuitButton"]  # Your button list
 var menu_selected_index = 0
-var sq_menu_buttons = ["YesButton", "NoButton"]  # Your button list
+var sq_menu_buttons = ["YesButton", "NoButton"]
 var sq_menu_selected_index = 0
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if UI.grades_bar <= 0.9 and not Globals.game_over:
+		if not Achievements.is_achievement_unlocked("unlock_ending_1"):
+			Achievements.unlock_achievement("unlock_ending_1")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		Globals.game_over = true
 		PauseMenu.visible = true
 		get_tree().paused = true
 		$GameOverPanel.visible = true
-		$GameOverPanel/VBoxContainer/GOLabel.text = "You failed out of college and had to move back home."
+		$GameOverPanel/VBoxContainer/GOLabel.text = "Ending 1
+		You failed out of college and had to move back home."
+
+func trigger_eviction():
+	if not Achievements.is_achievement_unlocked("unlock_ending_2"):
+		Achievements.unlock_achievement("unlock_ending_2")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Globals.game_over = true
+	visible = true
+	get_tree().paused = true
+	$GameOverPanel.visible = true
+	$GameOverPanel/VBoxContainer/GOLabel.text = "Ending 2
+	You were evicted from your apartment due to unpaid rent. 
+	You were forced to withdraw from college and move back home."
+	#remove Ending 1 and Ending 2 parts of labels and add achievements like "Unlocked Ending 1/Reach first ending"
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel") and Globals.in_game and not Globals.on_computer and Globals.can_pause_game() and not Globals.game_over:

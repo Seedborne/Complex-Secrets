@@ -20,7 +20,7 @@ func _process(_delta):
 	for email in EventsManager.emails:
 		if email["id"] == "apartment_email_1":
 			if email["read"]:
-				$VBoxContainer2/RentButton.visible = true
+				$VBoxContainer2/RentPortalButton.visible = true
 		if email["id"] == "spy_email_1":
 			if email["read"]:
 				$VBoxContainer/SpyAppButton.visible = true
@@ -67,6 +67,42 @@ func check_unread_emails():
 			$VBoxContainer/EmailButton/EmailNotification.visible = true
 			return  # Stop checking as soon as an unread email is found
 		$VBoxContainer/EmailButton/EmailNotification.visible = false
+
+func _on_rent_portal_button_pressed():
+	$RentPortalPanel.visible = true
+	$HBoxContainer/RentPortalBarButton.visible = true
+
+func _on_rent_portal_bar_button_pressed():
+	if $RentPortalPanel.z_index == 0:
+		$RentPortalPanel.z_index = -1
+		set_mouse_filter_recursive($RentPortalPanel, Control.MOUSE_FILTER_IGNORE)
+	elif $RentPortalPanel.z_index == -1:
+		$RentPortalPanel.z_index = 0
+		set_mouse_filter_recursive($RentPortalPanel, Control.MOUSE_FILTER_STOP)
+
+func _on_rent_portal_close_button_pressed():
+	$RentPortalPanel.visible = false
+	$HBoxContainer/RentPortalBarButton.visible = false
+	$RentPortalPanel.scale = Vector2(1.0, 1.0)
+	$RentPortalPanel.position = Vector2(0, 0)
+	$RentPortalPanel/Panel/RentPortalMaxButton.text = "o"
+	amazon_panel_max = true
+
+func _on_rent_portal_max_button_pressed():
+	if amazon_panel_max:
+		$RentPortalPanel.scale = Vector2(0.7, 0.7)
+		$RentPortalPanel.position = Vector2(200, 100)
+		$RentPortalPanel/Panel/RentPortalMaxButton.text = "O"
+		amazon_panel_max = false
+	else:
+		$RentPortalPanel.scale = Vector2(1.0, 1.0)
+		$RentPortalPanel.position = Vector2(0, 0)
+		$RentPortalPanel/Panel/RentPortalMaxButton.text = "o"
+		amazon_panel_max = true
+
+func _on_rent_portal_min_button_pressed():
+	$RentPortalPanel.z_index = -1
+	set_mouse_filter_recursive($RentPortalPanel, Control.MOUSE_FILTER_IGNORE)
 
 func _on_amazon_button_pressed():
 	$AmazonPanel.visible = true

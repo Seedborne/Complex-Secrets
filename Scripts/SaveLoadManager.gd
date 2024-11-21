@@ -64,6 +64,11 @@ func save_game():
 		
 		"event_states": event_states,
 		"emails": email_states,
+		
+		"3f_lights_on": Globals.lights_on,
+		
+		"rent_balance": EventsManager.rent_balance,
+		"eviction_warning": EventsManager.eviction_warning_sent,
 	}
 
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
@@ -152,6 +157,11 @@ func apply_loaded_data(save_data):
 	
 	Globals.bookshelf_inventory = save_data["bookshelf_inventory"]
 	
+	Globals.lights_on = save_data["3f_lights_on"]
+	
+	EventsManager.rent_balance = save_data["rent_balance"]
+	EventsManager.eviction_warning_sent = save_data["eviction_warning"]
+	
 	if save_data.has("event_states"):
 		for event in EventsManager.events:
 			if event["name"] in save_data["event_states"]:
@@ -219,6 +229,7 @@ func reset_game_state():
 	Globals.is_eating = false
 	Globals.is_exercising = false
 	Globals.on_computer = false
+	Globals.lights_on = false
 	Globals.tenant_home = false
 	Globals.delivery_queue = []  # Array to store orders scheduled for delivery
 	Globals.mailbox_items = [] # Stores items that are ready to be collected from the mailbox
@@ -271,4 +282,7 @@ func reset_game_state():
 	UI.hunger_bar = 100.0  # Starts at full
 # Properties for grades
 	UI.grades_bar = 100.0  # Starts at full
+	
+	EventsManager.rent_balance = 0.0
+	EventsManager.eviction_warning_sent = false
 	EventsManager.reset_events()

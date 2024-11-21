@@ -105,8 +105,6 @@ alignment = 1
 [node name="GOLabel" type="Label" parent="GameOverPanel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "You were evicted from your apartment due to unpaid rent. 
-You were forced to withdraw from college and move back home."
 horizontal_alignment = 1
 
 [node name="GOStartOverButton" type="Button" parent="GameOverPanel/VBoxContainer"]

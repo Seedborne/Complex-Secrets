@@ -15,9 +15,9 @@ var class_upcoming = false
 func _ready():
 	player_scene = load("res://Scenes/Player.tscn")
 	player = player_scene.instantiate()
-	if Globals.climbing_stairs:
+	if Globals.descending_stairs:
 		player.position = Vector2(281, 260)
-		Globals.climbing_stairs = false
+		Globals.descending_stairs = false
 		Globals.current_location = "Lobby"
 	elif Globals.current_location == "Elevator":
 		player.position = Vector2(1380, 260)
@@ -39,6 +39,7 @@ func _ready():
 	elif Globals.new_game:
 		Globals.new_game = false
 		player.position = Vector2(950, 950)
+		player.facing_direction = Vector2(0, -1)
 		Globals.current_location = "Lobby"
 		#Globals.schedule_keys_delivery()
 		print("New Game Started")

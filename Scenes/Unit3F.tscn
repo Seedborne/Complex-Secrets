@@ -1,10 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://cqjfrk5c64shg"]
+[gd_scene load_steps=53 format=3 uid="uid://cqjfrk5c64shg"]
 
 [ext_resource type="Script" path="res://Scripts/unit_3f.gd" id="1_sev76"]
 [ext_resource type="Texture2D" uid="uid://cym8wq3kgkyr2" path="res://Assets/testapartment1room.png" id="2_0nq3r"]
 [ext_resource type="Texture2D" uid="uid://dplyrj251pg0m" path="res://Assets/door.png" id="3_bku8v"]
 [ext_resource type="AudioStream" uid="uid://bdcyc7vstai0l" path="res://Audio/door-open-pixabay.mp3" id="4_f35yb"]
 [ext_resource type="AudioStream" uid="uid://dcuagxuy0tw33" path="res://Audio/door-close-pixabay.mp3" id="5_t6txc"]
+[ext_resource type="Texture2D" uid="uid://fv2j7ifuhixb" path="res://Assets/testlightswitch-off.png" id="6_bkqr5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7mf8"]
 size = Vector2(72, 1080)
@@ -62,6 +63,9 @@ size = Vector2(104, 67)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wxglv"]
 size = Vector2(104, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q4y5"]
+size = Vector2(30, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c85nk"]
 size = Vector2(125, 25)
@@ -248,6 +252,17 @@ shape = SubResource("RectangleShape2D_wxglv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorwayArea2D"]
 position = Vector2(804, 127)
 shape = SubResource("RectangleShape2D_wxglv")
+
+[node name="LightswitchSprite2D" type="Sprite2D" parent="."]
+position = Vector2(940, 127.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bkqr5")
+
+[node name="LightswitchArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightswitchArea2D"]
+position = Vector2(938, 186)
+shape = SubResource("RectangleShape2D_1q4y5")
 
 [node name="BookshelfBody2D" type="StaticBody2D" parent="."]
 
@@ -459,7 +474,6 @@ position = Vector2(1318.5, 975.75)
 shape = SubResource("RectangleShape2D_0unng")
 
 [node name="LightsOff" type="ColorRect" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0.52549)
 z_index = 1
 offset_right = 1920.0
@@ -469,6 +483,8 @@ color = Color(0, 0, 0, 1)
 [connection signal="body_entered" from="DoorArea2D" to="." method="_on_door_area_2d_body_entered"]
 [connection signal="body_exited" from="DoorArea2D" to="." method="_on_door_area_2d_body_exited"]
 [connection signal="body_entered" from="DoorwayArea2D" to="." method="_on_doorway_area_2d_body_entered"]
+[connection signal="body_entered" from="LightswitchArea2D" to="." method="_on_lightswitch_area_2d_body_entered"]
+[connection signal="body_exited" from="LightswitchArea2D" to="." method="_on_lightswitch_area_2d_body_exited"]
 [connection signal="body_entered" from="BookshelfArea2D" to="." method="_on_bookshelf_area_2d_body_entered"]
 [connection signal="body_exited" from="BookshelfArea2D" to="." method="_on_bookshelf_area_2d_body_exited"]
 [connection signal="body_entered" from="DeskArea2D" to="." method="_on_desk_area_2d_body_entered"]

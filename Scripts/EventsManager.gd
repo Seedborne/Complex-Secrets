@@ -1,5 +1,12 @@
 extends Node
 
+var weekly_rent = 125.0  # Rent amount
+var late_fee = 25.0  # Late fee for overdue rent
+var rent_due_day_index = 1  # Monday (0 = Sunday, 1 = Monday, etc.)
+var rent_due_time = {"hour": 23, "minute": 59}  # End of Monday
+var rent_balance = 0.0  # Total rent owed
+var eviction_warning_sent = false  # Track if warning email is sent
+
 var events = [
 	{
 		"name": "college_email",
@@ -56,6 +63,18 @@ var events = [
 # Called when the node enters the scene tree for the first time.
 
 var emails = [
+	{
+	"id": "eviction_warning",
+	"sender": "admin@indigoridgeapartments.com",
+	"subject": "Eviction Warning",
+	"content": "Dear Resident,
+	
+	Your rent payment is overdue. A late fee of $25 has been added to your balance. If your overdue balance is not paid in full by EOD next Monday, you will face eviction.
+	
+	Please make your payment immediately via the online portal to avoid further consequences.",
+	"read": false,
+	"sent": false
+	},
 	{
 		"id": "spy_email_1",
 		"sender": "admin@lndigoridgeapartments.com",
@@ -191,6 +210,40 @@ func trigger_story_event(_event_name): #remove underscore when adding logic
 	print("Story event triggered!")
 	# Your story logic here
 
+func check_rent_status():
+	# Check if rent is overdue
+	if UI.current_day_index == 2:
+		rent_balance += weekly_rent
+		if get_tree().current_scene != null and get_tree().current_scene.has_node("RentPortalPanel"):
+				var rent_portal_panel = get_tree().current_scene.get_node("RentPortalPanel")
+				rent_portal_panel.update_rent_info()
+		if rent_balance > weekly_rent:
+			# Send eviction notice if not already sent
+			if not eviction_warning_sent:
+				# Add late fee if rent is overdue
+				rent_balance += late_fee
+				print("Rent is overdue! Late fee added. Total owed: $", rent_balance)   
+				send_eviction_warning_email()
+				eviction_warning_sent = true
+			# Check if player is two weeks behind
+			else:
+				PauseMenu.trigger_eviction()
+		# Check if player is two weeks behind
+		#if rent_balance > (weekly_rent * 2) + weekly_rent:
+			#PauseMenu.trigger_eviction()  # Trigger eviction/game over
+
+func send_eviction_warning_email():
+	for email in emails:
+		if email["id"] == "eviction_warning":
+			email["sent"] = true
+			email["read"] = false
+			print("Eviction warning email sent.")
+			if get_tree().current_scene != null and get_tree().current_scene.name == "Computer":
+				get_tree().current_scene.check_unread_emails()
+			if get_tree().current_scene != null and get_tree().current_scene.has_node("ZMailPanel"):
+				var zmail_panel = get_tree().current_scene.get_node("ZMailPanel")
+				zmail_panel.update_email_list()
+
 func reset_events():
 	events = [
 	{
@@ -248,6 +301,18 @@ func reset_events():
 # Called when the node enters the scene tree for the first time.
 
 	emails = [
+		{
+	"id": "eviction_warning",
+	"sender": "admin@indigoridgeapartments.com",
+	"subject": "Eviction Warning",
+	"content": "Dear Resident,
+	
+	Your rent payment is overdue. A late fee of $25 has been added to your balance. If your rent is not paid in full by EOD next Monday, you will face eviction.
+	
+	Please make your payment immediately via the online portal to avoid further consequences.",
+	"read": false,
+	"sent": false
+	},
 	{
 		"id": "spy_email_1",
 		"sender": "admin@lndigoridgeapartments.com",

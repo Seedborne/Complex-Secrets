@@ -11,15 +11,21 @@ func update_email_list():
 	var email_list = $VBoxContainer
 	for child in email_list.get_children():
 		child.queue_free() #clear old buttons
-	
+		
 	for email in EventsManager.emails:
 		if email["sent"]:  # Only display triggered emails
 			var email_button = Button.new()
-			email_button.text = (email["subject"] + " - UNREAD")
-			email_button.connect("pressed", Callable(self, "_on_email_button_pressed").bind(email))
-			email_list.add_child(email_button)
 			if email["read"]:
 				email_button.text = email["subject"]
+				email_button.add_theme_constant_override("outline_size", 0)
+				email_button.connect("pressed", Callable(self, "_on_email_button_pressed").bind(email))
+				email_list.add_child(email_button)
+			else:
+				email_button.text = (email["subject"] + " - UNREAD")
+				email_button.add_theme_constant_override("outline_size", 2)
+				email_button.add_theme_color_override("font_outline_color", Color(0.82, 0.82, 0.82))
+				email_button.connect("pressed", Callable(self, "_on_email_button_pressed").bind(email))
+				email_list.add_child(email_button)
 
 # Handle email selection
 func _on_email_button_pressed(email):

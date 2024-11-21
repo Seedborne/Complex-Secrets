@@ -1,22 +1,29 @@
-[gd_scene load_steps=14 format=3 uid="uid://bj2xgfe2by3v4"]
+[gd_scene load_steps=18 format=3 uid="uid://bj2xgfe2by3v4"]
 
 [ext_resource type="Texture2D" uid="uid://bitx2ub4hknq7" path="res://Assets/computerbackground.png" id="1_qttr1"]
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ty0l2"]
 [ext_resource type="Texture2D" uid="uid://cx2pqbi34mrfb" path="res://Assets/computer_icons-pixel.png" id="3_kbc4r"]
 [ext_resource type="Texture2D" uid="uid://dvghyy85boit7" path="res://Assets/computer_icons_2-pixel.png" id="4_7h3tq"]
 [ext_resource type="Script" path="res://Scripts/z_mail_panel.gd" id="5_3b6ky"]
+[ext_resource type="Script" path="res://Scripts/rent_portal_panel.gd" id="5_gx256"]
 [ext_resource type="Script" path="res://Scripts/amazon_panel.gd" id="5_ilyyr"]
 [ext_resource type="AudioStream" uid="uid://dh2igt0vmlubq" path="res://Audio/click-pixabay.mp3" id="5_qamt1"]
 [ext_resource type="Texture2D" uid="uid://dlelwvcwhieej" path="res://icon.svg" id="5_s5esw"]
+[ext_resource type="Texture2D" uid="uid://dy7gxvejplau7" path="res://Assets/refresh-icon.png" id="6_bw7xf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5240"]
 bg_color = Color(0.826604, 0.0151576, 0.0230819, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxbic"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwj58"]
 bg_color = Color(0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i22qh"]
 bg_color = Color(0.12549, 0.137255, 0.278431, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6pmpt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxbic"]
+bg_color = Color(0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb7s1"]
 bg_color = Color(0.720467, 0.720468, 0.720467, 1)
@@ -95,7 +102,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "S.J. Bank"
 
-[node name="RentButton" type="Button" parent="VBoxContainer2"]
+[node name="RentPortalButton" type="Button" parent="VBoxContainer2"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -179,7 +186,7 @@ visible = false
 layout_mode = 2
 text = "Banking"
 
-[node name="RentBarButton" type="Button" parent="HBoxContainer"]
+[node name="RentPortalBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Rent"
@@ -208,6 +215,111 @@ text = "Facebook"
 visible = false
 layout_mode = 2
 text = "SpyApp"
+
+[node name="RentPortalPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1014.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pwj58")
+script = ExtResource("5_gx256")
+
+[node name="Panel" type="Panel" parent="RentPortalPanel"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
+
+[node name="Label" type="Label" parent="RentPortalPanel/Panel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 201.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 32
+text = "Rent Portal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RentPortalCloseButton" type="Button" parent="RentPortalPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="RentPortalMaxButton" type="Button" parent="RentPortalPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -54.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "o"
+
+[node name="RentPortalMinButton" type="Button" parent="RentPortalPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -108.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "-"
+
+[node name="RefreshButton" type="Button" parent="RentPortalPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -112.0
+offset_top = 102.0
+offset_right = -40.0
+offset_bottom = 174.0
+grow_horizontal = 0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6pmpt")
+icon = ExtResource("6_bw7xf")
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RentPortalPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -412.0
+offset_right = 225.0
+offset_bottom = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="InstructionLabel" type="Label" parent="RentPortalPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Rent Payments"
+horizontal_alignment = 1
+
+[node name="SpacerLabel" type="Label" parent="RentPortalPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="RentContainer" type="VBoxContainer" parent="RentPortalPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="ZMailPanel" type="Panel" parent="."]
 visible = false
@@ -843,8 +955,15 @@ volume_db = 6.0
 
 [connection signal="pressed" from="VBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/RentPortalButton" to="." method="_on_rent_portal_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/RentPortalBarButton" to="." method="_on_rent_portal_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EmailBarButton" to="." method="_on_email_bar_button_pressed"]
+[connection signal="visibility_changed" from="RentPortalPanel" to="RentPortalPanel" method="_on_visibility_changed"]
+[connection signal="pressed" from="RentPortalPanel/Panel/RentPortalCloseButton" to="." method="_on_rent_portal_close_button_pressed"]
+[connection signal="pressed" from="RentPortalPanel/Panel/RentPortalMaxButton" to="." method="_on_rent_portal_max_button_pressed"]
+[connection signal="pressed" from="RentPortalPanel/Panel/RentPortalMinButton" to="." method="_on_rent_portal_min_button_pressed"]
+[connection signal="pressed" from="RentPortalPanel/RefreshButton" to="RentPortalPanel" method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="ZMailPanel/Panel/ZMailCloseButton" to="." method="_on_z_mail_close_button_pressed"]
 [connection signal="pressed" from="ZMailPanel/Panel/ZMailMaxButton" to="." method="_on_z_mail_max_button_pressed"]
 [connection signal="pressed" from="ZMailPanel/Panel/ZMailMinButton" to="." method="_on_z_mail_min_button_pressed"]

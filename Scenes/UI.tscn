@@ -185,7 +185,22 @@ volume_db = 6.0
 stream = ExtResource("3_1evnv")
 volume_db = 2.0
 
+[node name="TestButton1" type="Button" parent="."]
+process_mode = 3
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Skip 12 hours"
+
+[node name="TestButton2" type="Button" parent="."]
+process_mode = 3
+offset_top = 32.0
+offset_right = 172.0
+offset_bottom = 66.0
+text = "Delete Achievements"
+
 [connection signal="timeout" from="ClockTimer" to="." method="_on_clock_timer_timeout"]
 [connection signal="value_changed" from="VBoxContainer2/HungerBar" to="." method="_on_hunger_bar_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/SleepBar" to="." method="_on_sleep_bar_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/GradesBar" to="." method="_on_grades_bar_value_changed"]
+[connection signal="pressed" from="TestButton1" to="." method="_on_test_button_1_pressed"]
+[connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]

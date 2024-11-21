@@ -13,6 +13,7 @@ var is_sleeping = false
 var is_eating = false
 var is_exercising = false
 var on_computer = false
+var lights_on = false
 var tenant_home = false
 var delivery_queue = []  # Array to store orders scheduled for delivery
 var mailbox_items = [] # Stores items that are ready to be collected from the mailbox
@@ -154,35 +155,35 @@ func max_carry_weight() -> float:
 func increase_player_speed(amount: int):
 	player_speed += amount
 	player_speed = clamp(player_speed, 250, 500)
-	print("player_speed increased to ", player_speed)
+	print("Player speed increased to ", player_speed)
 
 func increase_player_strength(amount: float):
 	player_strength += amount
 	player_strength = clamp(player_strength, 0.0, 10.0)
-	print("player_strength increased to ", player_strength)
+	print("Player strength increased to ", player_strength)
 
 func increase_player_intelligence(amount: int):
 	player_intelligence += amount
 	player_intelligence = clamp(player_intelligence, 0, 10)
-	print("player_intelligence increased to ", player_intelligence)
+	print("Player intelligence increased to ", player_intelligence)
 
 func increase_player_social(amount: int):
 	player_social += amount
 	player_social = clamp(player_social, 0, 10)
-	print("player_social increased to ", player_social)
+	print("Player social increased to ", player_social)
 
 func increase_player_stealth(amount: int):
 	player_stealth += amount
 	player_stealth = clamp(player_stealth, 0, 10)
-	print("player_stealth increased to ", player_stealth)
+	print("Player stealth increased to ", player_stealth)
 
 func increase_player_money(amount: float):
 	player_money += amount
-	print("player_money increased to ", player_money)
+	print("Player money increased to $", player_money)
 
 func decrease_player_money(amount: float):
 	player_money -= amount
-	print("player_money decreased to ", player_money)
+	print("Player money decreased to $", player_money)
 
 func schedule_keys_delivery():
 	var keys_package = {
