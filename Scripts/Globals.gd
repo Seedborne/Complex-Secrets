@@ -187,8 +187,8 @@ func decrease_player_money(amount: float):
 
 func schedule_keys_delivery():
 	var keys_package = {
-		"Unit Key 3F": {"quantity": 1},  # Match the expected format
-		"Mail Key 3F": {"quantity": 1},
+		#"Unit Key 3F": {"quantity": 1},  # Match the expected format
+		#"Mail Key 3F": {"quantity": 1},
 		"Gym Key": {"quantity": 1}
 	}
 	mailbox_items.append(keys_package)  # Add the delivery directly to mailbox_items

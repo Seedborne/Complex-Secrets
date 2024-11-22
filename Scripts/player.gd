@@ -4,6 +4,7 @@ var can_move = true
 var passing_out = false
 var facing_direction: Vector2 = Vector2.DOWN
 @onready var animated_sprite = $PlayerSprite
+@onready var dialogue_label = $DialogueLabel
 
 func _physics_process(_delta):
 	if can_move:

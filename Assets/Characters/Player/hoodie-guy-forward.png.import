@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1oqvx24chav3"
-path="res://.godot/imported/hoodie-guy-sideward.png-42ec46427f66d0da932ced0c22158d68.ctex"
+uid="uid://b3u5jsctvexxg"
+path="res://.godot/imported/hoodie-guy-forward.png-4045b367bbe12bdc86bbeaa47f155759.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/hoodie-guy-sideward.png"
-dest_files=["res://.godot/imported/hoodie-guy-sideward.png-42ec46427f66d0da932ced0c22158d68.ctex"]
+source_file="res://Assets/Characters/Player/hoodie-guy-forward.png"
+dest_files=["res://.godot/imported/hoodie-guy-forward.png-4045b367bbe12bdc86bbeaa47f155759.ctex"]
 
 [params]
 

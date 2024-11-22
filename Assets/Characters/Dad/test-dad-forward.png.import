@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0jmdt70ipf6q"
-path="res://.godot/imported/hoodie-guy-quarter-backward.png-a5784d89a92afe6788192ac356542a3c.ctex"
+uid="uid://crct2h6g5rjlg"
+path="res://.godot/imported/test-dad-forward.png-eb967afe4d408d07e91e155cf5d6bf69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/hoodie-guy-quarter-backward.png"
-dest_files=["res://.godot/imported/hoodie-guy-quarter-backward.png-a5784d89a92afe6788192ac356542a3c.ctex"]
+source_file="res://Assets/Characters/Dad/test-dad-forward.png"
+dest_files=["res://.godot/imported/test-dad-forward.png-eb967afe4d408d07e91e155cf5d6bf69.ctex"]
 
 [params]
 

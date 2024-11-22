@@ -19,38 +19,42 @@ func _ready():
 		player.position = Vector2(281, 260)
 		Globals.descending_stairs = false
 		Globals.current_location = "Lobby"
+		player.can_move = true
 	elif Globals.current_location == "Elevator":
 		player.position = Vector2(1380, 260)
 		Globals.current_location = "Lobby"
 		$ElevatorSprite.play("closed")
+		player.can_move = true
 	elif Globals.current_location == "Gym":
 		var animated_sprite = player.get_node("PlayerSprite")
 		animated_sprite.flip_h = true
 		player.position = Vector2(1800, 635)
 		Globals.current_location = "Lobby"
+		player.can_move = true
 	elif Globals.current_location == "Coffee Shop":
 		player.position = Vector2(125, 615)
 		Globals.current_location = "Lobby"
+		player.can_move = true
 	elif Globals.at_class or Globals.at_work:
 		Globals.at_class = false
 		Globals.at_work = false
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"
+		player.can_move = true
 	elif Globals.new_game:
 		Globals.new_game = false
 		player.position = Vector2(950, 950)
 		player.facing_direction = Vector2(0, -1)
 		Globals.current_location = "Lobby"
-		#Globals.schedule_keys_delivery()
+		intro_scene()
 		print("New Game Started")
 	else:
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"
-
+		player.can_move = true
 	$VBoxContainer.visible = false
 	Globals.current_floor = 0
 	add_child(player)
-	player.can_move = true
 	player.visible = true
 	UI.fade_from_black()
 	print("In Lobby")
@@ -78,6 +82,19 @@ func _process(_delta):
 		$GymBody2D/CollisionShape2D.disabled = true
 	else:
 		$GymBody2D/CollisionShape2D.disabled = false
+
+func intro_scene():
+	$MomCharacter.visible = true
+	$DadCharacter.visible = true
+	player.can_move = false
+	UI.pause_time()
+	await Globals.create_tracked_timer(1.5).timeout
+	await $DadCharacter.dad_intro()
+	print("Dad left")
+	await $MomCharacter.mom_intro()
+	print("Mom left")
+	player.can_move = true
+	UI.resume_time()
 
 func _on_elevator_button_area_2d_body_entered(body):
 	if body == player:

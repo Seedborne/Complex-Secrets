@@ -67,10 +67,12 @@ func _input(event):
 	if event.is_action_pressed("ui_interact") and near_lightswitch:
 		if Globals.lights_on:
 			Globals.lights_on = false
+			$LightswitchOnAudio.play()
 			$LightsOff.visible = true
 			$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-off.png")
 		else:
 			Globals.lights_on = true
+			$LightswitchOffAudio.play()
 			$LightsOff.visible = false
 			$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-on.png")
 	if event.is_action_pressed("ui_interact") and near_computer:
