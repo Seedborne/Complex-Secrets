@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cu4rw5lip6qq5"]
+[gd_scene load_steps=16 format=3 uid="uid://cu4rw5lip6qq5"]
 
 [ext_resource type="Script" path="res://Scripts/coffee_shop.gd" id="1_ef1bb"]
 [ext_resource type="Texture2D" uid="uid://q0yjifgf4uus" path="res://Assets/testcoffeeshop.png" id="1_qjq8k"]
+[ext_resource type="AudioStream" uid="uid://baropeox66fy" path="res://Audio/cash-register-kaching-Modestas123123.mp3" id="3_0wcur"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_wuv8t"]
 a = Vector2(0, 1080)
@@ -166,6 +167,9 @@ shape = SubResource("SegmentShape2D_dyo0q")
 
 [node name="OrderDelay" type="Timer" parent="."]
 one_shot = true
+
+[node name="PurchaseAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0wcur")
 
 [connection signal="body_entered" from="LobbyArea2D" to="." method="_on_lobby_area_2d_body_entered"]
 [connection signal="body_entered" from="CounterArea2D" to="." method="_on_counter_area_2d_body_entered"]

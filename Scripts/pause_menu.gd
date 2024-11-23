@@ -17,6 +17,7 @@ func _process(_delta):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		Globals.game_over = true
 		PauseMenu.visible = true
+		Globals.game_paused = true
 		get_tree().paused = true
 		$GameOverPanel.visible = true
 		$GameOverPanel/VBoxContainer/GOLabel.text = "Ending 1
@@ -28,6 +29,7 @@ func trigger_eviction():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Globals.game_over = true
 	visible = true
+	Globals.game_paused = true
 	get_tree().paused = true
 	$GameOverPanel.visible = true
 	$GameOverPanel/VBoxContainer/GOLabel.text = "Ending 2
@@ -36,15 +38,17 @@ func trigger_eviction():
 	#remove Ending 1 and Ending 2 parts of labels and add achievements like "Unlocked Ending 1/Reach first ending"
 
 func _input(event):
-	if Input.is_action_just_pressed("ui_cancel") and Globals.in_game and not Globals.on_computer and Globals.can_pause_game() and not Globals.game_over:
+	if Input.is_action_just_pressed("ui_cancel") and Globals.in_game and not Globals.on_computer and Globals.can_pause_game() and not Globals.game_over and not Globals.in_cutscene and not Globals.in_stats:
 		if not PauseMenu.visible:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			PauseMenu.visible = true
+			Globals.game_paused = true
 			get_tree().paused = true
 			print("paused")
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 			PauseMenu.visible = false
+			Globals.game_paused = false
 			get_tree().paused = false
 			print("unpaused")
 	if event.is_action_pressed("scroll_down") and visible and not Globals.game_over:
@@ -133,6 +137,7 @@ func sq_menu_select_button(index):
 func _on_resume_button_pressed():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	PauseMenu.visible = false
+	Globals.game_paused = false
 	get_tree().paused = false
 	print("unpaused")
 
@@ -162,6 +167,7 @@ func _on_yes_button_pressed():
 	if button_pressed == "menu":
 		visible = false
 		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+		Globals.game_paused = false
 		get_tree().paused = false
 	elif button_pressed == "quit":
 		get_tree().quit()
@@ -170,6 +176,7 @@ func _on_no_button_pressed():
 	if button_pressed == "menu":
 		visible = false
 		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+		Globals.game_paused = false
 		get_tree().paused = false
 	elif button_pressed == "quit":
 		get_tree().quit()
@@ -203,6 +210,7 @@ func _on_go_main_menu_button_pressed():
 	PauseMenu.visible = false
 	$GameOverPanel.visible = false
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+	Globals.game_paused = false
 	get_tree().paused = false
 
 func _on_go_start_over_button_pressed():
@@ -212,6 +220,7 @@ func _on_go_start_over_button_pressed():
 	PauseMenu.visible = false
 	$GameOverPanel.visible = false
 	get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
+	Globals.game_paused = false
 	get_tree().paused = false
 	Globals.in_game = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

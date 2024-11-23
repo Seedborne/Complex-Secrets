@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bj2xgfe2by3v4"]
+[gd_scene load_steps=22 format=3 uid="uid://bj2xgfe2by3v4"]
 
 [ext_resource type="Texture2D" uid="uid://bitx2ub4hknq7" path="res://Assets/computerbackground.png" id="1_qttr1"]
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ty0l2"]
@@ -7,18 +7,24 @@
 [ext_resource type="Script" path="res://Scripts/z_mail_panel.gd" id="5_3b6ky"]
 [ext_resource type="Script" path="res://Scripts/rent_portal_panel.gd" id="5_gx256"]
 [ext_resource type="Script" path="res://Scripts/amazon_panel.gd" id="5_ilyyr"]
+[ext_resource type="Script" path="res://Scripts/banking_panel.gd" id="5_ndwev"]
 [ext_resource type="AudioStream" uid="uid://dh2igt0vmlubq" path="res://Audio/click-pixabay.mp3" id="5_qamt1"]
 [ext_resource type="Texture2D" uid="uid://dlelwvcwhieej" path="res://icon.svg" id="5_s5esw"]
 [ext_resource type="Texture2D" uid="uid://dy7gxvejplau7" path="res://Assets/refresh-icon.png" id="6_bw7xf"]
+[ext_resource type="AudioStream" uid="uid://baropeox66fy" path="res://Audio/cash-register-kaching-Modestas123123.mp3" id="10_crxvw"]
+[ext_resource type="AudioStream" uid="uid://csn7u0oc8vbxd" path="res://Audio/email-notification-universfield.mp3" id="11_twrvm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5240"]
 bg_color = Color(0.826604, 0.0151576, 0.0230819, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwj58"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fh8wv"]
 bg_color = Color(0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i22qh"]
 bg_color = Color(0.12549, 0.137255, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwj58"]
+bg_color = Color(0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6pmpt"]
 
@@ -65,6 +71,7 @@ text = "Recycle Bin"
 [node name="EmailButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
+action_mode = 0
 text = "ZMail"
 
 [node name="EmailNotification" type="Label" parent="VBoxContainer/EmailButton"]
@@ -81,6 +88,7 @@ horizontal_alignment = 1
 [node name="AmazonButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
+action_mode = 0
 text = "Bookazon"
 
 [node name="SpyAppButton" type="Button" parent="VBoxContainer"]
@@ -191,30 +199,131 @@ visible = false
 layout_mode = 2
 text = "Rent"
 
+[node name="EmailBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Email"
+
 [node name="AmazonBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Shopazon"
+
+[node name="SpyAppBarButton" type="Button" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "SpyApp"
 
 [node name="InstacartBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Instacart"
 
-[node name="EmailBarButton" type="Button" parent="HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Email"
-
 [node name="FacebookBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Facebook"
 
-[node name="SpyAppBarButton" type="Button" parent="HBoxContainer"]
+[node name="BankingPanel" type="Panel" parent="."]
 visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1014.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fh8wv")
+script = ExtResource("5_ndwev")
+
+[node name="Panel" type="Panel" parent="BankingPanel"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
+
+[node name="Label" type="Label" parent="BankingPanel/Panel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 171.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 32
+text = "S.J. Bank"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BankingCloseButton" type="Button" parent="BankingPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="BankingMaxButton" type="Button" parent="BankingPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -54.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "o"
+
+[node name="BankingMinButton" type="Button" parent="BankingPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -108.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "-"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BankingPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -307.0
+offset_right = 291.0
+offset_bottom = 203.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="AccountLabel" type="Label" parent="BankingPanel/VBoxContainer"]
 layout_mode = 2
-text = "SpyApp"
+theme_override_font_sizes/font_size = 48
+text = "S.J. Bank Checking... 0406"
+
+[node name="SpacerLabel" type="Label" parent="BankingPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="PendTransLabel" type="Label" parent="BankingPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Pending Transactions............. $0.00"
+
+[node name="DepHoldsLabel" type="Label" parent="BankingPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Deposit Holds.......................... $0.00"
+
+[node name="SpacerLabel2" type="Label" parent="BankingPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="AccountBalanceLabel" type="Label" parent="BankingPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Account Balance... $"
 
 [node name="RentPortalPanel" type="Panel" parent="."]
 visible = false
@@ -413,6 +522,10 @@ offset_bottom = 1014.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rb7s1")
 script = ExtResource("5_ilyyr")
 
+[node name="PurchaseAudio" type="AudioStreamPlayer" parent="AmazonPanel"]
+stream = ExtResource("10_crxvw")
+volume_db = -1.0
+
 [node name="Panel" type="Panel" parent="AmazonPanel"]
 layout_mode = 0
 offset_right = 1920.0
@@ -591,6 +704,7 @@ Add to Cart"
 icon = ExtResource("5_s5esw")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="AmazonPanel/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 30
 
@@ -951,14 +1065,22 @@ text = "X"
 
 [node name="MouseClickAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qamt1")
-volume_db = 6.0
+volume_db = 2.0
+
+[node name="EmailNotifAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_twrvm")
 
 [connection signal="pressed" from="VBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/BankingButton" to="." method="_on_banking_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/RentPortalButton" to="." method="_on_rent_portal_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/BankingBarButton" to="." method="_on_banking_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RentPortalBarButton" to="." method="_on_rent_portal_bar_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EmailBarButton" to="." method="_on_email_bar_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
+[connection signal="pressed" from="BankingPanel/Panel/BankingCloseButton" to="." method="_on_banking_close_button_pressed"]
+[connection signal="pressed" from="BankingPanel/Panel/BankingMaxButton" to="." method="_on_banking_max_button_pressed"]
+[connection signal="pressed" from="BankingPanel/Panel/BankingMinButton" to="." method="_on_banking_min_button_pressed"]
 [connection signal="visibility_changed" from="RentPortalPanel" to="RentPortalPanel" method="_on_visibility_changed"]
 [connection signal="pressed" from="RentPortalPanel/Panel/RentPortalCloseButton" to="." method="_on_rent_portal_close_button_pressed"]
 [connection signal="pressed" from="RentPortalPanel/Panel/RentPortalMaxButton" to="." method="_on_rent_portal_max_button_pressed"]

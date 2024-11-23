@@ -205,6 +205,12 @@ func load_current_location():
 		#get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 		#print("Error: Scene file for location", Globals.current_location, "not found at", scene_path)
 
+func check_for_save_data() -> bool:
+	if FileAccess.file_exists(SAVE_FILE_PATH):
+		return true
+	else:
+		return false
+
 func delete_save_data():
 	if FileAccess.file_exists(SAVE_FILE_PATH):
 		var dir = DirAccess.open("user://")
@@ -218,7 +224,10 @@ func delete_save_data():
 
 func reset_game_state():
 	Globals.game_over = false
+	Globals.game_paused = false
 	Globals.in_game = false
+	Globals.in_stats = false
+	Globals.in_cutscene = false
 	Globals.current_location = ""
 	Globals.current_floor = 0
 	Globals.climbing_stairs = false
@@ -258,8 +267,8 @@ func reset_game_state():
 	Globals.player_money = 0.00
 	Globals.player_inventory = {
 	"Books": {},
-	"Tools": {},
 	"Keys": {},
+	"Tools": {},
 }
 
 	Globals.current_carry_weight = 0.00

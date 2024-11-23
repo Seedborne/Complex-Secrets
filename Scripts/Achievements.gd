@@ -1,17 +1,18 @@
 extends Node
 
 var achievements = {
-	"enter_unit_3f": false,
-	"unlock_ending_1": false,
-	"unlock_ending_2": false,
-	"unlock_ending_3": false,
-	"unlock_ending_4": false,
-	"unlock_all_endings": false,
-	"anything_for_money": false, #burn someone's unit down
-	"mind_own_business": false, #find new name for this one, do no spy missions
-	"nosy_nelly": false, #do all spy missions
-	"antisocial": false, #complete the game without talking to anyone when not needed
-	"discover_bookcase_secret": false,
+	"enter_unit_3f": {"unlocked": false, "name": "Enter Unit 3F"},
+	"unlock_ending_1": {"unlocked": false, "name": "Unlock Ending 1"},
+	"unlock_ending_2": {"unlocked": false, "name": "Unlock Ending 2"},
+	"unlock_ending_3": {"unlocked": false, "name": "Unlock Ending 3"},
+	"unlock_ending_4": {"unlocked": false, "name": "Unlock Ending 4"},
+	"unlock_all_endings": {"unlocked": false, "name": "Unlock All Endings"},
+	"anything_for_money": {"unlocked": false, "name": "Anything For Money"},
+	"mind_own_business": {"unlocked": false, "name": "Mind Your Own Business"},
+	"nosy_nelly": {"unlocked": false, "name": "Nosy Nelly"},
+	"antisocial": {"unlocked": false, "name": "Antisocial"},
+	"discover_bookcase_secret": {"unlocked": false, "name": "Discover Bookcase Secret"},
+	"unlock_all_achievements": {"unlocked": false, "name": "Unlock All Other Achievements"},
 	# Add more achievements as needed
 }
 
@@ -59,25 +60,38 @@ func load_achievements():
 
 # Function to unlock a specific achievement
 func unlock_achievement(achievement_key):
-	if achievements.has(achievement_key) and not achievements[achievement_key]:
-		achievements[achievement_key] = true
+	if achievements.has(achievement_key) and not achievements[achievement_key]["unlocked"]:
+		achievements[achievement_key]["unlocked"] = true
 		save_achievements()  # Autosave immediately when an achievement is unlocked
-		print("Achievement unlocked: ", achievement_key)
+		var achievement_name = achievements[achievement_key]["name"]
+		UI.show_notification("Achievement unlocked: %s" % achievement_name)
+		UI.play_achievement_audio()
+		print("Achievement unlocked: ", achievement_name)
 	if achievement_key.begins_with("unlock_ending_"):  # Check only if the unlocked key is an ending
 		if all_endings_unlocked():  # Verify if all endings are now unlocked
-			achievements["unlock_all_endings"] = true
-			print("Achievement unlocked: unlock_all_endings")
+			unlock_achievement("unlock_all_endings")
+			#achievements["unlock_all_endings"] = true
+			#save_achievements()
+			#print("Achievement unlocked: unlock_all_endings")
+	if all_achievements_unlocked():  # Verify if all endings are now unlocked
+			unlock_achievement("unlock_all_achievements")
 
 func is_achievement_unlocked(achievement_key: String) -> bool:
 	if achievements.has(achievement_key):
-		return achievements[achievement_key]
+		return achievements[achievement_key]["unlocked"]  # Check the "unlocked" property
 	else:
 		print("Achievement key not found: ", achievement_key)
 		return false  # Return false if the achievement key does not exist
 
 func all_endings_unlocked() -> bool:
 	for key in achievements.keys():
-		if key.begins_with("unlock_ending_") and not achievements[key]:
+		if key.begins_with("unlock_ending_") and not achievements[key]["unlocked"]:
+			return false  # If any ending is not unlocked, return false
+	return true  # All endings are unlocked
+
+func all_achievements_unlocked() -> bool:
+	for key in achievements.keys():
+		if not achievements[key]["unlocked"]:
 			return false  # If any ending is not unlocked, return false
 	return true  # All endings are unlocked
 
@@ -91,3 +105,20 @@ func delete_achievements_data():
 			print("Failed to access achievements directory.")
 	else:
 		print("Achievements data file does not exist.")
+
+func reset_achievements():
+	achievements = {
+	"enter_unit_3f": {"unlocked": false, "name": "Enter Unit 3F"},
+	"unlock_ending_1": {"unlocked": false, "name": "Unlock Ending 1"},
+	"unlock_ending_2": {"unlocked": false, "name": "Unlock Ending 2"},
+	"unlock_ending_3": {"unlocked": false, "name": "Unlock Ending 3"},
+	"unlock_ending_4": {"unlocked": false, "name": "Unlock Ending 4"},
+	"unlock_all_endings": {"unlocked": false, "name": "Unlock All Endings"},
+	"anything_for_money": {"unlocked": false, "name": "Anything For Money"},
+	"mind_own_business": {"unlocked": false, "name": "Mind Your Own Business"},
+	"nosy_nelly": {"unlocked": false, "name": "Nosy Nelly"},
+	"antisocial": {"unlocked": false, "name": "Antisocial"},
+	"discover_bookcase_secret": {"unlocked": false, "name": "Discover Bookcase Secret"},
+	"unlock_all_achievements": {"unlocked": false, "name": "Unlock All Other Achievements"},
+	# Add more achievements as needed
+}

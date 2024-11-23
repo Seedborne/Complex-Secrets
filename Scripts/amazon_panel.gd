@@ -419,6 +419,7 @@ func purchase_items():
 		cart.clear()  # Clear the cart
 		update_cart_display()  # Refresh the cart UI to reflect empty cart
 		$CartPanel.visible = false
+		$PurchaseAudio.play()
 		print("Purchase successful! Remaining funds: $", Globals.player_money)
 		print("Delivery queued:", Globals.delivery_queue)
 	else:

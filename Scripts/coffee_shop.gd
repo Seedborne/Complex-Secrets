@@ -61,6 +61,7 @@ func coffee_select_button(index):
 func _on_small_coffee_pressed():
 	if Globals.player_money >= 5:
 		Globals.decrease_player_money(5)
+		$PurchaseAudio.play()
 		player.can_move = false
 		UI.fade_to_black()
 		#UI.pause_time()
@@ -71,14 +72,17 @@ func _on_small_coffee_pressed():
 		#UI.resume_time()
 		UI.fade_from_black()
 		player.can_move = true
-		$OrderDelay.start()
+		UI.show_notification("Drank small coffee. Sleep recovered.")
 		print("Drank Small Coffee. Sleep bar refilled to ", UI.sleep_bar)
 	else:
+		UI.show_notification("Can't afford small coffee")
 		print("Can't afford small coffee")
+	$OrderDelay.start()
 
 func _on_latte_pressed():
 	if Globals.player_money >= 8:
 		Globals.decrease_player_money(8)
+		$PurchaseAudio.play()
 		player.can_move = false
 		UI.fade_to_black()
 		#UI.pause_time()
@@ -89,14 +93,17 @@ func _on_latte_pressed():
 		#UI.resume_time()
 		UI.fade_from_black()
 		player.can_move = true
-		$OrderDelay.start()
+		UI.show_notification("Drank latte. Sleep recovered.")
 		print("Drank Latte. Sleep bar refilled to ", UI.sleep_bar)
 	else:
+		UI.show_notification("Can't afford latte")
 		print("Can't afford latte")
+	$OrderDelay.start()
 
 func _on_espresso_pressed():
 	if Globals.player_money >= 10:
 		Globals.decrease_player_money(10)
+		$PurchaseAudio.play()
 		player.can_move = false
 		UI.fade_to_black()
 		#UI.pause_time()
@@ -107,10 +114,12 @@ func _on_espresso_pressed():
 		#UI.resume_time()
 		UI.fade_from_black()
 		player.can_move = true
-		$OrderDelay.start()
+		UI.show_notification("Drank espresso. Sleep recovered.")
 		print("Drank Espresso. Sleep bar refilled to ", UI.sleep_bar)
 	else:
+		UI.show_notification("Can't afford espresso")
 		print("Can't afford espresso")
+	$OrderDelay.start()
 
 func _on_lobby_area_2d_body_entered(body):
 	if body == player:

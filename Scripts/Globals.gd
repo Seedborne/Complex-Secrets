@@ -2,7 +2,10 @@ extends Node
 
 var new_game = false
 var in_game = false
+var in_stats = false
+var in_cutscene = false
 var game_over = false
+var game_paused = false
 var current_location = ""
 var current_floor = 0
 var climbing_stairs = false
@@ -64,9 +67,9 @@ var item_categories = {
 	# Add other items and their categories here
 }
 var item_weights = {
-	"Bobby Pins": 0.01,
-	"Ballpoint Pen": 0.2,
-	"Scissors": 0.5,
+	"Bobby Pins": 0.1,
+	"Ballpoint Pen": 0.5,
+	"Scissors": 1.0,
 	"Digital Camera": 2.0,
 	"Voice Recorder": 1.5,
 	"Trail Camera": 3.0,
@@ -82,9 +85,9 @@ var item_weights = {
 	"IntBook4": 2.0,
 	"SocBook4": 2.0,
 	"StlBook4": 2.0,
-	"Gym Key": 0.1,
-	"Mail Key 3F": 0.1,
-	"Unit Key 3F": 0.1,
+	"Gym Key": 0.2,
+	"Mail Key 3F": 0.2,
+	"Unit Key 3F": 0.2,
 	# Add weights for other items
 }
 var bookshelf_inventory = {}
@@ -107,8 +110,8 @@ var book_stat_gain = {
 var player_money: float = 0.00
 var player_inventory = {
 	"Books": {},
-	"Tools": {},
 	"Keys": {},
+	"Tools": {},
 }
 
 var base_carry_weight = 10.0
@@ -155,34 +158,49 @@ func max_carry_weight() -> float:
 func increase_player_speed(amount: int):
 	player_speed += amount
 	player_speed = clamp(player_speed, 250, 500)
-	print("Player speed increased to ", player_speed)
+	if player_speed == 500:
+		UI.show_notification("Speed maxed out!")
+		print("Player speed is maxed out at ", player_speed)
+	else:
+		UI.show_notification("Speed increased from running")
+		print("Player speed increased to ", player_speed)
 
 func increase_player_strength(amount: float):
 	player_strength += amount
 	player_strength = clamp(player_strength, 0.0, 10.0)
-	print("Player strength increased to ", player_strength)
+	if player_strength == 10.0:
+		UI.show_notification("Strength maxed out!")
+		print("Player strength is maxed out at ", player_strength)
+	else:
+		UI.show_notification("Strength increased from lifting")
+		print("Player strength increased to ", player_strength)
 
 func increase_player_intelligence(amount: int):
 	player_intelligence += amount
 	player_intelligence = clamp(player_intelligence, 0, 10)
+	UI.show_notification("Intelligence increased by %d" % amount)
 	print("Player intelligence increased to ", player_intelligence)
 
 func increase_player_social(amount: int):
 	player_social += amount
 	player_social = clamp(player_social, 0, 10)
+	UI.show_notification("Social increased by %d" % amount)
 	print("Player social increased to ", player_social)
 
 func increase_player_stealth(amount: int):
 	player_stealth += amount
 	player_stealth = clamp(player_stealth, 0, 10)
+	UI.show_notification("Stealth increased by %d" % amount)
 	print("Player stealth increased to ", player_stealth)
 
 func increase_player_money(amount: float):
 	player_money += amount
+	UI.show_notification("$%.2f earned" % amount)
 	print("Player money increased to $", player_money)
 
 func decrease_player_money(amount: float):
 	player_money -= amount
+	UI.show_notification("$%.2f spent" % amount)
 	print("Player money decreased to $", player_money)
 
 func schedule_keys_delivery():
@@ -250,6 +268,7 @@ func collect_mail():
 		else:
 			print("Collected all mail items!")
 	else:
+		UI.show_notification("Mailbox is empty.")
 		print("No mail to collect.")
 
 func add_to_inventory(item_name: String, quantity: int):
@@ -262,6 +281,8 @@ func add_to_inventory(item_name: String, quantity: int):
 
 	# Check if adding the item exceeds the max carry weight
 	if current_carry_weight + item_weight > max_carry_weight():
+		var carry_cap_message = "Cannot pick up %s - over max carry weight!" % item_name
+		UI.show_notification(carry_cap_message)
 		print("Cannot pick up", item_name, "- over max carry weight!")
 		return false  # Indicate that the item couldn't be added
 	# Proceed to add the item since it’s within the weight limit
@@ -271,6 +292,9 @@ func add_to_inventory(item_name: String, quantity: int):
 		player_inventory[category][item_name] += adjusted_quantity
 	else:
 		player_inventory[category][item_name] = adjusted_quantity
+	#var message = "+ %s" % [item_name]
+	var message = "+ %d %s" % [adjusted_quantity, item_name]
+	UI.show_notification(message)
 	print("Added ", adjusted_quantity, " ", item_name, " to ", category, " inventory. Total: ", player_inventory[category][item_name])
 	return true
 
@@ -285,6 +309,9 @@ func remove_from_inventory(item_name: String, quantity: int):
 
 		current_carry_weight = max(current_carry_weight - item_weight, 0)  # Ensure weight doesn’t go negative
 		UI.update_carry_weight_display()
+		#var message = "Removed %s from inventory." % [item_name]
+		var message = "Removed %d %s from inventory." % [quantity, item_name]
+		UI.show_notification(message)
 		print("Removed", quantity, item_name, "from", category, "inventory.")
 	else:
 		print("Item not in inventory.")
@@ -298,4 +325,4 @@ func has_item_in_inventory(item_name: String) -> bool:
 	return false
 
 func check_tenant_availability():
-	tenant_home = true
+	tenant_home = false

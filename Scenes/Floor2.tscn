@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bb4q8styoj3wk"]
+[gd_scene load_steps=47 format=3 uid="uid://bb4q8styoj3wk"]
 
 [ext_resource type="Script" path="res://Scripts/floor_2.gd" id="1_tkvw4"]
 [ext_resource type="Texture2D" uid="uid://dhs4103ee33mp" path="res://Assets/testhallway.png" id="2_ybuqe"]
@@ -97,6 +97,10 @@ b = Vector2(-14, 211)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_mjwwt"]
 a = Vector2(750, 239)
 b = Vector2(-135, 238)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_qctsp"]
+a = Vector2(-1912, -222)
+b = Vector2(-1514, -222)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljwrb"]
 size = Vector2(150, 182)
@@ -400,6 +404,10 @@ shape = SubResource("SegmentShape2D_3w481")
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="BoundaryBody2D"]
 position = Vector2(3150, 572)
 shape = SubResource("SegmentShape2D_mjwwt")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="BoundaryBody2D"]
+position = Vector2(3150, 595)
+shape = SubResource("SegmentShape2D_qctsp")
 
 [node name="WallBody2D" type="StaticBody2D" parent="."]
 

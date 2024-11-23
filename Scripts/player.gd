@@ -24,7 +24,8 @@ func _physics_process(_delta):
 			# Smoothly decelerate the player
 			velocity.x = move_toward(velocity.x, 0, Globals.player_speed)
 			velocity.y = move_toward(velocity.y, 0, Globals.player_speed)
-		
+	else:
+		velocity = Vector2.ZERO  # Prevent all movement if can_move is false
 	# Determine animation based on facing direction
 	if facing_direction.x > 0 and facing_direction.y < 0:  # Diagonal up-right
 		animated_sprite.flip_h = false
@@ -64,5 +65,6 @@ func pass_out():
 	UI.resume_time()
 	UI.sleep_for_hours(12)
 	UI.fade_from_black()
+	UI.show_notification("You passed out from exhaustion and awoke 12 hours later.")
 	can_move = true
 	passing_out = false

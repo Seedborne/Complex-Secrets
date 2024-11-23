@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://csu1x74plq8tn"]
+[gd_scene load_steps=57 format=3 uid="uid://csu1x74plq8tn"]
 
 [ext_resource type="Texture2D" uid="uid://ckdac35ry8ysi" path="res://Assets/testlobby.png" id="1_8edys"]
 [ext_resource type="Script" path="res://Scripts/lobby.gd" id="1_uq01k"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://8l40h6o7eg73" path="res://Assets/Characters/Dad/test-dad-sideward.png" id="16_b24ke"]
 [ext_resource type="Texture2D" uid="uid://ccijtqr3ygc8g" path="res://Assets/Characters/Dad/test-dad-backward.png" id="17_sv662"]
 [ext_resource type="Texture2D" uid="uid://crct2h6g5rjlg" path="res://Assets/Characters/Dad/test-dad-forward.png" id="18_k4bn7"]
+[ext_resource type="AudioStream" uid="uid://cny5784bqyx3v" path="res://Audio/mailbox-freesound-community.mp3" id="25_kfhvr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b2vfb"]
 animations = [{
@@ -598,6 +599,9 @@ volume_db = -4.0
 
 [node name="ElevatorCloseAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_ifx1w")
+
+[node name="MailboxAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_kfhvr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 visible = false

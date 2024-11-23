@@ -17,26 +17,34 @@ func _ready():
 	player_scene = load("res://Scenes/Player.tscn")
 	player = player_scene.instantiate()
 	add_child(player)
-	Globals.current_location = "Unit3F"
-	Globals.current_floor = 3
 	if Globals.lights_on:
 		$LightsOff.visible = false
 		$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-on.png")
 	else:
 		$LightsOff.visible = true
 		$LightswitchSprite2D.texture = load("res://Assets/testlightswitch-off.png")
-	if not Globals.on_computer:
+	if Globals.current_location == "Floor 3":
+		Globals.current_location = "Unit 3F"
 		player.position = Vector2(800, 260)
 		player.can_move = true
 		UI.fade_from_black()
 		print("In Unit3F")
 		await Globals.create_tracked_timer(0.5).timeout
 		_close_door()
-	else:
+	elif Globals.on_computer:
+		Globals.current_location = "Unit 3F"
 		player.position = Vector2(1310, 530)
 		player.can_move = true
 		Globals.on_computer = false
 		$DoorSprite.visible = true
+	else:
+		Globals.current_location = "Unit 3F"
+		player.position = Vector2(800, 260)
+		player.can_move = true
+		$DoorSprite.visible = true
+		UI.fade_from_black()
+		print("In Unit 3F")
+	Globals.current_floor = 3
 	if not Achievements.is_achievement_unlocked("enter_unit_3f"):
 		Achievements.unlock_achievement("enter_unit_3f")
 
@@ -103,6 +111,9 @@ func _on_lightswitch_area_2d_body_entered(body):
 func _on_lightswitch_area_2d_body_exited(body):
 	if body == player:
 		near_lightswitch = false
+
+func play_email_audio():
+	$EmailNotifAudio.play()
 
 # Adjusted highlight_button function for bookshelf buttons
 func bookshelf_highlight_button(index):
@@ -269,16 +280,6 @@ func store_books():
 func read_book(book_name):
 	var book_info = Globals.book_stat_gain[book_name]
 	if book_info:
-		# Apply stat gain
-		Globals[book_info["stat"]] += book_info["gain"]
-		print(book_name, " read! Increased ", book_info["stat"], " by ", book_info["gain"])
-		print("Player Stats
-	Speed: ", Globals.player_speed, "
-	Strength: ", Globals.player_strength, "
-	Intelligence: ", Globals.player_intelligence, "
-	Social: ", Globals.player_social, "
-	Stealth: ", Globals.player_stealth
-	)
 		player.can_move = false
 		UI.fade_to_black()
 		UI.pause_time()
@@ -286,6 +287,17 @@ func read_book(book_name):
 		UI.resume_time()
 		# Skip time
 		UI.skip_time(book_info["time_skip"])
+		var time_message = "%s finished! Read for %d hours." % [book_name, book_info["time_skip"]]
+		UI.show_notification(time_message)
+		# Apply stat gain
+		match book_info["stat"]:
+			"player_intelligence":
+				Globals.increase_player_intelligence(book_info["gain"])
+			"player_social":
+				Globals.increase_player_social(book_info["gain"])
+			"player_stealth":
+				Globals.increase_player_stealth(book_info["gain"])
+		print("%s read! Increased %s by %d" % [book_name, book_info["stat"], book_info["gain"]])
 		UI.fade_from_black()
 		player.position = Vector2(1120, 220)
 		player.can_move = true

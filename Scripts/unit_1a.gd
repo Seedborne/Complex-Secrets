@@ -10,7 +10,7 @@ func _ready():
 	player.can_move = true
 	UI.fade_from_black()
 	player.position = Vector2(800, 260)
-	Globals.current_location = "Unit1A"
+	Globals.current_location = "Unit 1A"
 	print("In Unit1A")
 	await Globals.create_tracked_timer(0.5).timeout
 	_close_door()

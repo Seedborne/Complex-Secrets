@@ -24,19 +24,19 @@ func _ready():
 	if Globals.climbing_stairs:
 		player.position = Vector2(-1510, 500)
 		Globals.climbing_stairs = false
-		Globals.current_location = "Floor3"
+		Globals.current_location = "Floor 3"
 	elif Globals.descending_stairs:
 		player.position = Vector2(-1658, 500)
 		Globals.descending_stairs = false
-		Globals.current_location = "Floor3"
+		Globals.current_location = "Floor 3"
 	elif Globals.current_location == "Elevator":
 		player.position = Vector2(1440, 540)
-		Globals.current_location = "Floor3"
+		Globals.current_location = "Floor 3"
 		$ElevatorSprite.play("closed")
-	elif Globals.current_location == "Unit3F":
+	elif Globals.current_location == "Unit 3F":
 		player.position = Vector2(3420, 500)
 		left_unit = "3F"
-		Globals.current_location = "Floor3"
+		Globals.current_location = "Floor 3"
 		_leave_unit()
 	Globals.current_floor = 3
 	add_child(player)
@@ -284,7 +284,10 @@ func _on_knocking_audio_finished():
 		#door_open = true
 		#$Unit3FDoorSprite.visible = false
 		#$Unit3FStaticBody2D/CollisionShape2D2.disabled = true
-	$DoorOpenAudio.play()
+	if Globals.tenant_home:
+		$DoorOpenAudio.play()
+	else:
+		print("Tenant not home")
 
 func _close_door():
 	if target_unit == "3A":

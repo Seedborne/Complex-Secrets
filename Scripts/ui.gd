@@ -39,6 +39,9 @@ var class_schedule: Dictionary = {
 @onready var sleep_progress_bar: ProgressBar = $VBoxContainer2/SleepBar
 @onready var grades_progress_bar: ProgressBar = $VBoxContainer2/GradesBar
 
+@onready var game_notifications_container = $NotificationsContainer
+const NOTIFICATION_DURATION = 5.0
+
 func _ready():
 	update_bars()
 
@@ -118,6 +121,7 @@ func check_for_deliveries():
 			if not (d["delivery_day"] == current_day and d["delivery_month"] == current_month and d["delivery_year"] == current_year):
 				new_delivery_queue.append(d)
 		Globals.delivery_queue = new_delivery_queue
+		UI.show_notification("Mail has arrived!")
 		print("Mail has arrived!")
 	print("All Mailbox items:", Globals.mailbox_items)
 
@@ -146,12 +150,14 @@ func hide_ui():
 	$VBoxContainer.visible = false
 	$VBoxContainer2.visible = false
 	$CarryWeightLabel.visible = false
+	$NotificationsContainer.visible = false
 
 func show_ui():
 	$Panel.visible = true
 	$VBoxContainer.visible = true
 	$VBoxContainer2.visible = true
 	$CarryWeightLabel.visible = true
+	$NotificationsContainer.visible = true
 
 func hide_bars():
 	$VBoxContainer2.visible = false
@@ -196,9 +202,10 @@ func attend_class():
 
 # Method for missing class
 func miss_class():
-	grades_bar -= grades_loss_per_missed_class - (Globals.player_intelligence * 0.5)  # Intelligence reduces loss
+	grades_bar -= grades_loss_per_missed_class - (Globals.player_intelligence * 2.0)  # Intelligence reduces loss
 	grades_bar = clamp(grades_bar, 0, 100)
 	update_bars()
+	UI.show_notification("Missed class!")
 	print("Missed class, grades bar reduced to ", grades_bar)
 
 # Update the visual clock label with formatted time (e.g., 8:00 AM, 11:00 PM)
@@ -364,13 +371,16 @@ func update_bars():
 	update_carry_weight_display()
 
 func update_carry_weight_display():
-	$CarryWeightLabel.text = "Carry Weight: %.2f / %d" % [Globals.current_carry_weight, Globals.max_carry_weight()]
+	$CarryWeightLabel.text = "Carry Weight: %.1f / %.1f" % [Globals.current_carry_weight, Globals.max_carry_weight()]
 
 func fade_to_black():
 	$ScreenFade/FadeAnimation.play("fade_out")
 
 func fade_from_black():
 	$ScreenFade/FadeAnimation.play("fade_in")
+
+func play_achievement_audio():
+	$AchievementAudio.play()
 
 func play_stairs_audio():
 	$StairsAudio.play()
@@ -388,8 +398,29 @@ func cpu_fade_from_black():
 func cpu_fade_from_black_no_audio():
 	$ScreenFade/FadeAnimation.play("cpu_fade_in")
 
+# Add a new notification
+func show_notification(message: String):
+	# Create a new Label for the notification
+	var game_notification = Label.new()
+	game_notification.text = message
+	game_notification.set_autowrap_mode(TextServer.AUTOWRAP_WORD)  # Enable wrapping for longer text
+	game_notification.add_theme_color_override("font_color", Color(0, 0, 0))
+	#game_notification.add_theme_color_override("font_color", Color(1, 1, 1))  # Optional: set the color to white
+	#game_notification.add_theme_color_override("font_color_shadow", Color(0, 0, 0))  # Optional: shadow effect
+	#game_notification.add_theme_constant_override("font_size", 24)  # Optional: set font size
+	
+	# Add the notification to the VBoxContainer
+	game_notifications_container.add_child(game_notification)
+
+	# Schedule removal of the notification after the duration
+	call_deferred("_remove_notification_after_delay", game_notification)
+
+# Remove notification after delay
+func _remove_notification_after_delay(game_notification):
+	await get_tree().create_timer(NOTIFICATION_DURATION).timeout
+	if game_notification and game_notification.get_parent():  # Check if still exists
+		game_notifications_container.remove_child(game_notification)
+		game_notification.queue_free()
+
 func _on_test_button_1_pressed():
 	skip_time(12)
-
-func _on_test_button_2_pressed():
-	Achievements.delete_achievements_data()

@@ -15,16 +15,6 @@ var events = [
 		"month": 09,
 		"day": 02,
 		"hour": 8,
-		"minute": 05,
-		"callback": "trigger_email_event"
-	},
-	{
-		"name": "work_email",
-		"triggered": false,
-		"year": 2007,
-		"month": 09,
-		"day": 02,
-		"hour": 8,
 		"minute": 10,
 		"callback": "trigger_email_event"
 	},
@@ -35,7 +25,17 @@ var events = [
 		"month": 09,
 		"day": 02,
 		"hour": 8,
-		"minute": 15,
+		"minute": 20,
+		"callback": "trigger_email_event"
+	},
+	{
+		"name": "work_email",
+		"triggered": false,
+		"year": 2007,
+		"month": 09,
+		"day": 02,
+		"hour": 8,
+		"minute": 30,
 		"callback": "trigger_email_event"
 	},
 	{
@@ -44,7 +44,7 @@ var events = [
 		"year": 2007,
 		"month": 09,
 		"day": 03,
-		"hour": 2,
+		"hour": 3,
 		"minute": 00,
 		"callback": "trigger_email_event"
 	},
@@ -85,7 +85,16 @@ We are just following up to inform you about some lucrative work available withi
 
 You will be assigned simple tasks to complete involving other members of our community, with a generous payout accompanying each task! Get paid to simply get to know and help out your neighbors :) 
 
-The AnonHelp app is being automatically downloaded onto your computer now! Check it out to get started making money!
+The AnonHelp app is being automatically downloaded onto your computer now! You will also notice a new 'Tools' section in Bookazon. Check it out to get started making money!
+",
+		"read": false,
+		"sent": false
+	},
+	{
+		"id": "work_email",
+		"sender": "noreply@storedash.com",
+		"subject": "Onboarding Complete",
+		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time.
 ",
 		"read": false,
 		"sent": false
@@ -111,15 +120,6 @@ What you need to know:
 - Rent must be paid through our online payment portal, the payment portal app is being automatically installed on your computer now.
 
 - If you fall behind on rent you will be served an eviction notice. If you fall more than one week behind on rent you will be evicted immediately.
-",
-		"read": false,
-		"sent": false
-	},
-	{
-		"id": "work_email",
-		"sender": "noreply@storedash.com",
-		"subject": "Onboarding Complete",
-		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time.
 ",
 		"read": false,
 		"sent": false
@@ -198,9 +198,13 @@ func trigger_email_event(event_name):
 	for email in emails:
 		if email["id"] == event_name:  # Match the email ID with the event name
 			email["sent"] = true
+			UI.show_notification("New email recieved")
 			print("New email received: %s" % email["subject"])
+			if get_tree().current_scene != null and get_tree().current_scene.name == "Unit3F":
+				get_tree().current_scene.play_email_audio()
 			if get_tree().current_scene != null and get_tree().current_scene.name == "Computer":
 				get_tree().current_scene.check_unread_emails()
+				get_tree().current_scene.play_email_audio()
 			if get_tree().current_scene != null and get_tree().current_scene.has_node("ZMailPanel"):
 				var zmail_panel = get_tree().current_scene.get_node("ZMailPanel")
 				zmail_panel.update_email_list()
@@ -214,6 +218,7 @@ func check_rent_status():
 	# Check if rent is overdue
 	if UI.current_day_index == 2:
 		rent_balance += weekly_rent
+		UI.show_notification("New rent bill added")
 		if get_tree().current_scene != null and get_tree().current_scene.has_node("RentPortalPanel"):
 				var rent_portal_panel = get_tree().current_scene.get_node("RentPortalPanel")
 				rent_portal_panel.update_rent_info()
@@ -222,6 +227,7 @@ func check_rent_status():
 			if not eviction_warning_sent:
 				# Add late fee if rent is overdue
 				rent_balance += late_fee
+				UI.show_notification("Rent payment overdue")
 				print("Rent is overdue! Late fee added. Total owed: $", rent_balance)   
 				send_eviction_warning_email()
 				eviction_warning_sent = true
@@ -237,6 +243,7 @@ func send_eviction_warning_email():
 		if email["id"] == "eviction_warning":
 			email["sent"] = true
 			email["read"] = false
+			UI.show_notification("New email recieved")
 			print("Eviction warning email sent.")
 			if get_tree().current_scene != null and get_tree().current_scene.name == "Computer":
 				get_tree().current_scene.check_unread_emails()
@@ -253,16 +260,6 @@ func reset_events():
 		"month": 09,
 		"day": 02,
 		"hour": 8,
-		"minute": 05,
-		"callback": "trigger_email_event"
-	},
-	{
-		"name": "work_email",
-		"triggered": false,
-		"year": 2007,
-		"month": 09,
-		"day": 02,
-		"hour": 8,
 		"minute": 10,
 		"callback": "trigger_email_event"
 	},
@@ -273,7 +270,17 @@ func reset_events():
 		"month": 09,
 		"day": 02,
 		"hour": 8,
-		"minute": 15,
+		"minute": 20,
+		"callback": "trigger_email_event"
+	},
+	{
+		"name": "work_email",
+		"triggered": false,
+		"year": 2007,
+		"month": 09,
+		"day": 02,
+		"hour": 8,
+		"minute": 30,
 		"callback": "trigger_email_event"
 	},
 	{
@@ -282,7 +289,7 @@ func reset_events():
 		"year": 2007,
 		"month": 09,
 		"day": 03,
-		"hour": 2,
+		"hour": 3,
 		"minute": 00,
 		"callback": "trigger_email_event"
 	},
@@ -323,7 +330,16 @@ We are just following up to inform you about some lucrative work available withi
 
 You will be assigned simple tasks to complete involving other members of our community, with a generous payout accompanying each task! Get paid to simply get to know and help out your neighbors :) 
 
-The AnonHelp app is being automatically downloaded onto your computer now! Check it out to get started making money!
+The AnonHelp app is being automatically downloaded onto your computer now! You will also notice a new 'Tools' section in Bookazon. Check it out to get started making money!
+",
+		"read": false,
+		"sent": false
+	},
+	{
+		"id": "work_email",
+		"sender": "noreply@storedash.com",
+		"subject": "Onboarding Complete",
+		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time.
 ",
 		"read": false,
 		"sent": false
@@ -349,15 +365,6 @@ What you need to know:
 - Rent must be paid through our online payment portal, the payment portal app is being automatically installed on your computer now.
 
 - If you fall behind on rent you will be served an eviction notice. If you fall more than one week behind on rent you will be evicted immediately.
-",
-		"read": false,
-		"sent": false
-	},
-	{
-		"id": "work_email",
-		"sender": "noreply@storedash.com",
-		"subject": "Onboarding Complete",
-		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time.
 ",
 		"read": false,
 		"sent": false

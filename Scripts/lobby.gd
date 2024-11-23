@@ -84,17 +84,23 @@ func _process(_delta):
 		$GymBody2D/CollisionShape2D.disabled = false
 
 func intro_scene():
-	$MomCharacter.visible = true
-	$DadCharacter.visible = true
+	Globals.in_cutscene = true
 	player.can_move = false
 	UI.pause_time()
-	await Globals.create_tracked_timer(1.5).timeout
-	await $DadCharacter.dad_intro()
-	print("Dad left")
-	await $MomCharacter.mom_intro()
-	print("Mom left")
-	player.can_move = true
-	UI.resume_time()
+	if is_instance_valid($MomCharacter):
+		$MomCharacter.visible = true
+	if is_instance_valid($DadCharacter):
+		$DadCharacter.visible = true
+		await Globals.create_tracked_timer(1.5).timeout
+	if is_instance_valid($DadCharacter):
+		await $DadCharacter.dad_intro()
+		print("Dad left")
+	if is_instance_valid($MomCharacter):
+		await $MomCharacter.mom_intro()
+		print("Mom left")
+		player.can_move = true
+		Globals.in_cutscene = false
+		UI.resume_time()
 
 func _on_elevator_button_area_2d_body_entered(body):
 	if body == player:
@@ -123,7 +129,25 @@ func _input(event):
 	elif event.is_action_pressed("ui_interact") and near_entrance and not Globals.at_class and not Globals.at_work:
 		select_button(selected_index)
 	if event.is_action_pressed("ui_interact") and near_player_mailbox:
+		$MailboxAudio.play()
 		Globals.collect_mail()
+	if event.is_action_pressed("ui_select") and Globals.in_cutscene:
+		print("Skipping cutscene")
+		skip_intro_cutscene()
+
+func skip_intro_cutscene():
+	Globals.in_cutscene = false
+	UI.fade_to_black()
+	await Globals.create_tracked_timer(1.0).timeout
+	$MomCharacter.queue_free()
+	$DadCharacter.queue_free()
+	if not Globals.has_item_in_inventory("Unit Key 3F"):
+		Globals.add_to_inventory("Unit Key 3F", 1)
+	if not Globals.has_item_in_inventory("Mail Key 3F"):
+		Globals.add_to_inventory("Mail Key 3F", 1)
+	UI.fade_from_black()
+	player.can_move = true
+	UI.resume_time()
 
 func highlight_button(index):
 	# Reset all children to default state
@@ -240,6 +264,16 @@ func _on_class_button_pressed():
 		Globals.current_location = "At Class"
 		player.can_move = false
 		player.visible = false
+		var am_pm = "AM"
+		var display_hour = UI.current_hour
+		if UI.current_hour >= 12:
+			am_pm = "PM"
+		if UI.current_hour == 0:
+			display_hour = 12  # Midnight case
+		elif UI.current_hour > 12:
+			display_hour -= 12
+		#clock_label.text = "%d:00 %s" % [display_hour, am_pm]
+		UI.show_notification("Waiting for class to start at %d:00 %s" % [(display_hour + 1), am_pm])
 		print("Off to class")
 
 func _on_work_button_1_pressed():
@@ -300,12 +334,10 @@ func _on_mailbox_area_2d_body_exited(body):
 
 func _on_test_area_2d_body_entered(body):
 	if body == player:
-		print("Player Stats
-	Speed: ", Globals.player_speed, "
-	Strength: ", Globals.player_strength, "
-	Intelligence: ", Globals.player_intelligence, "
-	Social: ", Globals.player_social, "
-	Stealth: ", Globals.player_stealth
-	)
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Unit3F.tscn")
-		
+		#print("Player Stats
+	#Speed: ", Globals.player_speed, "
+	#Strength: ", Globals.player_strength, "
+	#Intelligence: ", Globals.player_intelligence, "
+	#Social: ", Globals.player_social, "
+	#Stealth: ", Globals.player_stealth)
