@@ -47,6 +47,7 @@ func _ready():
 	Globals.current_floor = 3
 	if not Achievements.is_achievement_unlocked("enter_unit_3f"):
 		Achievements.unlock_achievement("enter_unit_3f")
+	UI.complete_objective("Find and enter your unit (Unit 3F)")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

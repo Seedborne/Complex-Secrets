@@ -86,6 +86,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Controls"
 
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Credits"
+
 [node name="QuitGameButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48

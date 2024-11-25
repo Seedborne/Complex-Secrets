@@ -278,7 +278,6 @@ func add_to_inventory(item_name: String, quantity: int):
 		adjusted_quantity = quantity * 10
 	var category = item_categories[item_name]
 	var item_weight = item_weights.get(item_name, 0) * adjusted_quantity  # Total weight for quantity
-
 	# Check if adding the item exceeds the max carry weight
 	if current_carry_weight + item_weight > max_carry_weight():
 		var carry_cap_message = "Cannot pick up %s - over max carry weight!" % item_name
@@ -295,6 +294,8 @@ func add_to_inventory(item_name: String, quantity: int):
 	#var message = "+ %s" % [item_name]
 	var message = "+ %d %s" % [adjusted_quantity, item_name]
 	UI.show_notification(message)
+	if item_name == "Gym Key":
+		UI.complete_objective("Collect gym key from mailbox")
 	print("Added ", adjusted_quantity, " ", item_name, " to ", category, " inventory. Total: ", player_inventory[category][item_name])
 	return true
 

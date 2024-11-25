@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://ck7b41o7rjpc1"]
+[gd_scene load_steps=15 format=3 uid="uid://ck7b41o7rjpc1"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_p76vr"]
+[ext_resource type="Script" path="res://Scripts/objectives_container.gd" id="2_01eqs"]
 [ext_resource type="AudioStream" uid="uid://11lhojkyud17" path="res://Audio/shorter_steps_pixabay.mp3" id="2_14cxe"]
 [ext_resource type="AudioStream" uid="uid://bw0m7vdks74f8" path="res://Audio/computer-on-off.mp3" id="3_1evnv"]
 [ext_resource type="AudioStream" uid="uid://b6yxm45fsuxea" path="res://Audio/achievement-universfield.mp3" id="4_i5210"]
@@ -170,6 +171,19 @@ offset_left = 9.0
 offset_top = 2.0
 offset_right = 362.0
 offset_bottom = 2.0
+
+[node name="ObjectivesContainer" type="VBoxContainer" parent="."]
+offset_left = 1619.0
+offset_top = 6.0
+offset_right = 1815.0
+offset_bottom = 29.0
+script = ExtResource("2_01eqs")
+
+[node name="ObjectivesLabel" type="Label" parent="ObjectivesContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Objectives"
+horizontal_alignment = 1
 
 [node name="ScreenFade" type="ColorRect" parent="."]
 anchors_preset = 15

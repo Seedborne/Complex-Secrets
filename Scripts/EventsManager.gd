@@ -43,8 +43,8 @@ var events = [
 		"triggered": false,
 		"year": 2007,
 		"month": 09,
-		"day": 03,
-		"hour": 3,
+		"day": 02,
+		"hour": 12,
 		"minute": 00,
 		"callback": "trigger_email_event"
 	},
@@ -200,6 +200,12 @@ func trigger_email_event(event_name):
 			email["sent"] = true
 			UI.show_notification("New email recieved")
 			print("New email received: %s" % email["subject"])
+			if email["id"] == "college_email":
+				UI.add_objective("Use your computer to check your email")
+			if email["id"] == "work_email":
+				UI.add_objective("Read new emails")
+			if email["id"] == "spy_email_1":
+				UI.add_objective("Read new email")
 			if get_tree().current_scene != null and get_tree().current_scene.name == "Unit3F":
 				get_tree().current_scene.play_email_audio()
 			if get_tree().current_scene != null and get_tree().current_scene.name == "Computer":
@@ -209,6 +215,22 @@ func trigger_email_event(event_name):
 				var zmail_panel = get_tree().current_scene.get_node("ZMailPanel")
 				zmail_panel.update_email_list()
 			break
+
+func check_all_emails_read():
+	# IDs of emails to check for this objective
+	var target_emails = ["college_email", "apartment_email_1", "work_email"]
+
+	# Check if all target emails are read
+	var all_read = true
+	for email in emails:
+		if email["id"] in target_emails and not email["read"]:
+			all_read = false
+			break  # Stop checking if any email isn't read
+
+	# If all emails are read, complete the objective
+	if all_read:
+		UI.complete_objective("Read new emails")
+		UI.remove_completed_objectives()
 
 func trigger_story_event(_event_name): #remove underscore when adding logic
 	print("Story event triggered!")
@@ -288,8 +310,8 @@ func reset_events():
 		"triggered": false,
 		"year": 2007,
 		"month": 09,
-		"day": 03,
-		"hour": 3,
+		"day": 02,
+		"hour": 12,
 		"minute": 00,
 		"callback": "trigger_email_event"
 	},

@@ -25,6 +25,8 @@ var class_schedule: Dictionary = {
 	"Friday": [13]  # Single class on Friday
 }
 
+var objectives = []
+
 @onready var bars = [
 		$VBoxContainer2/HungerBar,
 		$VBoxContainer2/SleepBar,
@@ -39,11 +41,14 @@ var class_schedule: Dictionary = {
 @onready var sleep_progress_bar: ProgressBar = $VBoxContainer2/SleepBar
 @onready var grades_progress_bar: ProgressBar = $VBoxContainer2/GradesBar
 
+@onready var objectives_container = $ObjectivesContainer
+
 @onready var game_notifications_container = $NotificationsContainer
 const NOTIFICATION_DURATION = 5.0
 
 func _ready():
 	update_bars()
+	update_objectives_ui()
 
 func _process(_delta):
 	if Globals.in_game:
@@ -121,7 +126,7 @@ func check_for_deliveries():
 			if not (d["delivery_day"] == current_day and d["delivery_month"] == current_month and d["delivery_year"] == current_year):
 				new_delivery_queue.append(d)
 		Globals.delivery_queue = new_delivery_queue
-		UI.show_notification("Mail has arrived!")
+		show_notification("Mail has arrived!")
 		print("Mail has arrived!")
 	print("All Mailbox items:", Globals.mailbox_items)
 
@@ -151,6 +156,7 @@ func hide_ui():
 	$VBoxContainer2.visible = false
 	$CarryWeightLabel.visible = false
 	$NotificationsContainer.visible = false
+	$ObjectivesContainer.visible = false
 
 func show_ui():
 	$Panel.visible = true
@@ -158,6 +164,7 @@ func show_ui():
 	$VBoxContainer2.visible = true
 	$CarryWeightLabel.visible = true
 	$NotificationsContainer.visible = true
+	$ObjectivesContainer.visible = true
 
 func hide_bars():
 	$VBoxContainer2.visible = false
@@ -205,7 +212,12 @@ func miss_class():
 	grades_bar -= grades_loss_per_missed_class - (Globals.player_intelligence * 2.0)  # Intelligence reduces loss
 	grades_bar = clamp(grades_bar, 0, 100)
 	update_bars()
-	UI.show_notification("Missed class!")
+	show_notification("Missed class!")
+	if current_day == 3 and current_month == 9:
+		for objective in objectives:
+			if objective["text"] == "Attend first class on Monday at 10:00AM":
+				if not objective["completed"]:
+					fail_objective("Attend first class on Monday at 10:00AM")
 	print("Missed class, grades bar reduced to ", grades_bar)
 
 # Update the visual clock label with formatted time (e.g., 8:00 AM, 11:00 PM)
@@ -421,6 +433,40 @@ func _remove_notification_after_delay(game_notification):
 	if game_notification and game_notification.get_parent():  # Check if still exists
 		game_notifications_container.remove_child(game_notification)
 		game_notification.queue_free()
+
+# Define an objective structure
+func add_objective(objective_text: String):
+	objectives.append({
+		"text": objective_text,
+		"completed": false,
+		"failed": false,
+	})
+	update_objectives_ui()
+
+# Mark an objective as completed
+func complete_objective(objective_text: String):
+	for objective in objectives:
+		if objective["text"] == objective_text:
+			objective["completed"] = true
+			break
+	update_objectives_ui()
+
+func fail_objective(objective_text: String):
+	for objective in objectives:
+		if objective["text"] == objective_text:
+			objective["failed"] = true
+			break
+	update_objectives_ui()
+
+# Remove completed objectives (optional, based on your design choice)
+func remove_completed_objectives():
+	objectives = objectives.filter(func(obj): return not obj["completed"])
+	objectives = objectives.filter(func(obj): return not obj["failed"])
+	update_objectives_ui()
+
+# Update the objectives UI
+func update_objectives_ui():
+	objectives_container.update_objectives_list()
 
 func _on_test_button_1_pressed():
 	skip_time(12)

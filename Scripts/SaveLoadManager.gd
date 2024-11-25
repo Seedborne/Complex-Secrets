@@ -46,6 +46,9 @@ func save_game():
 			"current_month": UI.current_month,
 			"current_year": UI.current_year
 		},
+		
+		"objectives": UI.objectives,
+		
 		"floor": Globals.current_floor,
 		"location": Globals.current_location,
 		
@@ -69,6 +72,7 @@ func save_game():
 		
 		"rent_balance": EventsManager.rent_balance,
 		"eviction_warning": EventsManager.eviction_warning_sent,
+		
 	}
 
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
@@ -141,7 +145,9 @@ func apply_loaded_data(save_data):
 	UI.current_day = save_data["date"]["current_day"]
 	UI.current_month = save_data["date"]["current_month"]
 	UI.current_year = save_data["date"]["current_year"]
-
+	
+	UI.objectives = save_data["objectives"]
+	
 	# Restore location
 	Globals.current_floor = save_data["floor"]
 	Globals.current_location = save_data["location"]

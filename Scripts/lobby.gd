@@ -100,6 +100,7 @@ func intro_scene():
 		print("Mom left")
 		player.can_move = true
 		Globals.in_cutscene = false
+		UI.add_objective("Find and enter your unit (Unit 3F)")
 		UI.resume_time()
 
 func _on_elevator_button_area_2d_body_entered(body):
@@ -145,6 +146,7 @@ func skip_intro_cutscene():
 		Globals.add_to_inventory("Unit Key 3F", 1)
 	if not Globals.has_item_in_inventory("Mail Key 3F"):
 		Globals.add_to_inventory("Mail Key 3F", 1)
+	UI.add_objective("Find and enter your unit (Unit 3F)")
 	UI.fade_from_black()
 	player.can_move = true
 	UI.resume_time()
@@ -274,6 +276,8 @@ func _on_class_button_pressed():
 			display_hour -= 12
 		#clock_label.text = "%d:00 %s" % [display_hour, am_pm]
 		UI.show_notification("Waiting for class to start at %d:00 %s" % [(display_hour + 1), am_pm])
+		if UI.current_day == 3 and UI.current_month == 9 and UI.current_hour == 9:
+			UI.complete_objective("Attend first class on Monday at 10:00AM")
 		print("Off to class")
 
 func _on_work_button_1_pressed():
@@ -290,6 +294,7 @@ func _on_work_button_1_pressed():
 		UI.resume_time()
 		UI.skip_time(2)
 		Globals.increase_player_money(12.50)
+		UI.complete_objective("Work a shift as a bike courier")
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_work_button_2_pressed():
@@ -306,6 +311,7 @@ func _on_work_button_2_pressed():
 		UI.resume_time()
 		UI.skip_time(4)
 		Globals.increase_player_money(25.00)
+		UI.complete_objective("Work a shift as a bike courier")
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_work_button_3_pressed():
@@ -322,6 +328,7 @@ func _on_work_button_3_pressed():
 		UI.resume_time()
 		UI.skip_time(6)
 		Globals.increase_player_money(37.50)
+		UI.complete_objective("Work a shift as a bike courier")
 		get_tree().change_scene_to_file("res://Scenes/Lobby.tscn")
 
 func _on_mailbox_area_2d_body_entered(body):

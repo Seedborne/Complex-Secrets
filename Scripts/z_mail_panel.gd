@@ -47,4 +47,16 @@ func display_email(email):
 		computer.check_unread_emails()
 		if email["id"] == "apartment_email_1":
 			Globals.schedule_keys_delivery()
+			UI.add_objective("Collect gym key from mailbox")
+			EventsManager.check_all_emails_read()
+		if email["id"] == "work_email":
+			UI.add_objective("Work a shift as a bike courier")
+			EventsManager.check_all_emails_read()
+		if email["id"] == "college_email":
+			UI.add_objective("Attend first class on Monday at 10:00AM")
+			EventsManager.check_all_emails_read()
+		if email["id"] == "spy_email_1":
+			UI.complete_objective("Read new email")
+			UI.add_objective("Check out spy app")
+			#UI.remove_completed_objectives()
 	update_email_list()

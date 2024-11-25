@@ -22,7 +22,7 @@ func update_achievements_list():
 			achievement_label.text = achievement_data["name"]  # Show the name for unlocked achievements
 			achievement_label.add_theme_color_override("font_color", Color(0, 1, 0))  # Green for unlocked
 		else:
-			achievement_label.text = "Locked"  # Replace locked achievements with "Locked"
+			achievement_label.text = "???"
 			achievement_label.add_theme_color_override("font_color", Color(1, 1, 1, 0.5))  # Gray for locked
 
 		# Customize the font size

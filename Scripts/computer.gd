@@ -4,6 +4,7 @@ var amazon_panel_max = true
 var zmail_panel_max = true
 var rent_panel_max = true
 var banking_panel_max = true
+var spy_app_panel_max = true
 #var sensitivity = 20.0
 #var cursor_pos = Vector2()
 @onready var amazon_panel = $AmazonPanel
@@ -182,6 +183,7 @@ func _on_amazon_min_button_pressed():
 func _on_email_button_pressed():
 	$ZMailPanel.visible = true
 	$HBoxContainer/EmailBarButton.visible = true
+	UI.complete_objective("Use your computer to check your email")
 	if $ZMailPanel.z_index == -1:
 		$ZMailPanel.z_index = 0
 		set_mouse_filter_recursive($ZMailPanel, Control.MOUSE_FILTER_STOP)
@@ -256,3 +258,47 @@ func _on_banking_max_button_pressed():
 func _on_banking_min_button_pressed():
 	$BankingPanel.z_index = -1
 	set_mouse_filter_recursive($BankingPanel, Control.MOUSE_FILTER_IGNORE)
+
+func _on_spy_app_button_pressed():
+	$SpyAppPanel.visible = true
+	$HBoxContainer/SpyAppBarButton.visible = true
+	for objective in UI.objectives:
+			if objective["text"] == "Check out spy app":
+				if not objective["completed"]:
+					UI.complete_objective("Check out spy app")
+					UI.remove_completed_objectives()
+	if $SpyAppPanel.z_index == -1:
+		$SpyAppPanel.z_index = 0
+		set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_STOP)
+
+func _on_spy_app_bar_button_pressed():
+	if $SpyAppPanel.z_index == 0:
+		$SpyAppPanel.z_index = -1
+		set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_IGNORE)
+	elif $SpyAppPanel.z_index == -1:
+		$SpyAppPanel.z_index = 0
+		set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_STOP)
+
+func _on_spy_app_close_button_pressed():
+	$SpyAppPanel.visible = false
+	$HBoxContainer/SpyAppBarButton.visible = false
+	$SpyAppPanel.scale = Vector2(1.0, 1.0)
+	$SpyAppPanel.position = Vector2(0, 0)
+	$SpyAppPanel/Panel/SpyAppMaxButton.text = "o"
+	spy_app_panel_max = true
+
+func _on_spy_app_max_button_pressed():
+	if spy_app_panel_max:
+		$SpyAppPanel.scale = Vector2(0.7, 0.7)
+		$SpyAppPanel.position = Vector2(280, 260)
+		$SpyAppPanel/Panel/SpyAppMaxButton.text = "O"
+		spy_app_panel_max = false
+	else:
+		$SpyAppPanel.scale = Vector2(1.0, 1.0)
+		$SpyAppPanel.position = Vector2(0, 0)
+		$SpyAppPanel/Panel/SpyAppMaxButton.text = "o"
+		spy_app_panel_max = true
+
+func _on_spy_app_min_button_pressed():
+	$SpyAppPanel.z_index = -1
+	set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_IGNORE)

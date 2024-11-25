@@ -1063,6 +1063,64 @@ offset_bottom = 35.0
 grow_horizontal = 0
 text = "X"
 
+[node name="SpyAppPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1014.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fh8wv")
+
+[node name="Panel" type="Panel" parent="SpyAppPanel"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
+
+[node name="Label" type="Label" parent="SpyAppPanel/Panel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 179.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 32
+text = "Anon Help"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpyAppCloseButton" type="Button" parent="SpyAppPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="SpyAppMaxButton" type="Button" parent="SpyAppPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -54.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "o"
+
+[node name="SpyAppMinButton" type="Button" parent="SpyAppPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -108.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "-"
+
 [node name="MouseClickAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qamt1")
 volume_db = 2.0
@@ -1072,12 +1130,14 @@ stream = ExtResource("11_twrvm")
 
 [connection signal="pressed" from="VBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SpyAppButton" to="." method="_on_spy_app_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/BankingButton" to="." method="_on_banking_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/RentPortalButton" to="." method="_on_rent_portal_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/BankingBarButton" to="." method="_on_banking_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RentPortalBarButton" to="." method="_on_rent_portal_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EmailBarButton" to="." method="_on_email_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SpyAppBarButton" to="." method="_on_spy_app_bar_button_pressed"]
 [connection signal="pressed" from="BankingPanel/Panel/BankingCloseButton" to="." method="_on_banking_close_button_pressed"]
 [connection signal="pressed" from="BankingPanel/Panel/BankingMaxButton" to="." method="_on_banking_max_button_pressed"]
 [connection signal="pressed" from="BankingPanel/Panel/BankingMinButton" to="." method="_on_banking_min_button_pressed"]
@@ -1115,3 +1175,6 @@ stream = ExtResource("11_twrvm")
 [connection signal="pressed" from="AmazonPanel/CartPanel/OrderButton" to="AmazonPanel" method="_on_order_button_pressed"]
 [connection signal="pressed" from="AmazonPanel/CartPanel/ClearCartButton" to="AmazonPanel" method="_on_clear_cart_button_pressed"]
 [connection signal="pressed" from="AmazonPanel/CartPanel/CloseCartButton" to="AmazonPanel" method="_on_close_cart_button_pressed"]
+[connection signal="pressed" from="SpyAppPanel/Panel/SpyAppCloseButton" to="." method="_on_spy_app_close_button_pressed"]
+[connection signal="pressed" from="SpyAppPanel/Panel/SpyAppMaxButton" to="." method="_on_spy_app_max_button_pressed"]
+[connection signal="pressed" from="SpyAppPanel/Panel/SpyAppMinButton" to="." method="_on_spy_app_min_button_pressed"]
