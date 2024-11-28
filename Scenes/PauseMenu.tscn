@@ -45,15 +45,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Save"
 
-[node name="OptionsButton" type="Button" parent="Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Options"
-
 [node name="ControlsButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Controls"
+
+[node name="SettingsButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
 
 [node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2

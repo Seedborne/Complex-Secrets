@@ -83,9 +83,11 @@ func update_animation():
 func dad_intro():
 	$DialogueLabel.text = "Alright kiddo, you’re all set!"
 	$DialogueLabel.visible = true
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.text = "I grabbed your keys from the landlord yesterday 
 	and got your clothes and computer all moved in."
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.visible = false
 	self.set_target(Vector2(940, 900))
@@ -93,10 +95,12 @@ func dad_intro():
 	$DialogueLabel.text = "Here’s your keys, this one’s for your 
 	door and this one’s for your mailbox."
 	$DialogueLabel.visible = true
+	UI.play_dialogue_audio()
 	Globals.add_to_inventory("Unit Key 3F", 1)
 	Globals.add_to_inventory("Mail Key 3F", 1)
 	await wait_for_input()
 	$DialogueLabel.text = "Good luck out there kiddo!"
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.visible = false
 	await Globals.create_tracked_timer(0.5).timeout
@@ -106,6 +110,7 @@ func dad_intro():
 		await Globals.create_tracked_timer(0.6).timeout
 		$DialogueLabel.text = "*hug*"
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await Globals.create_tracked_timer(0.9).timeout
 		$DialogueLabel.visible = false
 		self.set_target(Vector2(2000, 2000))

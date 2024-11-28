@@ -78,12 +78,12 @@ var emails = [
 	{
 		"id": "spy_email_1",
 		"sender": "admin@lndigoridgeapartments.com",
-		"subject": "Easy Work Opportunity!",
+		"subject": "Easy Gig Work Opportunity!",
 		"content": "Hello again, new resident of Unit 3F!
 
-We are just following up to inform you about some lucrative work available within the building. We know times are tough and we want you to have every opportunity to be successful here.
+We are just following up to inform you about some lucrative gig work available within the building. We know times are tough and we want you to have every opportunity to be successful here.
 
-You will be assigned simple tasks to complete involving other members of our community, with a generous payout accompanying each task! Get paid to simply get to know and help out your neighbors :) 
+You will be assigned simple tasks to complete involving other members of our community, with a generous payout accompanying each task! Get paid to simply get to know and anonymously help out your neighbors :) 
 
 The AnonHelp app is being automatically downloaded onto your computer now! You will also notice a new 'Tools' section in Bookazon. Check it out to get started making money!
 ",
@@ -94,7 +94,7 @@ The AnonHelp app is being automatically downloaded onto your computer now! You w
 		"id": "work_email",
 		"sender": "noreply@storedash.com",
 		"subject": "Onboarding Complete",
-		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time.
+		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time. (Do deliveries or go to class by approaching the apartment complex entrance)
 ",
 		"read": false,
 		"sent": false
@@ -141,7 +141,7 @@ Semester 1 Class Schedule:
 	Friday: 
 		- 1:00 PM - Chemistry Lab
 
-Be aware that this is not high school and there will be no hand-holding. It is your responsibility to know when your classes are and to attend accordingly, you will not be reminded. If your grades fall below passing level you will lose your scholarship and be removed from the program with no warning.",
+Be aware that it is your responsibility to know when your classes are and to attend accordingly, you will not be reminded. If your grades fall below passing level you will lose your scholarship and be removed from the program with no warning.",
 		"read": false,  # Track whether the email has been read
 		"sent": false  # For tracking event-related emails
 	},
@@ -201,7 +201,8 @@ func trigger_email_event(event_name):
 			UI.show_notification("New email recieved")
 			print("New email received: %s" % email["subject"])
 			if email["id"] == "college_email":
-				UI.add_objective("Use your computer to check your email")
+				UI.add_objective("Use your computer to check your email
+(E to interact)")
 			if email["id"] == "work_email":
 				UI.add_objective("Read new emails")
 			if email["id"] == "spy_email_1":
@@ -330,13 +331,13 @@ func reset_events():
 # Called when the node enters the scene tree for the first time.
 
 	emails = [
-		{
+	{
 	"id": "eviction_warning",
 	"sender": "admin@indigoridgeapartments.com",
 	"subject": "Eviction Warning",
 	"content": "Dear Resident,
 	
-	Your rent payment is overdue. A late fee of $25 has been added to your balance. If your rent is not paid in full by EOD next Monday, you will face eviction.
+	Your rent payment is overdue. A late fee of $25 has been added to your balance. If your overdue balance is not paid in full by EOD next Monday, you will face eviction.
 	
 	Please make your payment immediately via the online portal to avoid further consequences.",
 	"read": false,
@@ -345,12 +346,12 @@ func reset_events():
 	{
 		"id": "spy_email_1",
 		"sender": "admin@lndigoridgeapartments.com",
-		"subject": "Easy Work Opportunity!",
+		"subject": "Easy Gig Work Opportunity!",
 		"content": "Hello again, new resident of Unit 3F!
 
-We are just following up to inform you about some lucrative work available within the building. We know times are tough and we want you to have every opportunity to be successful here.
+We are just following up to inform you about some lucrative gig work available within the building. We know times are tough and we want you to have every opportunity to be successful here.
 
-You will be assigned simple tasks to complete involving other members of our community, with a generous payout accompanying each task! Get paid to simply get to know and help out your neighbors :) 
+You will be assigned simple tasks to complete involving other members of our community, with a generous payout accompanying each task! Get paid to simply get to know and anonymously help out your neighbors :) 
 
 The AnonHelp app is being automatically downloaded onto your computer now! You will also notice a new 'Tools' section in Bookazon. Check it out to get started making money!
 ",
@@ -361,7 +362,7 @@ The AnonHelp app is being automatically downloaded onto your computer now! You w
 		"id": "work_email",
 		"sender": "noreply@storedash.com",
 		"subject": "Onboarding Complete",
-		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time.
+		"content": "Congratulations, you have successfully been onboarded as a bike courier with StoreDash 24HR Food Delivery Service. You can start accepting and completing deliveries at any time. (Do deliveries or go to class by approaching the apartment complex entrance)
 ",
 		"read": false,
 		"sent": false
@@ -408,7 +409,7 @@ Semester 1 Class Schedule:
 	Friday: 
 		- 1:00 PM - Chemistry Lab
 
-Be aware that this is not high school and there will be no hand-holding. It is your responsibility to know when your classes are and to attend accordingly, you will not be reminded. If your grades fall below passing level you will lose your scholarship and be removed from the program with no warning.",
+Be aware that it is your responsibility to know when your classes are and to attend accordingly, you will not be reminded. If your grades fall below passing level you will lose your scholarship and be removed from the program with no warning.",
 		"read": false,  # Track whether the email has been read
 		"sent": false  # For tracking event-related emails
 	},

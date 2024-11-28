@@ -183,7 +183,8 @@ func _on_amazon_min_button_pressed():
 func _on_email_button_pressed():
 	$ZMailPanel.visible = true
 	$HBoxContainer/EmailBarButton.visible = true
-	UI.complete_objective("Use your computer to check your email")
+	UI.complete_objective("Use your computer to check your email
+(E to interact)")
 	if $ZMailPanel.z_index == -1:
 		$ZMailPanel.z_index = 0
 		set_mouse_filter_recursive($ZMailPanel, Control.MOUSE_FILTER_STOP)
@@ -265,8 +266,8 @@ func _on_spy_app_button_pressed():
 	for objective in UI.objectives:
 			if objective["text"] == "Check out spy app":
 				if not objective["completed"]:
-					UI.complete_objective("Check out spy app")
 					UI.remove_completed_objectives()
+					UI.complete_objective("Check out spy app")
 	if $SpyAppPanel.z_index == -1:
 		$SpyAppPanel.z_index = 0
 		set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_STOP)

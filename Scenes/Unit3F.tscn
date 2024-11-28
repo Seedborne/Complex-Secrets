@@ -74,7 +74,7 @@ size = Vector2(30, 12)
 size = Vector2(125, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4017n"]
-size = Vector2(112, 9)
+size = Vector2(90, 9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l121i"]
 size = Vector2(59, 40)
@@ -188,7 +188,7 @@ volume_db = 6.0
 
 [node name="EmailNotifAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_hvtuy")
-volume_db = -4.0
+volume_db = -2.0
 
 [node name="WallsBody2D" type="StaticBody2D" parent="."]
 
@@ -288,7 +288,7 @@ shape = SubResource("RectangleShape2D_c85nk")
 [node name="BookshelfArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BookshelfArea2D"]
-position = Vector2(1118, 209.5)
+position = Vector2(1129, 209.5)
 shape = SubResource("RectangleShape2D_4017n")
 
 [node name="BookshelfVBoxContainer" type="VBoxContainer" parent="."]
@@ -489,6 +489,7 @@ position = Vector2(1318.5, 975.75)
 shape = SubResource("RectangleShape2D_0unng")
 
 [node name="LightsOff" type="ColorRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.52549)
 z_index = 1
 offset_right = 1920.0

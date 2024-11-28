@@ -26,26 +26,15 @@ func _physics_process(_delta):
 			velocity.y = move_toward(velocity.y, 0, Globals.player_speed)
 	else:
 		velocity = Vector2.ZERO  # Prevent all movement if can_move is false
+	
 	# Determine animation based on facing direction
-	if facing_direction.x > 0 and facing_direction.y < 0:  # Diagonal up-right
-		animated_sprite.flip_h = false
-		animated_sprite.animation = "walk_quarter_up" if can_move and velocity.length() > 0 else "idle_quarter_up"
-	elif facing_direction.x < 0 and facing_direction.y < 0:  # Diagonal up-left
-		animated_sprite.flip_h = true
-		animated_sprite.animation = "walk_quarter_up" if can_move and velocity.length() > 0 else "idle_quarter_up"
-	elif facing_direction.x > 0 and facing_direction.y > 0:  # Diagonal down-right
-		animated_sprite.flip_h = false
-		animated_sprite.animation = "walk_quarter_down" if can_move and velocity.length() > 0 else "idle_quarter_down"
-	elif facing_direction.x < 0 and facing_direction.y > 0:  # Diagonal down-left
-		animated_sprite.flip_h = true
-		animated_sprite.animation = "walk_quarter_down" if can_move and velocity.length() > 0 else "idle_quarter_down"
-	elif abs(facing_direction.x) > abs(facing_direction.y):  # Predominantly horizontal
+	if abs(facing_direction.x) > abs(facing_direction.y):  # Predominantly horizontal
 		animated_sprite.flip_h = facing_direction.x < 0
-		animated_sprite.animation = "walk_side" if can_move and velocity.length() > 0 else "idle_side"
+		animated_sprite.animation = "walk_side" if velocity.length() > 0 else "idle_side"
 	elif facing_direction.y < 0:  # Up
-		animated_sprite.animation = "walk_up" if can_move and velocity.length() > 0 else "idle_up"
+		animated_sprite.animation = "walk_up" if velocity.length() > 0 else "idle_up"
 	else:  # Down
-		animated_sprite.animation = "walk_down" if can_move and velocity.length() > 0 else "idle_down"
+		animated_sprite.animation = "walk_down" if velocity.length() > 0 else "idle_down"
 
 	animated_sprite.play()
 	move_and_slide()

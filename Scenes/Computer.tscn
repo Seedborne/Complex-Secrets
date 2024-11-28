@@ -192,27 +192,27 @@ text = "Recycle Bin"
 [node name="BankingBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
-text = "Banking"
+text = "S.J. Bank"
 
 [node name="RentPortalBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
-text = "Rent"
+text = "Rent Portal"
 
 [node name="EmailBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
-text = "Email"
+text = "ZMail"
 
 [node name="AmazonBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
-text = "Shopazon"
+text = "Bookazon"
 
 [node name="SpyAppBarButton" type="Button" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
-text = "SpyApp"
+text = "AnonHelp"
 
 [node name="InstacartBarButton" type="Button" parent="HBoxContainer"]
 visible = false
@@ -1082,7 +1082,7 @@ offset_top = 2.0
 offset_right = 179.0
 offset_bottom = 47.0
 theme_override_font_sizes/font_size = 32
-text = "Anon Help"
+text = "AnonHelp"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1127,6 +1127,7 @@ volume_db = 2.0
 
 [node name="EmailNotifAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_twrvm")
+volume_db = 2.0
 
 [connection signal="pressed" from="VBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]

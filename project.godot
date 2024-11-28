@@ -24,6 +24,7 @@ PauseMenu="*res://Scenes/PauseMenu.tscn"
 EventsManager="*res://Scripts/EventsManager.gd"
 Achievements="*res://Scripts/Achievements.gd"
 StatsMenu="*res://Scenes/StatsMenu.tscn"
+SettingsManager="*res://Scripts/SettingsManager.gd"
 
 [display]
 

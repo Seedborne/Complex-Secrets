@@ -49,6 +49,8 @@ const NOTIFICATION_DURATION = 5.0
 func _ready():
 	update_bars()
 	update_objectives_ui()
+	if SettingsManager.bgm_on:
+		$ChillBackgroundMusic.play()
 
 func _process(_delta):
 	if Globals.in_game:
@@ -85,9 +87,11 @@ func _on_clock_timer_timeout():
 	if current_hour == 9 and current_minute == 0:
 		check_for_deliveries()
 
+func play_dialogue_audio():
+	$DialogueAudio.play()
+
 func _on_hunger_bar_value_changed(new_value: float):
 	_update_fill_color($VBoxContainer2/HungerBar, new_value)
-
 
 func _on_sleep_bar_value_changed(new_value: float):
 	_update_fill_color($VBoxContainer2/SleepBar, new_value)
@@ -416,14 +420,17 @@ func show_notification(message: String):
 	var game_notification = Label.new()
 	game_notification.text = message
 	game_notification.set_autowrap_mode(TextServer.AUTOWRAP_WORD)  # Enable wrapping for longer text
-	game_notification.add_theme_color_override("font_color", Color(0, 0, 0))
+	if message.begins_with("Achievement unlocked:"):
+		game_notification.add_theme_color_override("font_color", Color(0, 1, 0))  # Set color to green
+	else:
+		game_notification.add_theme_color_override("font_color", Color(0, 0, 0))
 	#game_notification.add_theme_color_override("font_color", Color(1, 1, 1))  # Optional: set the color to white
 	#game_notification.add_theme_color_override("font_color_shadow", Color(0, 0, 0))  # Optional: shadow effect
-	#game_notification.add_theme_constant_override("font_size", 24)  # Optional: set font size
+	game_notification.add_theme_font_size_override("font_size", 24)  # Optional: set font size
 	
 	# Add the notification to the VBoxContainer
 	game_notifications_container.add_child(game_notification)
-
+	$NotificationAudio.play()
 	# Schedule removal of the notification after the duration
 	call_deferred("_remove_notification_after_delay", game_notification)
 

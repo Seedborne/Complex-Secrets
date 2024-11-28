@@ -76,15 +76,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Achievements"
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Options"
-
 [node name="ControlsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Controls"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Settings"
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

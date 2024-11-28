@@ -116,7 +116,7 @@ script = ExtResource("1_lbnfu")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -45)
 sprite_frames = SubResource("SpriteFrames_e7mda")
-animation = &"idle_down"
+animation = &"walk_side"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 25)

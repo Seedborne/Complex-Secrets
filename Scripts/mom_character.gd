@@ -86,14 +86,18 @@ func mom_intro():
 	await Globals.create_tracked_timer(1.0).timeout
 	$DialogueLabel.text = "..."
 	$DialogueLabel.visible = true
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.text = "I still don’t understand why a fully furnished 
 	apartment in the city would be only $500/month."
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.text = "I know you looked up the crime statistics and the 
 	reviews for this place and it all looked fine but…"
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.text = "I’m sorry honey, I still don’t trust it."
+	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.visible = false
 	if get_tree().current_scene != null and get_tree().current_scene.has_node("Player"):
@@ -101,52 +105,65 @@ func mom_intro():
 		#await Globals.create_tracked_timer(0.5).timeout
 		player_node.dialogue_label.text = "Mom, we’ve already had this conversation."
 		player_node.dialogue_label.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		player_node.dialogue_label.text = "This is the only apartment I could possibly 
 		afford within walking distance of the campus."
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		player_node.dialogue_label.text = "I did all of the research you wanted. 
 		I don’t know what else you want me to do."
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		player_node.dialogue_label.text = "Don’t you want me to go to college?"
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		player_node.dialogue_label.visible = false
 		#await Globals.create_tracked_timer(0.5).timeout
 		$DialogueLabel.text = "Of course I do, you know how proud I 
 		am of you for getting that scholarship."
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.text = "It’s just…"
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.text = "I don’t know, I’m sorry, 
 		you know how I worry."
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.visible = false
 		await Globals.create_tracked_timer(1.0).timeout
 		$DialogueLabel.text = "Just be careful, okay?"
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.visible = false
 		#await Globals.create_tracked_timer(0.7).timeout
 		player_node.dialogue_label.text = "I’m ALWAYS careful! It’ll be FINE!"
 		player_node.dialogue_label.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		player_node.dialogue_label.visible = false
 		#await Globals.create_tracked_timer(0.7).timeout
 		$DialogueLabel.text = "OKAY!"
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.visible = false
 		await Globals.create_tracked_timer(1.5).timeout
 		$DialogueLabel.text = "..."
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.text = "*sigh* Okay. I love you sweetie."
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.visible = false
 		#await Globals.create_tracked_timer(0.5).timeout
 		player_node.dialogue_label.text = "I love you too."
 		player_node.dialogue_label.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		player_node.dialogue_label.visible = false
 		await Globals.create_tracked_timer(0.8).timeout
@@ -154,11 +171,13 @@ func mom_intro():
 		await Globals.create_tracked_timer(1.0).timeout
 		$DialogueLabel.text = "..."
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await wait_for_input()
 		$DialogueLabel.visible = false
 		await Globals.create_tracked_timer(0.8).timeout
 		$DialogueLabel.text = "*hug*"
 		$DialogueLabel.visible = true
+		UI.play_dialogue_audio()
 		await Globals.create_tracked_timer(1.0).timeout
 		$DialogueLabel.visible = false
 		self.set_target(Vector2(-1000, 2000))

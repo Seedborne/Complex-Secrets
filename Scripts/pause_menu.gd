@@ -22,6 +22,23 @@ func _process(_delta):
 		$GameOverPanel.visible = true
 		$GameOverPanel/VBoxContainer/GOLabel.text = "Ending 1
 		You failed out of college and had to move back home."
+	if EventsManager.is_datetime_or_later(26, 5, 2008, 0, 0):
+		trigger_end_game()
+
+func trigger_end_game():
+	if not Achievements.is_achievement_unlocked("unlock_ending_3"):
+		Achievements.unlock_achievement("unlock_ending_3")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Globals.game_over = true
+	visible = true
+	Globals.game_paused = true
+	get_tree().paused = true
+	$GameOverPanel.visible = true
+	$GameOverPanel/VBoxContainer/GOLabel.text = "Ending 3
+	You made it through the end of your freshman class year!
+	A friend from college asked you if you wanted to be 
+	roommates with them next year.
+	You decided it was time to leave Indigo Ridge."
 
 func trigger_eviction():
 	if not Achievements.is_achievement_unlocked("unlock_ending_2"):
