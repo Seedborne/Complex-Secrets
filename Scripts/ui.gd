@@ -50,7 +50,7 @@ func _ready():
 	update_bars()
 	update_objectives_ui()
 	if SettingsManager.bgm_on:
-		$ChillBackgroundMusic.play()
+		play_bgm()
 
 func _process(_delta):
 	if Globals.in_game:
@@ -60,12 +60,19 @@ func _process(_delta):
 	else:
 		visible = false
 
+func play_bgm():
+	$ChillBackgroundMusic.play()
+
+func stop_bgm():
+	$ChillBackgroundMusic.stop()
+
 func _on_clock_timer_timeout():
 	# Increment the time by 1 minute each second
 	current_minute += 1
 	if current_minute >= 60:
 		current_minute = 0
 		current_hour += 1
+		Globals.update_npc_positions()
 
 	if current_hour >= 24:
 		current_hour = 0
@@ -78,7 +85,6 @@ func _on_clock_timer_timeout():
 	hunger_bar -= hunger_drain_rate
 	hunger_bar = clamp(hunger_bar, 0, 100)
 	update_bars()
-	
 	if current_hour in class_schedule.get(get_current_day(), []) and current_minute == 0:
 		if Globals.at_class:
 			attend_class()
@@ -153,11 +159,13 @@ func advance_day():
 	# Update day of the week index (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
 	current_day_index = (current_day_index + 1) % 7
 	EventsManager.check_rent_status()
+	MissionsManager.check_mission_expirations()
 
 func hide_ui():
 	$Panel.visible = false
 	$VBoxContainer.visible = false
 	$VBoxContainer2.visible = false
+	$VBoxContainer3.visible = false
 	$CarryWeightLabel.visible = false
 	$NotificationsContainer.visible = false
 	$ObjectivesContainer.visible = false
@@ -166,21 +174,30 @@ func show_ui():
 	$Panel.visible = true
 	$VBoxContainer.visible = true
 	$VBoxContainer2.visible = true
+	$VBoxContainer3.visible = true
 	$CarryWeightLabel.visible = true
 	$NotificationsContainer.visible = true
 	$ObjectivesContainer.visible = true
 
 func hide_bars():
 	$VBoxContainer2.visible = false
+	$VBoxContainer3.visible = false
 
 func show_bars():
 	$VBoxContainer2.visible = true
+	$VBoxContainer3.visible = true
 
 func hide_screen_fade():
 	$ScreenFade.visible = false
 
 func show_screen_fade():
 	$ScreenFade.visible = true
+
+func hide_skip_cutscene_label():
+	$SkipCutsceneLabel.visible = false
+
+func show_skip_cutscene_label():
+	$SkipCutsceneLabel.visible = true
 
 func eat_food(amount: float):
 	hunger_bar += amount  # Increase hunger bar by the specified amount
@@ -423,9 +440,9 @@ func show_notification(message: String):
 	if message.begins_with("Achievement unlocked:"):
 		game_notification.add_theme_color_override("font_color", Color(0, 1, 0))  # Set color to green
 	else:
-		game_notification.add_theme_color_override("font_color", Color(0, 0, 0))
-	#game_notification.add_theme_color_override("font_color", Color(1, 1, 1))  # Optional: set the color to white
-	#game_notification.add_theme_color_override("font_color_shadow", Color(0, 0, 0))  # Optional: shadow effect
+		game_notification.add_theme_color_override("font_color", Color(1, 1, 1))
+	game_notification.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	game_notification.add_theme_constant_override("outline_size", 8)  
 	game_notification.add_theme_font_size_override("font_size", 24)  # Optional: set font size
 	
 	# Add the notification to the VBoxContainer
@@ -477,3 +494,9 @@ func update_objectives_ui():
 
 func _on_test_button_1_pressed():
 	skip_time(12)
+
+func start_objectives_timer():
+	$ObjectivesTimer.start()
+
+func _on_objectives_timer_timeout():
+	remove_completed_objectives()

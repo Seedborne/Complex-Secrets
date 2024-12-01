@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://drydh3vchaxso"]
+[gd_scene load_steps=6 format=3 uid="uid://drydh3vchaxso"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_cbdo3"]
+[ext_resource type="Script" path="res://Scripts/settings_panel.gd" id="2_1xgwh"]
 [ext_resource type="Script" path="res://Scripts/achievements_panel.gd" id="2_poqc6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05hy8"]
+bg_color = Color(0.370364, 0.370365, 0.370364, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toej1"]
 bg_color = Color(0.721569, 0.721569, 0.721569, 1)
@@ -77,6 +81,7 @@ theme_override_font_sizes/font_size = 48
 text = "Achievements"
 
 [node name="ControlsButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Controls"
@@ -87,6 +92,7 @@ theme_override_font_sizes/font_size = 48
 text = "Settings"
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Credits"
@@ -95,6 +101,45 @@ text = "Credits"
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Quit Game"
+
+[node name="SettingsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 305.0
+offset_top = 204.0
+offset_right = 1618.0
+offset_bottom = 873.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_05hy8")
+script = ExtResource("2_1xgwh")
+
+[node name="SettingsLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 27.0
+offset_right = 838.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 48
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 1266.0
+offset_top = 4.0
+offset_right = 1309.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="BGMButton" type="CheckButton" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 580.0
+offset_top = 130.0
+offset_right = 736.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 32
+button_pressed = true
+text = "BGM"
 
 [node name="AchievementsPanel" type="Panel" parent="."]
 visible = false
@@ -163,6 +208,9 @@ text = "Reset Achievements"
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AchievementsButton" to="." method="_on_achievements_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="SettingsPanel/CloseButton" to="SettingsPanel" method="_on_close_button_pressed"]
+[connection signal="toggled" from="SettingsPanel/BGMButton" to="SettingsPanel" method="_on_bgm_button_toggled"]
 [connection signal="pressed" from="AchievementsPanel/CloseButton" to="AchievementsPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="AchievementsPanel/ResetAchievementButton" to="AchievementsPanel" method="_on_reset_achievement_button_pressed"]

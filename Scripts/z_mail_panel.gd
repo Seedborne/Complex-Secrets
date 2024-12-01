@@ -57,6 +57,6 @@ func display_email(email):
 			EventsManager.check_all_emails_read()
 		if email["id"] == "spy_email_1":
 			UI.complete_objective("Read new email")
-			UI.add_objective("Check out spy app")
+			UI.add_objective("Check out AnonHelp app")
 			#UI.remove_completed_objectives()
 	update_email_list()

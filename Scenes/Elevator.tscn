@@ -1,24 +1,24 @@
 [gd_scene load_steps=25 format=3 uid="uid://epcft57bko11"]
 
 [ext_resource type="Script" path="res://Scripts/elevator.gd" id="1_h2xjb"]
-[ext_resource type="Texture2D" uid="uid://dqmibw0xa74kj" path="res://Assets/testelevator.png" id="2_4bd75"]
 [ext_resource type="Texture2D" uid="uid://e35oynjf80o" path="res://Assets/blackbackground.png" id="2_d6vv6"]
-[ext_resource type="Texture2D" uid="uid://1avx083msf3o" path="res://Assets/elevatorclosed.png" id="3_qkckk"]
-[ext_resource type="Texture2D" uid="uid://bk5oek8q2a6on" path="res://Assets/elevatoropen.png" id="4_2jbah"]
-[ext_resource type="Texture2D" uid="uid://bn2dp3t3nmju0" path="res://Assets/elevatoropening3.png" id="5_7v4of"]
-[ext_resource type="Texture2D" uid="uid://svoxalymdpbw" path="res://Assets/elevatoropening2.png" id="6_lbe4m"]
-[ext_resource type="Texture2D" uid="uid://drt26vsbg05st" path="res://Assets/elevatoropening1.png" id="7_dp0hk"]
+[ext_resource type="Texture2D" uid="uid://cogo5sj6nyh7l" path="res://Assets/elevator.png" id="3_2u14v"]
+[ext_resource type="Texture2D" uid="uid://cxjq7aitcfip7" path="res://Assets/elevatorsclosed.png" id="4_uf0fh"]
+[ext_resource type="Texture2D" uid="uid://cusbgno0n5af3" path="res://Assets/elevatorsopen.png" id="5_igexk"]
+[ext_resource type="Texture2D" uid="uid://bk7j67r8fpact" path="res://Assets/elevators3.png" id="6_rpm1q"]
+[ext_resource type="Texture2D" uid="uid://bxqxwnqx7iql4" path="res://Assets/elevators2.png" id="7_44ltc"]
+[ext_resource type="Texture2D" uid="uid://b5mn71kxnlmmf" path="res://Assets/elevators1.png" id="8_qf4b1"]
 [ext_resource type="AudioStream" uid="uid://b7n8tmlh6xvox" path="res://Audio/elevator-ding-pixabay.mp3" id="9_rq7u0"]
 [ext_resource type="AudioStream" uid="uid://crgyy1nb8m3ea" path="res://Audio/elevator-sound-pixabay.mp3" id="10_500ek"]
 [ext_resource type="AudioStream" uid="uid://dsdtvrw36yuho" path="res://Audio/button_sound.mp3" id="11_82mof"]
 [ext_resource type="AudioStream" uid="uid://bmfiibxrhk24q" path="res://Audio/elevator-open-pixabay.mp3" id="12_nxfkk"]
 [ext_resource type="AudioStream" uid="uid://cfstuit2e86dr" path="res://Audio/elevator-close2-pixabay.mp3" id="13_8y1xr"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_iolk1"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_sv80w"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_qkckk")
+"texture": ExtResource("4_uf0fh")
 }],
 "loop": true,
 "name": &"closed",
@@ -26,19 +26,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_2jbah")
+"texture": ExtResource("5_igexk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_7v4of")
+"texture": ExtResource("6_rpm1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_lbe4m")
+"texture": ExtResource("7_44ltc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_dp0hk")
+"texture": ExtResource("8_qf4b1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qkckk")
+"texture": ExtResource("4_uf0fh")
 }],
 "loop": false,
 "name": &"closing",
@@ -46,7 +46,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_2jbah")
+"texture": ExtResource("5_igexk")
 }],
 "loop": true,
 "name": &"open",
@@ -54,19 +54,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_qkckk")
+"texture": ExtResource("4_uf0fh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_dp0hk")
+"texture": ExtResource("8_qf4b1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_lbe4m")
+"texture": ExtResource("7_44ltc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_7v4of")
+"texture": ExtResource("6_rpm1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_2jbah")
+"texture": ExtResource("5_igexk")
 }],
 "loop": false,
 "name": &"opening",
@@ -112,38 +112,36 @@ texture = ExtResource("2_d6vv6")
 centered = false
 
 [node name="ElevatorBackground" type="Sprite2D" parent="."]
-texture = ExtResource("2_4bd75")
+texture = ExtResource("3_2u14v")
 centered = false
 
 [node name="ElevatorSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(968, 301)
-sprite_frames = SubResource("SpriteFrames_iolk1")
-animation = &"closing"
-frame = 4
-frame_progress = 1.0
+position = Vector2(969, 300)
+sprite_frames = SubResource("SpriteFrames_sv80w")
+animation = &"closed"
 
 [node name="ElevatorButtonSprite0" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1210.03, 321.062)
-scale = Vector2(9.93753, 9.87503)
+position = Vector2(1206, 318)
+scale = Vector2(4.00003, 4.00002)
 texture = SubResource("CanvasTexture_k7be2")
 
 [node name="ElevatorButtonSprite1" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1224, 321)
-scale = Vector2(10, 10)
+position = Vector2(1226, 318)
+scale = Vector2(4.00002, 4)
 texture = SubResource("CanvasTexture_k7be2")
 
 [node name="ElevatorButtonSprite2" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1209.94, 334.063)
-scale = Vector2(-10, 10.125)
+position = Vector2(1205.97, 337.95)
+scale = Vector2(4, 4)
 texture = SubResource("CanvasTexture_k7be2")
 
 [node name="ElevatorButtonSprite3" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1224, 334)
-scale = Vector2(10, 10)
+position = Vector2(1226, 338)
+scale = Vector2(4.00002, 3.99999)
 texture = SubResource("CanvasTexture_k7be2")
 
 [node name="ElevatorArea2D" type="Area2D" parent="."]
@@ -159,6 +157,7 @@ position = Vector2(968, 299)
 shape = SubResource("RectangleShape2D_sw3ib")
 
 [node name="BoundaryBody2D" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryBody2D"]
 position = Vector2(301.5, 539)

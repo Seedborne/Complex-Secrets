@@ -68,6 +68,7 @@ func _input(event):
 			Globals.game_paused = false
 			get_tree().paused = false
 			print("unpaused")
+		$SettingsPanel.visible = false
 	if event.is_action_pressed("scroll_down") and visible and not Globals.game_over:
 		menu_selected_index = (menu_selected_index + 1) % menu_buttons.size()
 		menu_highlight_button(menu_selected_index)
@@ -186,6 +187,7 @@ func _on_yes_button_pressed():
 		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 		Globals.game_paused = false
 		get_tree().paused = false
+		UI.clock_timer.stop()
 	elif button_pressed == "quit":
 		get_tree().quit()
 
@@ -195,6 +197,7 @@ func _on_no_button_pressed():
 		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 		Globals.game_paused = false
 		get_tree().paused = false
+		UI.clock_timer.stop()
 	elif button_pressed == "quit":
 		get_tree().quit()
 
@@ -229,6 +232,7 @@ func _on_go_main_menu_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	Globals.game_paused = false
 	get_tree().paused = false
+	UI.clock_timer.stop()
 
 func _on_go_start_over_button_pressed():
 	SaveLoadManager.delete_save_data()
@@ -244,3 +248,6 @@ func _on_go_start_over_button_pressed():
 	UI.update_bars()
 	UI.update_clock_display()
 	UI.clock_timer.start()
+
+func _on_settings_button_pressed():
+	$SettingsPanel.visible = true

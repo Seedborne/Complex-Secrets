@@ -8,6 +8,7 @@ var near_button = false
 var button_pressed = false
 var near_entrance = false
 var near_player_mailbox = false
+var near_gym = false
 var buttons = ["ClassButton", "WorkButton1", "WorkButton2", "WorkButton3"]  # Your button list
 var selected_index = 0
 var class_upcoming = false
@@ -23,7 +24,6 @@ func _ready():
 	elif Globals.current_location == "Elevator":
 		player.position = Vector2(1380, 260)
 		Globals.current_location = "Lobby"
-		$ElevatorSprite.play("closed")
 		player.can_move = true
 	elif Globals.current_location == "Gym":
 		var animated_sprite = player.get_node("PlayerSprite")
@@ -52,6 +52,8 @@ func _ready():
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Lobby"
 		player.can_move = true
+	$ElevatorSprite.play("closed")
+	$GymDoorSprite.play("gym_door_closed")
 	$VBoxContainer.visible = false
 	Globals.current_floor = 0
 	add_child(player)
@@ -74,18 +76,18 @@ func _process(_delta):
 		#$CoffeeShopBody2D/CollisionShape2D.disabled = false
 	if UI.current_hour >= 14:
 		$CoffeeShopBody2D/CollisionShape2D.disabled = false
+		$CoffeeShopDoorSprite.play("coffee_door_closed")
 	elif UI.current_hour <= 5:
 		$CoffeeShopBody2D/CollisionShape2D.disabled = false
+		$CoffeeShopDoorSprite.play("coffee_door_closed")
 	else:
 		$CoffeeShopBody2D/CollisionShape2D.disabled = true
-	if Globals.has_item_in_inventory("Gym Key"):
-		$GymBody2D/CollisionShape2D.disabled = true
-	else:
-		$GymBody2D/CollisionShape2D.disabled = false
+		$CoffeeShopDoorSprite.play("coffee_door_open")
 
 func intro_scene():
 	Globals.in_cutscene = true
 	player.can_move = false
+	UI.show_skip_cutscene_label()
 	UI.pause_time()
 	if is_instance_valid($MomCharacter):
 		$MomCharacter.visible = true
@@ -98,6 +100,7 @@ func intro_scene():
 	if is_instance_valid($MomCharacter):
 		await $MomCharacter.mom_intro()
 		print("Mom left")
+		UI.hide_skip_cutscene_label()
 		player.can_move = true
 		Globals.in_cutscene = false
 		UI.add_objective("Find and enter your unit (Unit 3F)")
@@ -135,6 +138,12 @@ func _input(event):
 	if event.is_action_pressed("ui_select") and Globals.in_cutscene:
 		print("Skipping cutscene")
 		skip_intro_cutscene()
+	if event.is_action_pressed("ui_interact") and near_gym:
+		if Globals.has_item_in_inventory("Gym Key"):
+			$GymBody2D/CollisionShape2D.disabled = true
+			$GymDoorSprite.play("gym_door_open")
+		#else:
+			#$GymBody2D/CollisionShape2D.disabled = false
 
 func skip_intro_cutscene():
 	Globals.in_cutscene = false
@@ -147,6 +156,7 @@ func skip_intro_cutscene():
 	if not Globals.has_item_in_inventory("Mail Key 3F"):
 		Globals.add_to_inventory("Mail Key 3F", 1)
 	UI.add_objective("Find and enter your unit (Unit 3F)")
+	UI.hide_skip_cutscene_label()
 	UI.fade_from_black()
 	player.can_move = true
 	UI.resume_time()
@@ -220,6 +230,16 @@ func _on_coffee_shop_area_2d_body_entered(body):
 		player.can_move = true
 		UI.fade_from_black()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/CoffeeShop.tscn")
+
+func _on_gym_area_2d_body_entered(body):
+	if body == player:
+		near_gym = true
+
+func _on_gym_area_2d_body_exited(body):
+	if body == player:
+		$GymBody2D/CollisionShape2D.set_deferred("disabled", false)
+		$GymDoorSprite.play("gym_door_closed")
+		near_gym = false
 
 func _on_gym_area_2d_2_body_entered(body):
 	if body == player:

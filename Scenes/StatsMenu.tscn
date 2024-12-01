@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/stats_menu.gd" id="1_rhkql"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rds50"]
-bg_color = Color(0.721569, 0.721569, 0.721569, 1)
+bg_color = Color(0.190762, 0.190762, 0.190762, 1)
 
 [node name="StatsMenu" type="CanvasLayer"]
 process_mode = 3

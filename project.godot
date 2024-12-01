@@ -25,6 +25,7 @@ EventsManager="*res://Scripts/EventsManager.gd"
 Achievements="*res://Scripts/Achievements.gd"
 StatsMenu="*res://Scenes/StatsMenu.tscn"
 SettingsManager="*res://Scripts/SettingsManager.gd"
+MissionsManager="*res://Scripts/MissionsManager.gd"
 
 [display]
 

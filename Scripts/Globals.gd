@@ -17,6 +17,7 @@ var is_eating = false
 var is_exercising = false
 var on_computer = false
 var lights_on = true
+var is_sneaking = false
 var tenant_home = false
 var delivery_queue = []  # Array to store orders scheduled for delivery
 var mailbox_items = [] # Stores items that are ready to be collected from the mailbox
@@ -122,6 +123,115 @@ var player_strength: float = 0.0
 var player_intelligence: int = 0
 var player_social: int = 0
 var player_stealth: int = 0
+
+var tenant_schedules = {
+	#"1A": {
+	#	"Robert": {
+	#		"weekday": [
+	#			{"start": 0, "end": 7, "available": false, "position": "bed"}, # In bed
+	#			{"start": 7, "end": 17, "available": false, "position": "work"},  # At work
+	#			{"start": 17, "end": 22, "available": true, "position": "living_room"},  # Watching TV
+	#			{"start": 22, "end": 24, "available": false, "position": "bed"}, # Sleeping
+	#		],
+	#		"weekend": [
+	#			{"start": 0, "end": 9, "available": false, "position": "bed"}, # In bed
+	#			{"start": 9, "end": 22, "available": true, "position": "living_room"},   # In living room
+	#			{"start": 22, "end": 24, "available": false, "position": "bed"}, # Sleeping
+	#		],
+	#	},
+	#	"Clara": {
+	#		"weekday": [
+	#			{"start": 0, "end": 7, "available": false, "position": "bed"}, # In bed
+	#			{"start": 7, "end": 9, "available": true, "position": "dining_room"},   # Writing at table
+	#			{"start": 9, "end": 14, "available": false, "position": "library"}, # Goes to library to write
+	#			{"start": 14, "end": 18, "available": true, "position": "dining_room"},   # Writing at table
+	#			{"start": 18, "end": 24, "available": false, "position": "bed"}, # Sleeping
+	#		],
+	#		"weekend": [
+	#			{"start": 0, "end": 8, "available": false, "position": "bed"}, # In bed
+	#			{"start": 8, "end": 22, "available": true, "position": "living_room"},   # In living room
+	#			{"start": 22, "end": 24, "available": false, "position": "bed"}, # Sleeping
+	#		],
+	#	},
+	#},
+	#"1D": {
+	#	"Leah": {
+	#		"daily": [
+	#			{"start": 0, "end": 5, "available": false, "position": "bed"}, # In bed
+	#			{"start": 5, "end": 21, "available": true, "position": "bedroom"},   # Sculpting
+	#			{"start": 21, "end": 24, "available": false, "position": "bed"}, # Sleeping
+	#		],
+	#	},
+	#	"Sophie": {
+	#		"daily": [
+	#			{"start": 0, "end": 3, "available": true, "position": "bedroom"}, # Painting
+	#			{"start": 3, "end": 11, "available": false, "position": "bed"},  # Sleeping
+	#			{"start": 11, "end": 24, "available": true, "position": "bedroom"},  # Painting
+	#		],
+	#	},
+	#},
+	#"2B": {
+	#	"Dr. Cole": {
+	#		"weekday": [
+	#			{"start": 0, "end": 2, "available": true, "position": "desk"}, # At desk
+	#			{"start": 2, "end": 8, "available": false, "position": "bed"}, # In bed
+	#			{"start": 8, "end": 16, "available": false, "position": "work"},  # At work
+	#			{"start": 16, "end": 24, "available": true, "position": "desk"},  # At desk
+	#		],
+	#		"weekend": [
+	#			{"start": 0, "end": 2, "available": true, "position": "desk"}, # At desk
+	#			{"start": 2, "end": 8, "available": false, "position": "bed"}, # In bed
+	#			{"start": 8, "end": 24, "available": true, "position": "desk"},   # At desk
+	#		],
+	#	},
+	#},
+	"3C": {
+		"Elena": {
+			"weekday": [
+				{"start": 0, "end": 8, "available": false, "position": "bed"}, # In bed
+				{"start": 8, "end": 16, "available": false, "position": "work"},  # At work
+				{"start": 16, "end": 23, "available": true, "position": "kitchen"},  
+				{"start": 23, "end": 24, "available": false, "position": "bed"}, # In bed
+			],
+			"weekend": [
+				{"start": 0, "end": 9, "available": false, "position": "bed"}, # In bed
+				{"start": 9, "end": 23, "available": true, "position": "living_room"},   # With Mateo
+				{"start": 23, "end": 24, "available": false, "position": "bed"}, # Sleeping
+			],
+		},
+		"Mateo": {
+			"weekday": [
+				{"start": 0, "end": 8, "available": false, "position": "alt_bed"}, # In bed
+				{"start": 8, "end": 16, "available": false, "position": "school"},  # At school
+				{"start": 16, "end": 20, "available": true, "position": "dining_room"},
+				#{"start": 18, "end": 20, "available": true, "position": "bedroom"}, # playing/drawing
+				{"start": 20, "end": 24, "available": false, "position": "alt_bed"}, # Sleeping
+			],
+			"weekend": [
+				{"start": 0, "end": 9, "available": false, "position": "alt_bed"}, # In bed
+				{"start": 9, "end": 21, "available": true, "position": "living_room"},  # With Elena
+				{"start": 21, "end": 24, "available": false, "position": "alt_bed"}, # Sleeping
+			],
+		},
+	},
+}
+
+var npc_positions = {
+	"Mateo": {
+		"dining_room": Vector2(488, 550),  # Example positions
+		"living_room": Vector2(302, 304),
+		#"bedroom": Vector2(1012, 344),
+		"alt_bed": Vector2(676, 257)
+	},
+	"Elena": {
+		"living_room": Vector2(228, 500),
+		"kitchen": Vector2(424, 758),
+		"bed": Vector2(1785, 831) #and rotate 90 degrees
+	}
+	# Add positions for other NPCs
+}
+
+var tenant_availability = {}  # Track who's currently home
 
 var active_timers = []
 
@@ -325,5 +435,105 @@ func has_item_in_inventory(item_name: String) -> bool:
 		return player_inventory[category].has(item_name) and player_inventory[category][item_name] > 0
 	return false
 
-func check_tenant_availability():
+func check_tenant_availability(target_unit: String) -> String:
+	var current_hour = UI.current_hour  # Assuming current in-game hour is tracked
+	var is_weekend = UI.current_day_index in [6, 0]  # Assuming 6=Saturday, 0=Sunday
+
+	# Check if the unit has tenants in the schedule
+	if tenant_schedules.has(target_unit):
+		var tenants = tenant_schedules[target_unit]
+		for tenant in tenants.keys():
+			var schedule = tenants[tenant]
+			# Determine the tenant's daily schedule (weekday, weekend, or always daily)
+			var daily_schedule = schedule.get("daily") if schedule.has("daily") else (
+				schedule.get("weekend") if is_weekend else schedule.get("weekday")
+			)
+			# Check the current hour against the tenant's schedule
+			for period in daily_schedule:
+				if current_hour >= period["start"] and current_hour < period["end"]:
+					if period["available"]:
+						tenant_home = true
+						print("%s is home in unit %s" % [tenant, target_unit])
+						return tenant  # Return true as soon as we find one available tenant
+
+	# If no tenants are available, return false
 	tenant_home = false
+	print("No tenants are home in unit %s" % target_unit)
+	return ""
+
+func is_npc_available(unit_number: String, tenant_name: String) -> bool:
+	var current_hour = UI.current_hour  # Current in-game hour
+	var is_weekend = UI.current_day_index in [6, 0]  # 6=Saturday, 0=Sunday
+
+	# Check if the unit exists in the schedule
+	if tenant_schedules.has(unit_number):
+		var unit_schedule = tenant_schedules[unit_number]
+
+		# Check if the tenant exists in the unit
+		if unit_schedule.has(tenant_name):
+			var schedule = unit_schedule[tenant_name]
+			var daily_schedule = null
+
+			# Determine which schedule to use: daily, weekend, or weekday
+			if schedule.has("daily"):
+				daily_schedule = schedule["daily"]
+			elif is_weekend:
+				daily_schedule = schedule.get("weekend", [])
+			else:
+				daily_schedule = schedule.get("weekday", [])
+
+			# Check if the NPC is available during the current hour
+			for period in daily_schedule:
+				if current_hour >= period["start"] and current_hour < period["end"]:
+					print(tenant_name, " is available")
+					return period["available"]
+					
+	print(tenant_name, " is not available")
+	return false  # NPC is not available
+
+func update_npc_positions():
+	var current_hour = UI.current_hour  # Current in-game hour
+	var is_weekend = UI.current_day_index in [6, 0]  # 6=Saturday, 0=Sunday
+
+	for unit in tenant_schedules.keys():
+		var tenants = tenant_schedules[unit]
+
+		for tenant_name in tenants.keys():
+			var schedule = tenants[tenant_name]
+			var daily_schedule = null
+
+			if schedule.has("daily"):
+				daily_schedule = schedule["daily"]
+			elif is_weekend:
+				daily_schedule = schedule.get("weekend", [])
+			else:
+				daily_schedule = schedule.get("weekday", [])
+			var npc_node = get_node_or_null("/root/Unit%s/%s" % [unit, tenant_name])  # Locate NPC node
+			if npc_node:
+				var collision_shape = npc_node.get_node_or_null("CollisionShape2D")
+				# Determine where the NPC should be
+				var found_position = false
+				for period in daily_schedule:
+					if current_hour >= period["start"] and current_hour < period["end"]:
+						if period["available"] or period["position"] == "bed":
+							# Set NPC position
+							if period["position"] == "bed":
+								npc_node.rotation = deg_to_rad(90)
+							else:
+								npc_node.rotation = 0
+							var position_name = period["position"]
+							if npc_positions.has(tenant_name) and npc_positions[tenant_name].has(position_name):
+								npc_node.global_position = npc_positions[tenant_name][position_name]
+								npc_node.visible = true
+								if collision_shape:
+									collision_shape.disabled = false
+								found_position = true
+								break
+						else:
+							pass
+
+				if not found_position:
+					# If no position matches, NPC is "not home"
+					npc_node.visible = false
+					if collision_shape:
+						collision_shape.disabled = true  # Disable CollisionShape2D

@@ -8,6 +8,7 @@ var near_button = false
 var button_pressed = false
 var near_door = false
 var target_unit = ""
+var left_unit = ""
 var player_knocking = false
 var knocking_audio = [
 	preload("res://Audio/knock1-pixabay.mp3"),
@@ -31,6 +32,11 @@ func _ready():
 		player.position = Vector2(1440, 540)
 		Globals.current_location = "Floor 2"
 		$ElevatorSprite.play("closed")
+	elif Globals.current_location == "Unit 2B":
+		player.position = Vector2(-75, 740)
+		Globals.current_location = "Floor 2"
+		left_unit = "2B"
+		_leave_unit()
 	else:
 		player.position = Vector2(950, 950)
 		Globals.current_location = "Floor 2"
@@ -112,6 +118,33 @@ func _on_stairs_down_area_2d_body_entered(body):
 		UI.fade_to_black()
 		await Globals.create_tracked_timer(1.5).timeout
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Floor1.tscn")
+
+func _leave_unit():
+	$DoorCloseAudio.play()
+	if left_unit == "2A":
+		$Unit2ADoorSprite.visible = false
+		await Globals.create_tracked_timer(0.5).timeout
+		$Unit2ADoorSprite.visible = true
+	elif left_unit == "2B":
+		$Unit2BDoorSprite.visible = false
+		await Globals.create_tracked_timer(0.5).timeout
+		$Unit2BDoorSprite.visible = true
+	elif left_unit == "2C":
+		$Unit2CDoorSprite.visible = false
+		await Globals.create_tracked_timer(0.5).timeout
+		$Unit2CDoorSprite.visible = true
+	elif left_unit == "2D":
+		$Unit2DDoorSprite.visible = false
+		await Globals.create_tracked_timer(0.5).timeout
+		$Unit2DDoorSprite.visible = true
+	elif left_unit == "2E":
+		$Unit2EDoorSprite.visible = false
+		await Globals.create_tracked_timer(0.5).timeout
+		$Unit2EDoorSprite.visible = true
+	elif left_unit == "2F":
+		$Unit2FDoorSprite.visible = false
+		await Globals.create_tracked_timer(0.5).timeout
+		$Unit2FDoorSprite.visible = true
 
 func _on_unit_2a_rug_area_2d_body_entered(body):
 	if body == player:
@@ -230,37 +263,27 @@ func _on_knock_button_pressed():
 		print("Knocking on door ", target_unit)
 
 func _on_knocking_audio_finished():
-	Globals.check_tenant_availability()
+	await Globals.create_tracked_timer(1.0).timeout
 	player_knocking = false
 	player.can_move = true
-	if target_unit == "2A" and Globals.tenant_home:
+	var tenant = Globals.check_tenant_availability(target_unit)
+
+	if tenant != "":
 		door_open = true
-		$Unit2ADoorSprite.visible = false
-		$Unit2AStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "2B" and Globals.tenant_home:
-		door_open = true
-		$Unit2BDoorSprite.visible = false
-		$Unit2BStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "2C" and Globals.tenant_home:
-		door_open = true
-		$Unit2CDoorSprite.visible = false
-		$Unit2CStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "2D" and Globals.tenant_home:
-		door_open = true
-		$Unit2DDoorSprite.visible = false
-		$Unit2DStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "2E" and Globals.tenant_home:
-		door_open = true
-		$Unit2EDoorSprite.visible = false
-		$Unit2EStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "2F" and Globals.tenant_home:
-		door_open = true
-		$Unit2FDoorSprite.visible = false
-		$Unit2FStaticBody2D/CollisionShape2D2.disabled = true
-	if Globals.tenant_home:
+		print("Door to %s opens. %s is home." % [target_unit, tenant])
+
+		# Dynamically access the door sprite
+		var door_sprite = get_node("Unit%sDoorSprite" % target_unit)
+		door_sprite.visible = false
+
+		# Dynamically access the collision shape
+		var collision_shape = get_node("Unit%sStaticBody2D/CollisionShape2D2" % target_unit)
+		collision_shape.disabled = true
+
+		# Play the door open audio
 		$DoorOpenAudio.play()
 	else:
-		print("Tenant not home")
+		print("Door closed. No tenants home in unit %s." % target_unit)
 
 func _close_door():
 	if target_unit == "2A":

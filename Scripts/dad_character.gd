@@ -81,13 +81,15 @@ func update_animation():
 	animated_sprite.play()
 
 func dad_intro():
-	$DialogueLabel.text = "Alright kiddo, you’re all set!"
+	$DialogueLabel.text = "Alright kiddo, you’re all set!
+	(Spacebar to continue dialogue)"
 	$DialogueLabel.visible = true
 	UI.play_dialogue_audio()
 	await wait_for_input()
 	$DialogueLabel.text = "I grabbed your keys from the landlord yesterday 
 	and got your clothes and computer all moved in."
 	UI.play_dialogue_audio()
+	#UI.show_skip_cutscene_label()
 	await wait_for_input()
 	$DialogueLabel.visible = false
 	self.set_target(Vector2(940, 900))

@@ -1,11 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cupleneoe0ati"]
+[gd_scene load_steps=6 format=3 uid="uid://cupleneoe0ati"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_jompw"]
+[ext_resource type="Script" path="res://Scripts/settings_panel.gd" id="2_0c4ye"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1ivf"]
 bg_color = Color(0.493545, 0.493546, 0.493545, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snh63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dc5xc"]
+bg_color = Color(0.370364, 0.370365, 0.370364, 1)
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
@@ -46,6 +50,7 @@ theme_override_font_sizes/font_size = 32
 text = "Save"
 
 [node name="ControlsButton" type="Button" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Controls"
@@ -122,9 +127,48 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
+[node name="SettingsPanel" type="Panel" parent="."]
+visible = false
+offset_left = 305.0
+offset_top = 204.0
+offset_right = 1618.0
+offset_bottom = 873.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dc5xc")
+script = ExtResource("2_0c4ye")
+
+[node name="SettingsLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 27.0
+offset_right = 838.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 48
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 1266.0
+offset_top = 4.0
+offset_right = 1309.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="BGMButton" type="CheckButton" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 580.0
+offset_top = 130.0
+offset_right = 736.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 32
+button_pressed = true
+text = "BGM"
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="visibility_changed" from="Panel/VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_visibility_changed"]
@@ -133,3 +177,6 @@ text = "Quit"
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GOStartOverButton" to="." method="_on_go_start_over_button_pressed"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GOMainMenuButton" to="." method="_on_go_main_menu_button_pressed"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GOQuitButton" to="." method="_on_go_quit_button_pressed"]
+[connection signal="visibility_changed" from="SettingsPanel" to="SettingsPanel" method="_on_visibility_changed"]
+[connection signal="pressed" from="SettingsPanel/CloseButton" to="SettingsPanel" method="_on_close_button_pressed"]
+[connection signal="toggled" from="SettingsPanel/BGMButton" to="SettingsPanel" method="_on_bgm_button_toggled"]

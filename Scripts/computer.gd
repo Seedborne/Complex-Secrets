@@ -5,6 +5,7 @@ var zmail_panel_max = true
 var rent_panel_max = true
 var banking_panel_max = true
 var spy_app_panel_max = true
+var recycle_bin_panel_max = false
 #var sensitivity = 20.0
 #var cursor_pos = Vector2()
 @onready var amazon_panel = $AmazonPanel
@@ -264,10 +265,10 @@ func _on_spy_app_button_pressed():
 	$SpyAppPanel.visible = true
 	$HBoxContainer/SpyAppBarButton.visible = true
 	for objective in UI.objectives:
-			if objective["text"] == "Check out spy app":
+			if objective["text"] == "Check out AnonHelp app":
 				if not objective["completed"]:
 					UI.remove_completed_objectives()
-					UI.complete_objective("Check out spy app")
+					UI.complete_objective("Check out AnonHelp app")
 	if $SpyAppPanel.z_index == -1:
 		$SpyAppPanel.z_index = 0
 		set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_STOP)
@@ -303,3 +304,43 @@ func _on_spy_app_max_button_pressed():
 func _on_spy_app_min_button_pressed():
 	$SpyAppPanel.z_index = -1
 	set_mouse_filter_recursive($SpyAppPanel, Control.MOUSE_FILTER_IGNORE)
+
+func _on_recycle_bin_button_pressed():
+	$RecycleBinPanel.visible = true
+	$HBoxContainer/RecycleBinBarButton.visible = true
+	if $RecycleBinPanel.z_index == -1:
+		$RecycleBinPanel.z_index = 0
+		set_mouse_filter_recursive($RecycleBinPanel, Control.MOUSE_FILTER_STOP)
+
+func _on_recycle_bin_bar_button_pressed():
+	if $RecycleBinPanel.z_index == 0:
+		$RecycleBinPanel.z_index = -1
+		set_mouse_filter_recursive($RecycleBinPanel, Control.MOUSE_FILTER_IGNORE)
+	elif $RecycleBinPanel.z_index == -1:
+		$RecycleBinPanel.z_index = 0
+		set_mouse_filter_recursive($RecycleBinPanel, Control.MOUSE_FILTER_STOP)
+
+func _on_recycle_bin_close_button_pressed():
+	$RecycleBinPanel.visible = false
+	$HBoxContainer/RecycleBinBarButton.visible = false
+	$RecycleBinPanel/HintPanel.visible = false
+	$RecycleBinPanel.scale = Vector2(1.0, 1.0)
+	$RecycleBinPanel.position = Vector2(0, 0)
+	$RecycleBinPanel/Panel/RecycleBinMaxButton.text = "o"
+	recycle_bin_panel_max = false
+
+func _on_recycle_bin_max_button_pressed():
+	if recycle_bin_panel_max:
+		$RecycleBinPanel.scale = Vector2(0.7, 0.7)
+		$RecycleBinPanel.position = Vector2(180, 60)
+		$RecycleBinPanel/Panel/RecycleBinMaxButton.text = "O"
+		recycle_bin_panel_max = false
+	else:
+		$RecycleBinPanel.scale = Vector2(1.0, 1.0)
+		$RecycleBinPanel.position = Vector2(0, 0)
+		$RecycleBinPanel/Panel/RecycleBinMaxButton.text = "o"
+		recycle_bin_panel_max = true
+
+func _on_recycle_bin_min_button_pressed():
+	$RecycleBinPanel.z_index = -1
+	set_mouse_filter_recursive($RecycleBinPanel, Control.MOUSE_FILTER_IGNORE)

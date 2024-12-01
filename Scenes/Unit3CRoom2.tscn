@@ -1,0 +1,272 @@
+[gd_scene load_steps=28 format=3 uid="uid://cfprq2lnb0lxv"]
+
+[ext_resource type="Script" path="res://Scripts/unit_3c_room_2.gd" id="1_f5au3"]
+[ext_resource type="Texture2D" uid="uid://6t2yd14mqftj" path="res://Assets/extrabedroom.png" id="2_jy7cs"]
+[ext_resource type="Texture2D" uid="uid://dwcbe3f0dcdgw" path="res://Assets/gymdoorclosed.png" id="3_4l2gk"]
+[ext_resource type="Texture2D" uid="uid://llsum2rxetbl" path="res://Assets/gymdooropen.png" id="4_nvxsy"]
+[ext_resource type="Texture2D" uid="uid://drtha5u5qa1yn" path="res://Assets/Characters/Mateosprite.png" id="7_c4jyo"]
+[ext_resource type="AudioStream" uid="uid://3anh1fhmqsi" path="res://Audio/switch_on.mp3" id="8_cq76y"]
+[ext_resource type="AudioStream" uid="uid://uu8e828urecy" path="res://Audio/switch_off.mp3" id="9_lvv7l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atku3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4l2gk")
+}],
+"loop": true,
+"name": &"side_door_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_nvxsy")
+}],
+"loop": true,
+"name": &"side_door_open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7mf8"]
+size = Vector2(799, 211)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2e8w"]
+size = Vector2(595, 1078)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xva8m"]
+size = Vector2(725, 209.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gw2b6"]
+size = Vector2(598, 460.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wlndu"]
+size = Vector2(529, 166)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adc8m"]
+size = Vector2(597, 447)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_do5tb"]
+a = Vector2(177.25, -60)
+b = Vector2(-1603.75, -60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q4y5"]
+size = Vector2(54, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3nbm"]
+size = Vector2(34, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygpvn"]
+size = Vector2(89.5, 283)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58d3d"]
+size = Vector2(23, 282)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tarq2"]
+size = Vector2(70, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ed0gy"]
+size = Vector2(55, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abp74"]
+size = Vector2(129, 246)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1c43x"]
+size = Vector2(156, 227)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnto3"]
+size = Vector2(19, 92.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vlot"]
+size = Vector2(35.75, 165)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol1mj"]
+size = Vector2(41.4286, 44.2857)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_je1bd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_c4jyo")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}]
+
+[node name="Unit3CRoom2" type="Node2D"]
+script = ExtResource("1_f5au3")
+
+[node name="UnitSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_jy7cs")
+centered = false
+
+[node name="SideDoorSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1342, 545.5)
+scale = Vector2(0.903846, 1.0061)
+sprite_frames = SubResource("SpriteFrames_atku3")
+animation = &"side_door_closed"
+
+[node name="LightswitchOnAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_cq76y")
+volume_db = 6.0
+
+[node name="LightswitchOffAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_lvv7l")
+volume_db = 6.0
+
+[node name="WallsBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(921.5, 974.5)
+shape = SubResource("RectangleShape2D_c7mf8")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(296.5, 539)
+shape = SubResource("RectangleShape2D_d2e8w")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(957.5, 104.25)
+shape = SubResource("RectangleShape2D_xva8m")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(1621, 231.438)
+shape = SubResource("RectangleShape2D_gw2b6")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(1655.5, 546)
+shape = SubResource("RectangleShape2D_wlndu")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(1619.5, 854.5)
+shape = SubResource("RectangleShape2D_adc8m")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="WallsBody2D"]
+position = Vector2(1676.75, 1141)
+shape = SubResource("SegmentShape2D_do5tb")
+
+[node name="LampArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LampArea2D"]
+position = Vector2(1199, 259)
+shape = SubResource("RectangleShape2D_1q4y5")
+
+[node name="LampBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LampBody2D"]
+position = Vector2(1198, 294.5)
+shape = SubResource("RectangleShape2D_l3nbm")
+
+[node name="DresserSearchButton" type="Button" parent="."]
+visible = false
+offset_left = 611.0
+offset_top = 718.0
+offset_right = 672.0
+offset_bottom = 749.0
+text = "Search"
+
+[node name="DresserBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DresserBody2D"]
+position = Vector2(645.25, 724.5)
+shape = SubResource("RectangleShape2D_ygpvn")
+
+[node name="DresserArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DresserArea2D"]
+position = Vector2(701.5, 725)
+shape = SubResource("RectangleShape2D_58d3d")
+
+[node name="NightstandBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NightstandBody2D"]
+position = Vector2(826, 262)
+shape = SubResource("RectangleShape2D_tarq2")
+
+[node name="NightstandArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NightstandArea2D"]
+position = Vector2(842.5, 274)
+shape = SubResource("RectangleShape2D_ed0gy")
+
+[node name="NightstandSearchButton" type="Button" parent="."]
+visible = false
+offset_left = 797.0
+offset_top = 247.0
+offset_right = 858.0
+offset_bottom = 278.0
+text = "Search"
+
+[node name="BedBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedBody2D"]
+position = Vector2(679.5, 360)
+shape = SubResource("RectangleShape2D_abp74")
+
+[node name="BedArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedArea2D"]
+position = Vector2(684, 393.5)
+shape = SubResource("RectangleShape2D_1c43x")
+
+[node name="BedSearchButton" type="Button" parent="."]
+visible = false
+offset_left = 652.0
+offset_top = 380.0
+offset_right = 713.0
+offset_bottom = 411.0
+text = "Search"
+
+[node name="SideDoorArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideDoorArea2D"]
+position = Vector2(1312.5, 581.25)
+shape = SubResource("RectangleShape2D_qnto3")
+
+[node name="SideDoorArea2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideDoorArea2D2"]
+position = Vector2(1373.88, 545)
+shape = SubResource("RectangleShape2D_5vlot")
+
+[node name="SideDoorBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideDoorBody2D"]
+position = Vector2(1340, 545.5)
+shape = SubResource("RectangleShape2D_5vlot")
+
+[node name="Mateo" type="CharacterBody2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(680, 220)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mateo"]
+position = Vector2(0.714233, 113.571)
+shape = SubResource("RectangleShape2D_ol1mj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mateo"]
+position = Vector2(-1.42857, 40)
+sprite_frames = SubResource("SpriteFrames_je1bd")
+animation = &"front"
+flip_h = true
+
+[node name="LightsOff" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.52549)
+z_index = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[connection signal="body_entered" from="LampArea2D" to="." method="_on_lamp_area_2d_body_entered"]
+[connection signal="body_exited" from="LampArea2D" to="." method="_on_lamp_area_2d_body_exited"]
+[connection signal="pressed" from="DresserSearchButton" to="." method="_on_dresser_search_button_pressed"]
+[connection signal="body_entered" from="DresserArea2D" to="." method="_on_dresser_area_2d_body_entered"]
+[connection signal="body_exited" from="DresserArea2D" to="." method="_on_dresser_area_2d_body_exited"]
+[connection signal="body_entered" from="NightstandArea2D" to="." method="_on_nightstand_area_2d_body_entered"]
+[connection signal="body_exited" from="NightstandArea2D" to="." method="_on_nightstand_area_2d_body_exited"]
+[connection signal="pressed" from="NightstandSearchButton" to="." method="_on_nightstand_search_button_pressed"]
+[connection signal="body_entered" from="BedArea2D" to="." method="_on_bed_area_2d_body_entered"]
+[connection signal="body_exited" from="BedArea2D" to="." method="_on_bed_area_2d_body_exited"]
+[connection signal="pressed" from="BedSearchButton" to="." method="_on_bed_search_button_pressed"]
+[connection signal="body_entered" from="SideDoorArea2D" to="." method="_on_side_door_area_2d_body_entered"]
+[connection signal="body_exited" from="SideDoorArea2D" to="." method="_on_side_door_area_2d_body_exited"]
+[connection signal="body_entered" from="SideDoorArea2D2" to="." method="_on_side_door_area_2d_2_body_entered"]

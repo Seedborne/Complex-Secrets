@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cu4rw5lip6qq5"]
+[gd_scene load_steps=22 format=3 uid="uid://cu4rw5lip6qq5"]
 
 [ext_resource type="Script" path="res://Scripts/coffee_shop.gd" id="1_ef1bb"]
-[ext_resource type="Texture2D" uid="uid://q0yjifgf4uus" path="res://Assets/testcoffeeshop.png" id="1_qjq8k"]
+[ext_resource type="Texture2D" uid="uid://c1nnj3trqnlib" path="res://Assets/coffeeshop.png" id="2_u0ygn"]
 [ext_resource type="AudioStream" uid="uid://baropeox66fy" path="res://Audio/cash-register-kaching-Modestas123123.mp3" id="3_0wcur"]
+[ext_resource type="Texture2D" uid="uid://dvmlrfifuoc3e" path="res://Assets/Characters/coffeeworkersprite.png" id="3_5anso"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_wuv8t"]
 a = Vector2(0, 1080)
@@ -13,41 +14,55 @@ a = Vector2(-1924, 1081)
 b = Vector2(-1, 1080)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gl5lr"]
-size = Vector2(71.5, 384)
+size = Vector2(71.5, 393)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5u1w7"]
-size = Vector2(73, 347)
+size = Vector2(69, 333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ampta"]
 size = Vector2(1916, 182)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2irl"]
-size = Vector2(66, 898)
+size = Vector2(75, 898)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2hll"]
 size = Vector2(39, 168)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pij21"]
+size = Vector2(59, 3)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vutxw"]
-size = Vector2(659.5, 121.5)
+size = Vector2(694, 154)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1goeo"]
-size = Vector2(660, 36)
+size = Vector2(211, 33)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0my16"]
-radius = 76.0263
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlfdh"]
+size = Vector2(194, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrho0"]
+size = Vector2(194, 138)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0v1up"]
-size = Vector2(49, 70)
+size = Vector2(59.5, 54.5)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_dyo0q"]
-a = Vector2(-22.5, -104)
-b = Vector2(-22.5, -35)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhiq5"]
+size = Vector2(20, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aobyv"]
+size = Vector2(20, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7a6a"]
+size = Vector2(20, 55.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7ypp"]
+size = Vector2(19, 57)
 
 [node name="CoffeeShop" type="Node2D"]
 script = ExtResource("1_ef1bb")
 
 [node name="CoffeeShopSprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_qjq8k")
+texture = ExtResource("2_u0ygn")
 centered = false
 
 [node name="BoundaryBody2D" type="StaticBody2D" parent="."]
@@ -61,13 +76,14 @@ position = Vector2(1922, 0)
 shape = SubResource("SegmentShape2D_2df2b")
 
 [node name="WallBody2D" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(1890, 885)
+position = Vector2(1890, 880.5)
 shape = SubResource("RectangleShape2D_gl5lr")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(1891, 352)
+position = Vector2(1885.5, 349.5)
 shape = SubResource("RectangleShape2D_5u1w7")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WallBody2D"]
@@ -75,33 +91,46 @@ position = Vector2(961, 91)
 shape = SubResource("RectangleShape2D_ampta")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(40, 631)
+position = Vector2(37.5, 633)
 shape = SubResource("RectangleShape2D_l2irl")
 
 [node name="LobbyArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LobbyArea2D"]
-position = Vector2(1900, 609)
+position = Vector2(1899, 600)
 shape = SubResource("RectangleShape2D_e2hll")
 
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+z_index = 1
+
+[node name="WorkerSprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(969, 193)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_5anso")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(969.5, 242.5)
+shape = SubResource("RectangleShape2D_pij21")
+
 [node name="CounterBody2D" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CounterBody2D"]
-position = Vector2(944.25, 317.25)
+position = Vector2(944, 319)
 shape = SubResource("RectangleShape2D_vutxw")
 
 [node name="CounterArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CounterArea2D"]
-position = Vector2(944, 398)
+position = Vector2(978.5, 412.5)
 shape = SubResource("RectangleShape2D_1goeo")
 
 [node name="CoffeeVBoxContainer" type="VBoxContainer" parent="."]
 visible = false
-offset_left = 892.0
-offset_top = 263.0
-offset_right = 997.0
-offset_bottom = 364.0
+offset_left = 1091.0
+offset_top = 203.0
+offset_right = 1218.0
+offset_bottom = 304.0
 
 [node name="SmallCoffee" type="Button" parent="CoffeeVBoxContainer"]
 layout_mode = 2
@@ -118,52 +147,52 @@ text = "Espresso $10"
 [node name="TableBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TableBody2D"]
-position = Vector2(405, 758)
-shape = SubResource("CircleShape2D_0my16")
+position = Vector2(410, 752)
+shape = SubResource("RectangleShape2D_tlfdh")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="TableBody2D"]
-position = Vector2(1159, 946)
-shape = SubResource("CircleShape2D_0my16")
+position = Vector2(1158, 945)
+shape = SubResource("RectangleShape2D_wrho0")
 
 [node name="ChairBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChairBody2D"]
-position = Vector2(269.5, 785)
+position = Vector2(266, 764)
 shape = SubResource("RectangleShape2D_0v1up")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChairBody2D"]
-position = Vector2(269.5, 785)
-shape = SubResource("SegmentShape2D_dyo0q")
+position = Vector2(246, 708.5)
+shape = SubResource("RectangleShape2D_yhiq5")
 
 [node name="ChairBody2D2" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChairBody2D2"]
-position = Vector2(543, 790)
+position = Vector2(542, 755.75)
 shape = SubResource("RectangleShape2D_0v1up")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChairBody2D2"]
-position = Vector2(588, 790)
-shape = SubResource("SegmentShape2D_dyo0q")
+position = Vector2(562, 700)
+shape = SubResource("RectangleShape2D_aobyv")
 
 [node name="ChairBody2D3" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChairBody2D3"]
-position = Vector2(1034, 978)
+position = Vector2(1014, 955)
 shape = SubResource("RectangleShape2D_0v1up")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChairBody2D3"]
-position = Vector2(1034, 978)
-shape = SubResource("SegmentShape2D_dyo0q")
+position = Vector2(994, 899.75)
+shape = SubResource("RectangleShape2D_i7a6a")
 
 [node name="ChairBody2D4" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChairBody2D4"]
-position = Vector2(1293, 981)
+position = Vector2(1289, 947)
 shape = SubResource("RectangleShape2D_0v1up")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChairBody2D4"]
-position = Vector2(1338, 982)
-shape = SubResource("SegmentShape2D_dyo0q")
+position = Vector2(1309.5, 891.5)
+shape = SubResource("RectangleShape2D_p7ypp")
 
 [node name="OrderDelay" type="Timer" parent="."]
 one_shot = true

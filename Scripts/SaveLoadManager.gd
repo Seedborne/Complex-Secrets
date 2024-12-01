@@ -73,6 +73,8 @@ func save_game():
 		"rent_balance": EventsManager.rent_balance,
 		"eviction_warning": EventsManager.eviction_warning_sent,
 		
+		"missions": MissionsManager.missions,
+		
 		"bgm_on": SettingsManager.bgm_on,
 	}
 
@@ -169,6 +171,8 @@ func apply_loaded_data(save_data):
 	EventsManager.rent_balance = save_data["rent_balance"]
 	EventsManager.eviction_warning_sent = save_data["eviction_warning"]
 	
+	MissionsManager.missions = save_data["missions"]
+	
 	SettingsManager.bgm_on = save_data["bgm_on"]
 	
 	if save_data.has("event_states"):
@@ -248,6 +252,7 @@ func reset_game_state():
 	Globals.is_exercising = false
 	Globals.on_computer = false
 	Globals.lights_on = true
+	Globals.is_sneaking = false
 	Globals.tenant_home = false
 	Globals.delivery_queue = []  # Array to store orders scheduled for delivery
 	Globals.mailbox_items = [] # Stores items that are ready to be collected from the mailbox
@@ -307,3 +312,5 @@ func reset_game_state():
 	EventsManager.rent_balance = 0.0
 	EventsManager.eviction_warning_sent = false
 	EventsManager.reset_events()
+	
+	MissionsManager.reset_missions()

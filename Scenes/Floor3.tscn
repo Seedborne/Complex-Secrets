@@ -1,14 +1,14 @@
 [gd_scene load_steps=47 format=3 uid="uid://cxlw0uqgf75vv"]
 
 [ext_resource type="Script" path="res://Scripts/floor_3.gd" id="1_3b7f7"]
-[ext_resource type="Texture2D" uid="uid://c8eg2nxeebc0b" path="res://Assets/testhallwayfl3.png" id="2_ojntq"]
+[ext_resource type="Texture2D" uid="uid://c7i8hdem33ahx" path="res://Assets/hallwayfl3.png" id="2_ohdb6"]
 [ext_resource type="Texture2D" uid="uid://d0v1wpmii5ytk" path="res://Assets/blackhallwaybackground.png" id="3_lgkpl"]
-[ext_resource type="Texture2D" uid="uid://1avx083msf3o" path="res://Assets/elevatorclosed.png" id="4_1l5n5"]
-[ext_resource type="Texture2D" uid="uid://bk5oek8q2a6on" path="res://Assets/elevatoropen.png" id="5_7ce4w"]
-[ext_resource type="Texture2D" uid="uid://bn2dp3t3nmju0" path="res://Assets/elevatoropening3.png" id="6_tfu40"]
-[ext_resource type="Texture2D" uid="uid://svoxalymdpbw" path="res://Assets/elevatoropening2.png" id="7_geig1"]
-[ext_resource type="Texture2D" uid="uid://drt26vsbg05st" path="res://Assets/elevatoropening1.png" id="8_5admm"]
-[ext_resource type="Texture2D" uid="uid://dplyrj251pg0m" path="res://Assets/door.png" id="9_8cqmp"]
+[ext_resource type="Texture2D" uid="uid://cxjq7aitcfip7" path="res://Assets/elevatorsclosed.png" id="4_r47j1"]
+[ext_resource type="Texture2D" uid="uid://cusbgno0n5af3" path="res://Assets/elevatorsopen.png" id="5_plnkx"]
+[ext_resource type="Texture2D" uid="uid://bk7j67r8fpact" path="res://Assets/elevators3.png" id="6_umtbo"]
+[ext_resource type="Texture2D" uid="uid://bxqxwnqx7iql4" path="res://Assets/elevators2.png" id="7_5m71d"]
+[ext_resource type="Texture2D" uid="uid://b5mn71kxnlmmf" path="res://Assets/elevators1.png" id="8_nhew8"]
+[ext_resource type="Texture2D" uid="uid://btflik3tmo2dj" path="res://Assets/door.png" id="9_8cqmp"]
 [ext_resource type="AudioStream" uid="uid://b7n8tmlh6xvox" path="res://Audio/elevator-ding-pixabay.mp3" id="10_jewwf"]
 [ext_resource type="AudioStream" uid="uid://dsdtvrw36yuho" path="res://Audio/button_sound.mp3" id="11_le8p0"]
 [ext_resource type="AudioStream" uid="uid://crgyy1nb8m3ea" path="res://Audio/elevator-sound-pixabay.mp3" id="12_ld5bq"]
@@ -17,11 +17,13 @@
 [ext_resource type="AudioStream" uid="uid://bdcyc7vstai0l" path="res://Audio/door-open-pixabay.mp3" id="15_gk5n7"]
 [ext_resource type="AudioStream" uid="uid://dcuagxuy0tw33" path="res://Audio/door-close-pixabay.mp3" id="16_learr"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_kkt11"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_06ra1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nlqve"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_1l5n5")
+"texture": ExtResource("4_r47j1")
 }],
 "loop": true,
 "name": &"closed",
@@ -29,19 +31,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_7ce4w")
+"texture": ExtResource("5_plnkx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_tfu40")
+"texture": ExtResource("6_umtbo")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_geig1")
+"texture": ExtResource("7_5m71d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_5admm")
+"texture": ExtResource("8_nhew8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_1l5n5")
+"texture": ExtResource("4_r47j1")
 }],
 "loop": false,
 "name": &"closing",
@@ -49,7 +51,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_7ce4w")
+"texture": ExtResource("5_plnkx")
 }],
 "loop": true,
 "name": &"open",
@@ -57,26 +59,24 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_1l5n5")
+"texture": ExtResource("4_r47j1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_5admm")
+"texture": ExtResource("8_nhew8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_geig1")
+"texture": ExtResource("7_5m71d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_tfu40")
+"texture": ExtResource("6_umtbo")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_7ce4w")
+"texture": ExtResource("5_plnkx")
 }],
 "loop": false,
 "name": &"opening",
 "speed": 5.0
 }]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_06ra1"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_bmffi"]
 a = Vector2(36, 565)
@@ -106,52 +106,52 @@ b = Vector2(-1514, -222)
 size = Vector2(150, 182)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i85oi"]
-size = Vector2(786, 182)
+size = Vector2(775, 182)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_csgvm"]
-size = Vector2(965, 180)
+size = Vector2(941, 180)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3y83"]
-size = Vector2(735, 179)
+size = Vector2(763, 179)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7i76v"]
-size = Vector2(691, 178)
+size = Vector2(722, 178)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lt6x0"]
-size = Vector2(927, 178)
+size = Vector2(907, 178)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_igdre"]
-size = Vector2(431, 179)
+size = Vector2(421, 179)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enkoc"]
-size = Vector2(142, 75)
+size = Vector2(140, 75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_otora"]
-size = Vector2(397, 126)
+size = Vector2(328, 126)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_358sy"]
-size = Vector2(396.5, 180)
+size = Vector2(328, 180)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrdq1"]
 size = Vector2(65.75, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcayt"]
-size = Vector2(105, 10)
+size = Vector2(106.5, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f057k"]
 size = Vector2(247, 107)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8cu6u"]
-size = Vector2(102, 35.875)
+size = Vector2(125, 35.875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pofb7"]
 size = Vector2(183, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1h2y3"]
-size = Vector2(103, 109)
+size = Vector2(125, 109)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vq7q0"]
-size = Vector2(103, 71.5)
+size = Vector2(125, 70.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmuha"]
 size = Vector2(182, 110)
@@ -173,7 +173,7 @@ script = ExtResource("1_3b7f7")
 
 [node name="Floor3Background" type="Sprite2D" parent="."]
 position = Vector2(-1860, 0)
-texture = ExtResource("2_ojntq")
+texture = ExtResource("2_ohdb6")
 centered = false
 
 [node name="BlackBackground" type="Sprite2D" parent="."]
@@ -181,16 +181,16 @@ position = Vector2(-1859, 811)
 texture = ExtResource("3_lgkpl")
 centered = false
 
-[node name="ElevatorSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(1436, 359)
-sprite_frames = SubResource("SpriteFrames_kkt11")
-animation = &"closed"
-
 [node name="ElevatorButtonSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1200.5, 395.5)
-scale = Vector2(17, 17)
+position = Vector2(1198, 394)
+scale = Vector2(3.99999, 4.00002)
 texture = SubResource("CanvasTexture_06ra1")
+
+[node name="ElevatorSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1435, 359)
+sprite_frames = SubResource("SpriteFrames_nlqve")
+animation = &"closed"
 
 [node name="Unit3ADoorSprite" type="Sprite2D" parent="."]
 position = Vector2(-624, 379)
@@ -272,6 +272,26 @@ offset_bottom = -61.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "3C"
+horizontal_alignment = 1
+
+[node name="LockpickLabel" type="Label" parent="Unit3CDoorSprite"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -119.0
+offset_right = 156.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "No answer
+Try to pick the lock?
+(Press E again)"
 horizontal_alignment = 1
 
 [node name="KnockButton" type="Button" parent="Unit3CDoorSprite"]
@@ -416,19 +436,19 @@ position = Vector2(-1784, 356)
 shape = SubResource("RectangleShape2D_ljwrb")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(-1069, 356)
+position = Vector2(-1074.5, 356)
 shape = SubResource("RectangleShape2D_i85oi")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(-89.5, 357)
+position = Vector2(-90.5, 357)
 shape = SubResource("RectangleShape2D_csgvm")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(862.5, 357.5)
+position = Vector2(889.5, 357.5)
 shape = SubResource("RectangleShape2D_s3y83")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(1985.5, 359)
+position = Vector2(1960, 359)
 shape = SubResource("RectangleShape2D_7i76v")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="WallBody2D"]
@@ -436,23 +456,23 @@ position = Vector2(2899.5, 359)
 shape = SubResource("RectangleShape2D_lt6x0")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(3683.5, 358.5)
+position = Vector2(3688.5, 358.5)
 shape = SubResource("RectangleShape2D_igdre")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="WallBody2D"]
-position = Vector2(-1638, 409.5)
+position = Vector2(-1639, 409.5)
 shape = SubResource("RectangleShape2D_enkoc")
 
 [node name="ElevatorArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorArea2D"]
-position = Vector2(1436, 330)
+position = Vector2(1435, 330)
 shape = SubResource("RectangleShape2D_otora")
 
 [node name="ElevatorBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorBody2D"]
-position = Vector2(1437, 357)
+position = Vector2(1435, 357)
 shape = SubResource("RectangleShape2D_358sy")
 
 [node name="ElevatorButtonArea2D" type="Area2D" parent="."]
@@ -468,7 +488,7 @@ one_shot = true
 [node name="StairsDownArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDownArea2D"]
-position = Vector2(-1515, 377)
+position = Vector2(-1515.75, 388.5)
 shape = SubResource("RectangleShape2D_vcayt")
 
 [node name="StairsBody2D" type="StaticBody2D" parent="."]
@@ -512,7 +532,7 @@ shape = SubResource("RectangleShape2D_pofb7")
 [node name="Unit3FArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Unit3FArea2D"]
-position = Vector2(3415, 394.063)
+position = Vector2(3415.5, 394.063)
 shape = SubResource("RectangleShape2D_8cu6u")
 
 [node name="Unit3AStaticBody2D" type="StaticBody2D" parent="."]
@@ -577,7 +597,7 @@ position = Vector2(-623.5, 319.5)
 shape = SubResource("RectangleShape2D_1h2y3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Unit3FStaticBody2D"]
-position = Vector2(-623.5, 409)
+position = Vector2(-623.5, 409.375)
 shape = SubResource("RectangleShape2D_vq7q0")
 
 [node name="Unit3ARugArea2D" type="Area2D" parent="."]
@@ -657,6 +677,10 @@ volume_db = 6.0
 stream = ExtResource("16_learr")
 volume_db = 4.0
 
+[node name="LockpickLabelTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="animation_finished" from="ElevatorSprite" to="." method="_on_elevator_sprite_animation_finished"]
 [connection signal="pressed" from="Unit3ADoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
 [connection signal="pressed" from="Unit3BDoorSprite/KnockButton" to="." method="_on_knock_button_pressed"]
@@ -692,3 +716,4 @@ volume_db = 4.0
 [connection signal="body_entered" from="Unit3FRugArea2D" to="." method="_on_unit_3f_rug_area_2d_body_entered"]
 [connection signal="body_exited" from="Unit3FRugArea2D" to="." method="_on_unit_3f_rug_area_2d_body_exited"]
 [connection signal="finished" from="KnockingAudio" to="." method="_on_knocking_audio_finished"]
+[connection signal="timeout" from="LockpickLabelTimer" to="." method="_on_lockpick_label_timer_timeout"]

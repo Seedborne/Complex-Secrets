@@ -11,6 +11,8 @@ var bed_selected_index = 0
 var near_bed = false
 var near_bookshelf = false
 var bookshelf_selected_index = 0
+var near_secret_path = false
+var bookshelf_open = false
 @onready var bookshelf_container = $BookshelfVBoxContainer
 
 func _ready():
@@ -45,6 +47,7 @@ func _ready():
 		UI.fade_from_black()
 		print("In Unit 3F")
 	Globals.current_floor = 3
+	$BookshelfSprite.play("bookshelf_closed")
 	if not Achievements.is_achievement_unlocked("enter_unit_3f"):
 		Achievements.unlock_achievement("enter_unit_3f")
 	UI.complete_objective("Find and enter your unit (Unit 3F)")
@@ -104,6 +107,8 @@ func _input(event):
 		bookshelf_highlight_button(bookshelf_selected_index)
 	elif event.is_action_pressed("ui_interact") and near_bookshelf:
 		bookshelf_select_button(bookshelf_selected_index)
+	if event.is_action_pressed("ui_interact") and near_secret_path and not near_bookshelf and not bookshelf_open:
+		_open_secret_bookshelf()
 
 func _on_lightswitch_area_2d_body_entered(body):
 	if body == player:
@@ -314,3 +319,33 @@ func _on_book_button_pressed(book_name):
 func _on_test_area_2d_body_entered(body):
 	if body == player:
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/Lobby.tscn")
+
+func _on_secret_bookshelf_area_2d_body_entered(body):
+	if body == player:
+		near_secret_path = true
+
+func _on_secret_bookshelf_area_2d_body_exited(body):
+	if body == player:
+		near_secret_path = false
+
+func _open_secret_bookshelf():
+	$BookshelfBody2D/CollisionShape2D.disabled = true
+	$BookshelfBody2D/CollisionShape2D2.disabled = false
+	$BookshelfArea2D/CollisionShape2D.disabled = true
+	$BookshelfSprite.play("bookshelf_open")
+	bookshelf_open = true
+	if not Achievements.is_achievement_unlocked("discover_bookcase_secret"):
+		Achievements.unlock_achievement("discover_bookcase_secret")
+
+func _on_secret_bookshelf_entrance_area_2d_body_entered(body):
+	if body == player:
+		print("Entered secret bookshelf area")
+
+func _on_hallway_end_area_2d_2_body_exited(body):
+	if body == player:
+		if bookshelf_open:
+			$BookshelfBody2D/CollisionShape2D.set_deferred("disabled", false)
+			$BookshelfBody2D/CollisionShape2D2.set_deferred("disabled", true)
+			$BookshelfArea2D/CollisionShape2D.set_deferred("disabled", false)
+			$BookshelfSprite.play("bookshelf_closed")
+			bookshelf_open = false

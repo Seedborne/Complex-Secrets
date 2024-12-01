@@ -46,3 +46,6 @@ func _on_load_game_button_pressed():
 
 func _on_achievements_button_pressed():
 	$AchievementsPanel.visible = true
+
+func _on_settings_button_pressed():
+	$SettingsPanel.visible = true

@@ -11,6 +11,7 @@ var near_home = false
 var target_unit = ""
 var left_unit = ""
 var player_knocking = false
+var tenants_not_available = false
 var knocking_audio = [
 	preload("res://Audio/knock1-pixabay.mp3"),
 	preload("res://Audio/knock2-pixabay.mp3"),
@@ -37,6 +38,11 @@ func _ready():
 		player.position = Vector2(3420, 500)
 		left_unit = "3F"
 		Globals.current_location = "Floor 3"
+		_leave_unit()
+	elif Globals.current_location == "Unit 3C":
+		player.position = Vector2(450, 500)
+		Globals.current_location = "Floor 3"
+		left_unit = "3C"
 		_leave_unit()
 	Globals.current_floor = 3
 	add_child(player)
@@ -65,8 +71,10 @@ func _input(event):
 		$ElevatorSprite.play("opening")
 		$ElevatorOpenAudio.play()
 		$ElevatorDingAudio.play()
-	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking and not door_open:
+	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking and not door_open and not tenants_not_available:
 		_on_knock_button_pressed()
+	elif event.is_action_pressed("ui_interact") and near_door and not player_knocking and not door_open and tenants_not_available:
+		_attempt_lockpick()
 	elif event.is_action_pressed("ui_interact") and near_home and not door_open:
 		door_open = true
 		$Unit3FDoorSprite.visible = false
@@ -153,6 +161,7 @@ func _on_unit_3a_rug_area_2d_body_exited(body):
 		near_door = false
 		#$Unit3ADoorSprite/KnockButton.visible = false
 		target_unit = ""
+		tenants_not_available = false
 
 func _on_unit_3b_door_area_2d_body_entered(body):
 	if body == player:
@@ -175,6 +184,7 @@ func _on_unit_3b_rug_area_2d_body_exited(body):
 		near_door = false
 		#$Unit3BDoorSprite/KnockButton.visible = false
 		target_unit = ""
+		tenants_not_available = false
 
 func _on_unit_3c_rug_area_2d_body_entered(body):
 	if body == player:
@@ -189,6 +199,7 @@ func _on_unit_3c_rug_area_2d_body_exited(body):
 		near_door = false
 		#$Unit3CDoorSprite/KnockButton.visible = false
 		target_unit = ""
+		tenants_not_available = false
 
 func _on_unit_3d_rug_area_2d_body_entered(body):
 	if body == player:
@@ -203,6 +214,7 @@ func _on_unit_3d_rug_area_2d_body_exited(body):
 		near_door = false
 		#$Unit3DDoorSprite/KnockButton.visible = false
 		target_unit = ""
+		tenants_not_available = false
 
 func _on_unit_3e_door_area_2d_body_entered(body):
 	if body == player:
@@ -225,6 +237,7 @@ func _on_unit_3e_rug_area_2d_body_exited(body):
 		near_door = false
 		#$Unit3EDoorSprite/KnockButton.visible = false
 		target_unit = ""
+		tenants_not_available = false
 
 func _on_unit_3f_rug_area_2d_body_entered(body):
 	if body == player:
@@ -239,11 +252,13 @@ func _on_unit_3f_rug_area_2d_body_exited(body):
 		near_home = false
 		#$Unit3FDoorSprite/KnockButton.visible = false
 		target_unit = ""
+		tenants_not_available = false
 
 func _on_knock_button_pressed():
 	if not player_knocking:
 		player_knocking = true
 		player.can_move = false
+		Globals.is_sneaking = false
 		# Choose a random audio file from the array
 		var random_index = randi() % knocking_audio.size()
 		$KnockingAudio.stream = knocking_audio[random_index]
@@ -257,38 +272,63 @@ func _on_knock_button_pressed():
 		print("Knocking on door ", target_unit)
 
 func _on_knocking_audio_finished():
-	Globals.check_tenant_availability()
+	await Globals.create_tracked_timer(1.0).timeout
 	player_knocking = false
 	player.can_move = true
-	if target_unit == "3A" and Globals.tenant_home:
+	var tenant = Globals.check_tenant_availability(target_unit)
+
+	if tenant != "":
 		door_open = true
-		$Unit3ADoorSprite.visible = false
-		$Unit3AStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "3B" and Globals.tenant_home:
-		door_open = true
-		$Unit3BDoorSprite.visible = false
-		$Unit3BStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "3C" and Globals.tenant_home:
-		door_open = true
-		$Unit3CDoorSprite.visible = false
-		$Unit3CStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "3D" and Globals.tenant_home:
-		door_open = true
-		$Unit3DDoorSprite.visible = false
-		$Unit3DStaticBody2D/CollisionShape2D2.disabled = true
-	elif target_unit == "3E" and Globals.tenant_home:
-		door_open = true
-		$Unit3EDoorSprite.visible = false
-		$Unit3EStaticBody2D/CollisionShape2D2.disabled = true
-	#elif target_unit == "3F" and Globals.tenant_home:
-		#door_open = true
-		#$Unit3FDoorSprite.visible = false
-		#$Unit3FStaticBody2D/CollisionShape2D2.disabled = true
-	if Globals.tenant_home:
+		print("Door to %s opens. %s is home." % [target_unit, tenant])
+
+		# Dynamically access the door sprite
+		var door_sprite = get_node("Unit%sDoorSprite" % target_unit)
+		door_sprite.visible = false
+
+		# Dynamically access the collision shape
+		var collision_shape = get_node("Unit%sStaticBody2D/CollisionShape2D2" % target_unit)
+		collision_shape.disabled = true
+
+		# Play the door open audio
 		$DoorOpenAudio.play()
 	else:
-		print("Tenant not home")
+		var lockpick_label = get_node_or_null("Unit%sDoorSprite/LockpickLabel" % target_unit)
+		if lockpick_label:
+			lockpick_label.visible = true
+			$LockpickLabelTimer.start()
+		tenants_not_available = true
+		print("Door closed. No tenants home in unit %s." % target_unit)
 
+func _on_lockpick_label_timer_timeout():
+	#$Unit3ADoorSprite/LockpickLabel.visible = false
+	#$Unit3BDoorSprite/LockpickLabel.visible = false
+	$Unit3CDoorSprite/LockpickLabel.visible = false
+	#$Unit3DDoorSprite/LockpickLabel.visible = false
+	#$Unit3EDoorSprite/LockpickLabel.visible = false
+
+func _attempt_lockpick():
+	if target_unit == "3C": #just for demo
+		if Globals.has_item_in_inventory("Bobby Pins"):
+			Globals.remove_from_inventory("Bobby Pins", 1)
+			print("attempting to pick lock")
+			# Calculate success chance based on player_stealth
+			var success_chance = Globals.player_stealth * 10 # Convert to percentage
+			var roll = randi() % 100 # Generate a random number between 0-99
+			if roll < success_chance:
+				UI.show_notification("Successfully unlocked door.")
+				Globals.is_sneaking = true
+				door_open = true
+				var door_sprite = get_node("Unit%sDoorSprite" % target_unit)
+				door_sprite.visible = false
+				var collision_shape = get_node("Unit%sStaticBody2D/CollisionShape2D2" % target_unit)
+				collision_shape.disabled = true
+				$DoorOpenAudio.play()
+			else:
+				UI.show_notification("Broke a bobby pin. Increase stealth stat for better lockpicking odds.")
+		else:
+			UI.show_notification("No bobby pins to attempt to pick lock. Buy some from Bookazon.")
+			print("No bobby pins")
+	
 func _close_door():
 	if target_unit == "3A":
 		door_open = false

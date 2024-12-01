@@ -108,6 +108,10 @@ script = ExtResource("1_p76vr")
 
 [node name="ClockTimer" type="Timer" parent="."]
 
+[node name="ObjectivesTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [node name="Panel" type="Panel" parent="."]
 offset_left = 1827.0
 offset_right = 1921.0
@@ -147,9 +151,9 @@ text = "$0.00"
 horizontal_alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
-offset_left = 92.0
+offset_left = 82.0
 offset_top = 985.0
-offset_right = 536.0
+offset_right = 483.0
 offset_bottom = 1074.0
 alignment = 1
 
@@ -159,24 +163,52 @@ layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_7tkwv")
 
 [node name="SleepBar" type="ProgressBar" parent="VBoxContainer2"]
+modulate = Color(1, 1, 1, 0.6)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_mpsml")
 
 [node name="GradesBar" type="ProgressBar" parent="VBoxContainer2"]
+modulate = Color(1, 1, 1, 0.6)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_1000x")
 
+[node name="VBoxContainer3" type="VBoxContainer" parent="."]
+offset_left = 15.0
+offset_top = 984.0
+offset_right = 75.0
+offset_bottom = 1072.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer3"]
+layout_mode = 2
+text = "Sleep:"
+
+[node name="Label2" type="Label" parent="VBoxContainer3"]
+layout_mode = 2
+text = "Grades:"
+
 [node name="CarryWeightLabel" type="Label" parent="."]
-offset_left = 97.0
-offset_top = 955.0
-offset_right = 170.0
-offset_bottom = 978.0
+offset_left = 15.0
+offset_top = 966.0
+offset_right = 175.0
+offset_bottom = 989.0
 
 [node name="NotificationsContainer" type="VBoxContainer" parent="."]
 offset_left = 9.0
 offset_top = 2.0
 offset_right = 362.0
 offset_bottom = 2.0
+
+[node name="SkipCutsceneLabel" type="Label" parent="."]
+visible = false
+offset_left = 1740.0
+offset_top = 1048.0
+offset_right = 1911.0
+offset_bottom = 1071.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Enter to skip cutscene"
 
 [node name="ObjectivesContainer" type="VBoxContainer" parent="."]
 offset_left = 1619.0
@@ -188,6 +220,8 @@ script = ExtResource("2_01eqs")
 
 [node name="ObjectivesLabel" type="Label" parent="ObjectivesContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 24
 text = "Objectives"
 horizontal_alignment = 1
@@ -239,6 +273,7 @@ offset_bottom = 8.0
 text = "Skip 12 hours"
 
 [connection signal="timeout" from="ClockTimer" to="." method="_on_clock_timer_timeout"]
+[connection signal="timeout" from="ObjectivesTimer" to="." method="_on_objectives_timer_timeout"]
 [connection signal="value_changed" from="VBoxContainer2/HungerBar" to="." method="_on_hunger_bar_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/SleepBar" to="." method="_on_sleep_bar_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/GradesBar" to="." method="_on_grades_bar_value_changed"]

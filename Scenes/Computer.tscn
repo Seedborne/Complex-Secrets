@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bj2xgfe2by3v4"]
+[gd_scene load_steps=26 format=3 uid="uid://bj2xgfe2by3v4"]
 
 [ext_resource type="Texture2D" uid="uid://bitx2ub4hknq7" path="res://Assets/computerbackground.png" id="1_qttr1"]
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ty0l2"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dy7gxvejplau7" path="res://Assets/refresh-icon.png" id="6_bw7xf"]
 [ext_resource type="AudioStream" uid="uid://baropeox66fy" path="res://Audio/cash-register-kaching-Modestas123123.mp3" id="10_crxvw"]
 [ext_resource type="AudioStream" uid="uid://csn7u0oc8vbxd" path="res://Audio/email-notification-universfield.mp3" id="11_twrvm"]
+[ext_resource type="Script" path="res://Scripts/recycle_bin_panel.gd" id="12_jn351"]
+[ext_resource type="Script" path="res://Scripts/spy_app_panel.gd" id="13_kfkt5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5240"]
 bg_color = Color(0.826604, 0.0151576, 0.0230819, 1)
@@ -22,6 +24,12 @@ bg_color = Color(0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i22qh"]
 bg_color = Color(0.12549, 0.137255, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5upk"]
+bg_color = Color(0.813258, 0.813258, 0.813258, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th8ki"]
+bg_color = Color(0.657983, 0.649141, 0.678697, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwj58"]
 bg_color = Color(0.721569, 0.721569, 0.721569, 1)
@@ -224,6 +232,132 @@ visible = false
 layout_mode = 2
 text = "Facebook"
 
+[node name="RecycleBinPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 2100.0
+offset_bottom = 1074.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("StyleBoxFlat_fh8wv")
+script = ExtResource("12_jn351")
+
+[node name="Panel" type="Panel" parent="RecycleBinPanel"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i22qh")
+
+[node name="Label" type="Label" parent="RecycleBinPanel/Panel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 179.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 32
+text = "Recycle Bin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RecycleBinCloseButton" type="Button" parent="RecycleBinPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="RecycleBinMaxButton" type="Button" parent="RecycleBinPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -54.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "O"
+
+[node name="RecycleBinMinButton" type="Button" parent="RecycleBinPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -108.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "-"
+
+[node name="HintButton" type="Button" parent="RecycleBinPanel"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 105.0
+offset_right = 192.0
+offset_bottom = 287.0
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "helpfulhint.pdf"
+icon = ExtResource("5_s5esw")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="HintPanel" type="Panel" parent="RecycleBinPanel"]
+visible = false
+layout_mode = 0
+offset_left = 620.0
+offset_top = 243.0
+offset_right = 1681.0
+offset_bottom = 853.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_x5upk")
+
+[node name="Panel" type="Panel" parent="RecycleBinPanel/HintPanel"]
+layout_mode = 0
+offset_right = 1061.0
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_th8ki")
+
+[node name="Label" type="Label" parent="RecycleBinPanel/HintPanel/Panel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 200.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "helpfulhint.pdf"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HintCloseButton" type="Button" parent="RecycleBinPanel/HintPanel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 1.0
+offset_bottom = 43.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="Label" type="Label" parent="RecycleBinPanel/HintPanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 74.0
+offset_right = 183.0
+offset_bottom = 97.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "behind the bookshelf"
+
 [node name="BankingPanel" type="Panel" parent="."]
 visible = false
 layout_mode = 0
@@ -300,20 +434,24 @@ theme_override_constants/separation = 35
 
 [node name="AccountLabel" type="Label" parent="BankingPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
 text = "S.J. Bank Checking... 0406"
 
 [node name="SpacerLabel" type="Label" parent="BankingPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 
 [node name="PendTransLabel" type="Label" parent="BankingPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Pending Transactions............. $0.00"
 
 [node name="DepHoldsLabel" type="Label" parent="BankingPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Deposit Holds.......................... $0.00"
 
@@ -322,6 +460,7 @@ layout_mode = 2
 
 [node name="AccountBalanceLabel" type="Label" parent="BankingPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
 text = "Account Balance... $"
 
@@ -495,6 +634,7 @@ offset_left = 46.0
 offset_top = 82.0
 offset_right = 481.0
 offset_bottom = 162.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Inbox"
 horizontal_alignment = 1
@@ -512,6 +652,7 @@ offset_left = 547.0
 offset_top = 136.0
 offset_right = 1858.0
 offset_bottom = 970.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 
 [node name="AmazonPanel" type="Panel" parent="."]
@@ -1069,6 +1210,7 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1014.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_fh8wv")
+script = ExtResource("13_kfkt5")
 
 [node name="Panel" type="Panel" parent="SpyAppPanel"]
 layout_mode = 0
@@ -1121,6 +1263,13 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "-"
 
+[node name="MissionsContainer" type="VBoxContainer" parent="SpyAppPanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 58.0
+offset_right = 1917.0
+offset_bottom = 1008.0
+
 [node name="MouseClickAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qamt1")
 volume_db = 2.0
@@ -1129,16 +1278,23 @@ volume_db = 2.0
 stream = ExtResource("11_twrvm")
 volume_db = 2.0
 
+[connection signal="pressed" from="VBoxContainer/RecycleBinButton" to="." method="_on_recycle_bin_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AmazonButton" to="." method="_on_amazon_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SpyAppButton" to="." method="_on_spy_app_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/BankingButton" to="." method="_on_banking_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/RentPortalButton" to="." method="_on_rent_portal_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/RecycleBinBarButton" to="." method="_on_recycle_bin_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/BankingBarButton" to="." method="_on_banking_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RentPortalBarButton" to="." method="_on_rent_portal_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EmailBarButton" to="." method="_on_email_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/AmazonBarButton" to="." method="_on_amazon_bar_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/SpyAppBarButton" to="." method="_on_spy_app_bar_button_pressed"]
+[connection signal="pressed" from="RecycleBinPanel/Panel/RecycleBinCloseButton" to="." method="_on_recycle_bin_close_button_pressed"]
+[connection signal="pressed" from="RecycleBinPanel/Panel/RecycleBinMaxButton" to="." method="_on_recycle_bin_max_button_pressed"]
+[connection signal="pressed" from="RecycleBinPanel/Panel/RecycleBinMinButton" to="." method="_on_recycle_bin_min_button_pressed"]
+[connection signal="pressed" from="RecycleBinPanel/HintButton" to="RecycleBinPanel" method="_on_hint_button_pressed"]
+[connection signal="pressed" from="RecycleBinPanel/HintPanel/Panel/HintCloseButton" to="RecycleBinPanel" method="_on_hint_close_button_pressed"]
 [connection signal="pressed" from="BankingPanel/Panel/BankingCloseButton" to="." method="_on_banking_close_button_pressed"]
 [connection signal="pressed" from="BankingPanel/Panel/BankingMaxButton" to="." method="_on_banking_max_button_pressed"]
 [connection signal="pressed" from="BankingPanel/Panel/BankingMinButton" to="." method="_on_banking_min_button_pressed"]

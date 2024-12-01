@@ -5,6 +5,7 @@ var passing_out = false
 var facing_direction: Vector2 = Vector2.DOWN
 @onready var animated_sprite = $PlayerSprite
 @onready var dialogue_label = $DialogueLabel
+@onready var dialogue_container = $DialogueContainer
 
 func _physics_process(_delta):
 	if can_move:
@@ -16,7 +17,7 @@ func _physics_process(_delta):
 		if input_vector.length() > 0:
 			input_vector = input_vector.normalized()
 			velocity = input_vector * Globals.player_speed
-			animated_sprite.speed_scale = Globals.player_speed / 50.0
+			animated_sprite.speed_scale = Globals.player_speed / 250.0
 			
 			# Update facing direction based on input
 			facing_direction = input_vector
@@ -28,7 +29,7 @@ func _physics_process(_delta):
 		velocity = Vector2.ZERO  # Prevent all movement if can_move is false
 	
 	# Determine animation based on facing direction
-	if abs(facing_direction.x) > abs(facing_direction.y):  # Predominantly horizontal
+	if abs(facing_direction.x) >= abs(facing_direction.y):  # Predominantly horizontal
 		animated_sprite.flip_h = facing_direction.x < 0
 		animated_sprite.animation = "walk_side" if velocity.length() > 0 else "idle_side"
 	elif facing_direction.y < 0:  # Up
